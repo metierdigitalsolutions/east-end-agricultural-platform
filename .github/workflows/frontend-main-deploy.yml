@@ -3,7 +3,7 @@ name: Deploy Frontend to the Main Server
 on:
   push:
     branches:
-      - main
+      - master
     # paths-ignore:
     #   - 'landing-page/**'
 
