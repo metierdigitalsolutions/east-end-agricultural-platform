@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Button } from './ui/button';
-import { ShoppingCart, Users, Calendar, DollarSign, Headphones, Award } from 'lucide-react';
+import { ShoppingCart, Calendar, DollarSign, Headphones, Award } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function ServicesPage() {

@@ -5,9 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
-import { Badge } from './ui/badge';
+// import { Badge } from './ui/badge';
 import { Phone, Mail, MapPin, MessageSquare, Clock, Headphones } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+// import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function ContactPage() {
   const [contactForm, setContactForm] = useState({
@@ -23,7 +23,7 @@ export function ContactPage() {
     setIsSubmitting(true);
     
     setTimeout(() => {
-      alert('Message sent successfully! Our team will respond within 24 hours.');
+      alert(`&apos Message sent successfully! Our team will respond within 24 hours.&apos`);
       setIsSubmitting(false);
       setContactForm({ name: '', email: '', subject: '', message: '' });
     }, 1500);

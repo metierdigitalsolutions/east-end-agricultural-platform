@@ -52,9 +52,9 @@ export function AboutPage() {
             <Target className="h-16 w-16 text-green-600 mx-auto mb-6" />
             <h2 className="text-4xl mb-6 text-gray-900">Our Mission</h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto">
-              "Encouraging entry into agriculture, from small to large scale farming, 
+              &quot;Encouraging entry into agriculture, from small to large scale farming, 
               while providing sustainable investment opportunities that benefit both 
-              investors and the agricultural community."
+              investors and the agricultural community.&quot;
             </p>
           </div>
         </section>

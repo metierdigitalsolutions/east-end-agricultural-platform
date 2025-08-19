@@ -24,7 +24,7 @@ export function EMESuccessStories() {
                 </div>
               </div>
               <p className="text-gray-700 italic mb-4">
-                "{story.testimonial}"
+                &quot;{story.testimonial}&quot;
               </p>
               <div className="flex items-center">
                 {[...Array(story.rating)].map((_, i) => (

@@ -32,7 +32,7 @@ export function FAQPage() {
                 <AccordionItem value="signin-1">
                   <AccordionTrigger>How do I create an account with East End Agro?</AccordionTrigger>
                   <AccordionContent>
-                    To create an account, click on "Login / Register" in the top navigation, then select "Sign Up". 
+                    To create an account, click on &quot;Login / Register&quot; in the top navigation, then select &quot;Sign Up&quot;. 
                     You'll need to provide your full name, email address, and WhatsApp number. After registration, 
                     you'll receive a confirmation email to verify your account.
                   </AccordionContent>

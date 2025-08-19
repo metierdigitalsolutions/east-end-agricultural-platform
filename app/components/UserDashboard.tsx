@@ -10,9 +10,9 @@ import {
   TrendingUp, 
   Calendar, 
   Users, 
-  Download, 
-  Eye, 
-  Settings,
+  // Download, 
+  // Eye, 
+  // Settings,
   Bell,
   Wallet,
   Award

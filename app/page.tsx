@@ -1,8 +1,8 @@
 "use client"
 import React, { useState } from 'react';
-import { Button } from './components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
+// import { Button } from './components/ui/button';
+// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './components/ui/card';
+// import { Tabs, TabsContent, TabsList, TabsTrigger } from './components/ui/tabs';
 import { Navigation } from './components/Navigation';
 import { HomePage } from './components/HomePage';
 import { AboutPage } from './components/AboutPage';
