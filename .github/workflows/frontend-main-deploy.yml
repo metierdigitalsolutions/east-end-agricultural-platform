@@ -1,0 +1,93 @@
+name: Deploy Frontend to the Main Server
+
+on:
+  push:
+    branches:
+      - main
+    # paths-ignore:
+    #   - 'landing-page/**'
+
+jobs:
+  Deploy-Frontend: 
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout repository with submodules
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+        with:
+          submodules: false
+          fetch-depth: 1
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      # Initialize and Update Submodules
+      - name: Initialize and Update Submodules
+        run: |
+          git submodule sync
+          git submodule update --init --recursive
+            
+      # Clean Existing Build Artifacts During Workflow
+      - name: Clean Dist Directory
+        run: |
+          rm -rf dist/*
+        
+      # Build Landing-Page for Main
+      - name: Build Landing-Page for Main
+        run: |
+          if [ -d "/" ]; then
+            echo "Building landing-page..."
+            cd ./
+            npm install --legacy-peer-deps
+            npm run build:production
+            cd -
+          else
+            echo "Error: / directory does not exist."
+            exit 1
+          fi
+
+      # # Clean Build Directory Before Deploy (Optional)
+      # - name: Clean Build Directory Before Deploy
+      #   run: |
+      #     find ./dist -name '.github' -exec rm -rf {} +
+      #     find ./ -name '.github' -exec rm -rf {} +
+
+      # Deploy Build Output to Landing-Page Folder
+      - name: Deploy Landing-Page Build
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          local-dir: ./dist/  # Path to the build output folder (e.g., 'dist' or 'build')
+          server-dir: /dist/  # Target directory on the server for the build output
+          log-level: verbose
+          dangerous-clean-slate: false
+          exclude: |
+            .github/**          # Exclude the .github directory
+            **/.git/**          # Exclude any .git files or directories
+            **/.gitignore       # Exclude .gitignore
+            **/.env             # Exclude any .env files
+            **/*.map            # Optionally exclude source maps
+      
+      # Clean Existing Build Artifacts During Workflow
+      - name: Clean Dist Directory
+        run: |
+          rm -rf landing-page/
+
+      # Deploy Other Files Outside Landing-Page
+      - name: Deploy Other Files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          local-dir: ./  # Reference the repository root for other files
+          server-dir: /  # Target the root server directory
+          log-level: verbose
+          dangerous-clean-slate: false
+          exclude: |
+            .github/**          # Exclude the .github directory
+            **/.git/**          # Exclude any .git files or directories
+            **/.gitignore       # Exclude .gitignore
+            **/.env             # Exclude any .env files
+            **/*.map            # Optionally exclude source maps
