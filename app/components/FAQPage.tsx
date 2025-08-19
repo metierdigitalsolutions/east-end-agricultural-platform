@@ -41,7 +41,7 @@ export function FAQPage() {
                 <AccordionItem value="signin-2">
                   <AccordionTrigger>I can&apos;t access my account. What should I do?</AccordionTrigger>
                   <AccordionContent>
-                    If you can&apos;t access your account, first try resetting your password using the "Forgot Password" 
+                    If you can&apos;t access your account, first try resetting your password using the &quot;Forgot Password&quot; 
                     link on the login page. If that doesn&apos;t work, contact our support team via WhatsApp or email. 
                     Make sure you&apos;re using the correct email address associated with your account.
                   </AccordionContent>
@@ -72,7 +72,7 @@ export function FAQPage() {
                 <AccordionItem value="password-1">
                   <AccordionTrigger>How do I reset my password?</AccordionTrigger>
                   <AccordionContent>
-                    On the login page, click "Forgot Password" and enter your email address. You&apos;ll receive a password 
+                    On the login page, click &quot;Forgot Password&quot; and enter your email address. You&apos;ll receive a password 
                     reset link via email within a few minutes. Click the link and follow the instructions to create a 
                     new password. Make sure to check your spam folder if you don&apos;t see the email.
                   </AccordionContent>
