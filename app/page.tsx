@@ -14,6 +14,7 @@ import { UserDashboard } from './components/UserDashboard';
 import { EventsPage } from './components/EventsPage';
 import { EMEClubPage } from './components/EMEClubPage';
 import { ContactPage } from './components/ContactPage';
+import Footer from './components/Footer';
 
 type Page = 'home' | 'about' | 'services' | 'faq' | 'projects' | 'auth' | 'dashboard' | 'events' | 'eme-club' | 'contact';
 
@@ -89,6 +90,7 @@ function App() {
       />
       <main>
         {renderPage()}
+        <Footer />
       </main>
     </div>
   );

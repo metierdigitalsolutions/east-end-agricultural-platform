@@ -1,0 +1,73 @@
+name: Deploy Frontend to the Main Server
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  Deploy-Frontend: 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: false
+          fetch-depth: 1
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+
+      - name: Initialize and Update Submodules
+        run: |
+          git submodule sync
+          git submodule update --init --recursive
+
+      - name: Clean Dist Directory
+        run: |
+          rm -rf dist
+
+      - name: Install Dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Build Production
+        env:
+          NODE_ENV: production
+        run: npm run build:production
+
+      - name: Deploy Landing-Page Build
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /dist/
+          log-level: verbose
+          dangerous-clean-slate: false
+          exclude: |
+            .github/**
+            **/.git/**
+            **/.gitignore
+            **/.env
+            **/*.map
+
+      - name: Clean Landing-Page Directory
+        run: |
+          rm -rf landing-page/
+
+      - name: Deploy Other Files
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+        with:
+          server: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          local-dir: ./
+          server-dir: /
+          log-level: verbose
+          dangerous-clean-slate: false
+          exclude: |
+            .github/**
+            **/.git/**
+            **/.gitignore
+            **/.env
+            **/*.map
