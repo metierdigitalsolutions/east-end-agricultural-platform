@@ -344,7 +344,7 @@ export function UserDashboard({ user, onNavigate }: UserDashboardProps) {
                   <div className="space-y-2">
                     <h4 className="font-medium">Referral Benefits:</h4>
                     <ul className="text-sm text-gray-600 space-y-1 ml-4">
-                      <li>• Earn 5% of referred investor's first investment</li>
+                      <li>• Earn 5% of referred investor&apos;s first investment</li>
                       <li>• Bonus paid after successful verification</li>
                       <li>• No limit on number of referrals</li>
                       <li>• Track earnings in real-time</li>

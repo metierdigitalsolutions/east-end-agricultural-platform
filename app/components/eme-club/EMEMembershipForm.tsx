@@ -42,7 +42,7 @@ export function EMEMembershipForm() {
           <Alert className="mb-6 border-blue-200 bg-blue-50">
             <AlertDescription className="text-blue-800">
               <strong>Application Process:</strong> All applications are reviewed by our team. 
-              You'll receive a response within 48 hours of submission.
+              You&apos;ll receive a response within 48 hours of submission.
             </AlertDescription>
           </Alert>
 
@@ -131,7 +131,7 @@ export function EMEMembershipForm() {
             <div className="text-sm text-gray-600">
               <p>• Applications are reviewed within 48 hours</p>
               <p>• Membership approval is subject to eligibility criteria</p>
-              <p>• You'll be contacted via WhatsApp or email with the decision</p>
+              <p>• You&apos;ll be contacted via WhatsApp or email with the decision</p>
             </div>
 
             <Button 

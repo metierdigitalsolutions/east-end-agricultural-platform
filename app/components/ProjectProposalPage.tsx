@@ -226,7 +226,7 @@ export function ProjectProposalPage({ onNavigate }: ProjectProposalPageProps) {
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-600 mr-2 mt-1">•</span>
-                    Bonuses are paid after the referred investor's successful verification
+                    Bonuses are paid after the referred investor&apos;s successful verification
                   </li>
                   <li className="flex items-start">
                     <span className="text-green-600 mr-2 mt-1">•</span>

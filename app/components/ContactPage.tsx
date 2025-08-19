@@ -7,7 +7,7 @@ import { Label } from './ui/label';
 import { Textarea } from './ui/textarea';
 // import { Badge } from './ui/badge';
 import { Phone, Mail, MapPin, MessageSquare, Clock, Headphones } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+// import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function ContactPage() {
   const [contactForm, setContactForm] = useState({
@@ -77,7 +77,7 @@ export function ContactPage() {
                 Send us a Message
               </CardTitle>
               <CardDescription>
-                Fill out the form below and we'll get back to you within 24 hours
+                Fill out the form below and we&apos;ll get back to you within 24 hours
               </CardDescription>
             </CardHeader>
             <CardContent>

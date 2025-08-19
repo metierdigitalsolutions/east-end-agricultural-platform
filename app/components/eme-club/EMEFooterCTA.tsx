@@ -42,7 +42,7 @@ export function EMEFooterCTA({ onNavigate }: EMEFooterCTAProps) {
             </Button>
           </div>
           <div className="mt-8 text-lg opacity-90">
-            <p>Questions about membership? We're here to help!</p>
+            <p>Questions about membership? We&apos;re here to help!</p>
           </div>
         </CardContent>
       </Card>

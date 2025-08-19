@@ -33,17 +33,17 @@ export function FAQPage() {
                   <AccordionTrigger>How do I create an account with East End Agro?</AccordionTrigger>
                   <AccordionContent>
                     To create an account, click on &quot;Login / Register&quot; in the top navigation, then select &quot;Sign Up&quot;. 
-                    You'll need to provide your full name, email address, and WhatsApp number. After registration, 
-                    you'll receive a confirmation email to verify your account.
+                    You&apos;ll need to provide your full name, email address, and WhatsApp number. After registration, 
+                    you&apos;ll receive a confirmation email to verify your account.
                   </AccordionContent>
                 </AccordionItem>
                 
                 <AccordionItem value="signin-2">
-                  <AccordionTrigger>I can't access my account. What should I do?</AccordionTrigger>
+                  <AccordionTrigger>I can&apos;t access my account. What should I do?</AccordionTrigger>
                   <AccordionContent>
-                    If you can't access your account, first try resetting your password using the "Forgot Password" 
-                    link on the login page. If that doesn't work, contact our support team via WhatsApp or email. 
-                    Make sure you're using the correct email address associated with your account.
+                    If you can&apos;t access your account, first try resetting your password using the "Forgot Password" 
+                    link on the login page. If that doesn&apos;t work, contact our support team via WhatsApp or email. 
+                    Make sure you&apos;re using the correct email address associated with your account.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -72,9 +72,9 @@ export function FAQPage() {
                 <AccordionItem value="password-1">
                   <AccordionTrigger>How do I reset my password?</AccordionTrigger>
                   <AccordionContent>
-                    On the login page, click "Forgot Password" and enter your email address. You'll receive a password 
+                    On the login page, click "Forgot Password" and enter your email address. You&apos;ll receive a password 
                     reset link via email within a few minutes. Click the link and follow the instructions to create a 
-                    new password. Make sure to check your spam folder if you don't see the email.
+                    new password. Make sure to check your spam folder if you don&apos;t see the email.
                   </AccordionContent>
                 </AccordionItem>
                 
@@ -109,10 +109,10 @@ export function FAQPage() {
             <CardContent>
               <Accordion type="single" collapsible className="w-full">
                 <AccordionItem value="registration-1">
-                  <AccordionTrigger>I'm not receiving the verification email. What should I do?</AccordionTrigger>
+                  <AccordionTrigger>I&apos;m not receiving the verification email. What should I do?</AccordionTrigger>
                   <AccordionContent>
                     First, check your spam/junk folder as verification emails sometimes end up there. If you still 
-                    can't find it, try requesting a new verification email from the login page. If the problem 
+                    can&apos;t find it, try requesting a new verification email from the login page. If the problem 
                     persists, contact our support team with your email address for assistance.
                   </AccordionContent>
                 </AccordionItem>
@@ -200,7 +200,7 @@ export function FAQPage() {
                   <AccordionTrigger>What should I do if I suspect unauthorized access to my account?</AccordionTrigger>
                   <AccordionContent>
                     If you suspect unauthorized access, immediately change your password and contact our support team. 
-                    Review your account activity for any suspicious transactions and report them to us. We'll investigate 
+                    Review your account activity for any suspicious transactions and report them to us. We&apos;ll investigate 
                     and take appropriate action to secure your account.
                   </AccordionContent>
                 </AccordionItem>
