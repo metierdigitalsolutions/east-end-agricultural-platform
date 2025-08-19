@@ -34,7 +34,7 @@ function App() {
   const [user, setUser] = useState<User | null>(null);
 
   // Mock login function
-  const handleLogin = (email: string, password: string) => {
+  const handleLogin = (email: string) => {
     setUser({
       id: '1',
       name: 'John Farmer',
