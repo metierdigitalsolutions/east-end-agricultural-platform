@@ -141,6 +141,8 @@ export function HomePage({ onNavigate, user }: HomePageProps) {
                 src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=600&h=400&fit=crop"
                 alt="Agricultural investment"
                 className="rounded-lg shadow-lg w-full h-80 object-cover"
+                width={600}
+                height={400}
               />
             </div>
           </div>

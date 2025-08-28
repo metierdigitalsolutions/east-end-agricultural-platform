@@ -2,6 +2,8 @@
 
 import * as React from "react";
 // import * as RechartsPrimitive from "recharts";
+import type { TooltipProps, LegendProps } from "recharts";
+
 import {
   ResponsiveContainer,
   Tooltip as RechartsTooltip,
@@ -12,6 +14,7 @@ import { cn } from "./utils";
 
 // Format: { THEME_NAME: CSS_SELECTOR }
 const THEMES = { light: "", dark: ".dark" } as const;
+
 
 export type ChartConfig = {
   [k in string]: {
@@ -126,8 +129,7 @@ function ChartTooltipContent({
   color,
   nameKey,
   labelKey,
-}: React.ComponentProps<typeof RechartsPrimitive.Tooltip> &
-  React.ComponentProps<"div"> & {
+}: TooltipProps & React.ComponentProps<"div"> & {
     hideLabel?: boolean;
     hideIndicator?: boolean;
     indicator?: "line" | "dot" | "dashed";
@@ -265,7 +267,7 @@ function ChartLegendContent({
   verticalAlign = "bottom",
   nameKey,
 }: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
+  Pick<LegendProps, "payload" | "verticalAlign"> & {
     hideIcon?: boolean;
     nameKey?: string;
   }) {
