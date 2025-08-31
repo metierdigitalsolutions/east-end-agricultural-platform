@@ -224,7 +224,7 @@ export function Navigation({
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 sm:w-72 p-0">
+              <SheetContent side="right" className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
                   <div className="flex items-center justify-between p-4 border-b bg-brand-secondary">
@@ -238,7 +238,7 @@ export function Navigation({
                       </span>
                     </button>
                     <SheetClose asChild>
-                      <Button variant="ghost" size="sm" className="text-white">
+                      <Button variant="ghost" size="sm" className="bg-transparent text-white hover:bg-white/20">
                         <X className="h-5 w-5" />
                       </Button>
                     </SheetClose>

@@ -75,9 +75,11 @@ export function ContactPage() {
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl mb-6 text-gray-900">Contact Us</h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-12 lg:mb-16">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl mb-4 sm:mb-6 text-gray-900">
+            Contact Us
+          </h1>
+          <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Have questions about our agricultural investment services? Need
             support with your account? Our team is here to help you succeed.
           </p>
@@ -278,10 +280,10 @@ export function ContactPage() {
         <section className="mt-16">
           <Card className="bg-blue-50 border-blue-200">
             <CardContent className="py-12 text-center">
-              <h2 className="text-3xl mb-4 text-gray-900">
+              <h2 className="text-2xl sm:text-3xl mb-4 text-gray-900">
                 Need Quick Answers?
               </h2>
-              <p className="text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
                 Check our comprehensive FAQ section for instant answers to
                 common questions about investments, accounts, and our services.
               </p>

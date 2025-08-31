@@ -394,17 +394,27 @@ export function HomePage({}: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Full Content Slider */}
-      <section className="relative py-0 overflow-hidden min-h-[90vh] lg:min-h-screen">
+      <section className="relative py-0 overflow-hidden min-h-screen">
         <div className="hero-slider-container">
           <style jsx>{`
+            .hero-slider-container {
+              height: 100vh;
+            }
+            .hero-slider-container .slick-list,
+            .hero-slider-container .slick-track {
+              height: 100%;
+            }
+            .hero-slider-container .slick-slide > div {
+              height: 100vh;
+            }
             .hero-slider-container .slick-dots {
-              bottom: 30px;
+              bottom: 20px;
               z-index: 20;
             }
             .hero-slider-container .slick-dots li button:before {
               color: #ffffff;
-              font-size: 14px;
-              opacity: 0.5;
+              font-size: 12px;
+              opacity: 0.6;
             }
             .hero-slider-container .slick-dots li.slick-active button:before {
               color: #ffffff;
@@ -416,31 +426,83 @@ export function HomePage({}: HomePageProps) {
               background: rgba(255, 255, 255, 0.15);
               backdrop-filter: blur(10px);
               border: 1px solid rgba(255, 255, 255, 0.2);
+              border-radius: 50%;
+              width: 44px;
+              height: 44px;
+              transition: all 0.3s ease;
+            }
+            .hero-slider-container .slick-prev:hover,
+            .hero-slider-container .slick-next:hover {
+              background: rgba(255, 255, 255, 0.25);
+              transform: scale(1.1);
             }
             .hero-slider-container .slick-prev:before,
             .hero-slider-container .slick-next:before {
               color: #ffffff;
-              font-size: 24px;
+              font-size: 18px;
             }
             .hero-slider-container .slick-prev {
-              left: 30px;
+              left: 20px;
             }
             .hero-slider-container .slick-next {
-              right: 30px;
+              right: 20px;
             }
-            @media (max-width: 768px) {
+            @media (min-width: 1024px) {
+              .hero-slider-container .slick-prev,
+              .hero-slider-container .slick-next {
+                width: 56px;
+                height: 56px;
+              }
+              .hero-slider-container .slick-prev:before,
+              .hero-slider-container .slick-next:before {
+                font-size: 22px;
+              }
               .hero-slider-container .slick-prev {
-                left: 15px;
+                left: 40px;
               }
               .hero-slider-container .slick-next {
-                right: 15px;
+                right: 40px;
+              }
+              .hero-slider-container .slick-dots {
+                bottom: 40px;
+              }
+              .hero-slider-container .slick-dots li button:before {
+                font-size: 14px;
+              }
+            }
+            @media (max-width: 768px) {
+              .hero-slider-container {
+                height: 100vh;
+              }
+              .hero-slider-container .slick-slide > div {
+                height: 100vh;
+              }
+              .hero-slider-container .slick-prev {
+                left: 10px;
+                width: 36px;
+                height: 36px;
+              }
+              .hero-slider-container .slick-next {
+                right: 10px;
+                width: 36px;
+                height: 36px;
+              }
+              .hero-slider-container .slick-prev:before,
+              .hero-slider-container .slick-next:before {
+                font-size: 14px;
+              }
+              .hero-slider-container .slick-dots {
+                bottom: 15px;
+              }
+              .hero-slider-container .slick-dots li button:before {
+                font-size: 10px;
               }
             }
           `}</style>
           <Slider {...heroSettings}>
             {heroSlides.map((slide, index) => (
               <div key={slide.id} className="relative">
-                <div className="relative min-h-[90vh] lg:min-h-screen flex items-center">
+                <div className="relative h-screen flex items-center">
                   {/* Background Image */}
                   <div className="absolute inset-0 z-0">
                     <ImageWithFallback
@@ -448,56 +510,59 @@ export function HomePage({}: HomePageProps) {
                       alt={slide.title}
                       className="w-full h-full object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/30"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
                   </div>
 
                   {/* Content */}
-                  <div className="container mx-auto px-4 relative z-10">
-                    <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12 lg:py-16">
+                    <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-white"
+                        className="text-white text-center lg:text-left"
                       >
-                        <Badge className="mb-6 bg-green-600 hover:bg-green-700 text-white border-green-500">
+                        <Badge className="mb-4 sm:mb-6 bg-green-600 hover:bg-green-700 text-white border-green-500 text-xs sm:text-sm">
                           {slide.badge}
                         </Badge>
-                        <h1 className="text-4xl lg:text-5xl xl:text-6xl mb-6 leading-tight">
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 leading-tight font-bold">
                           {slide.title}
                         </h1>
-                        <p className="text-lg lg:text-xl mb-8 leading-relaxed text-gray-200">
+                        <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 leading-relaxed text-gray-200 max-w-2xl mx-auto lg:mx-0">
                           {slide.subtitle}
                         </p>
 
-                        {/* Features List */}
-                        <div className="flex flex-wrap gap-4 mb-8">
+                        {/* Features List - Enhanced for desktop/tablet */}
+                        <div className="hidden sm:flex flex-wrap gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-10 justify-center lg:justify-start">
                           {slide.features.map((feature, idx) => (
-                            <div
+                            <motion.div
                               key={idx}
-                              className="flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2"
+                              initial={{ opacity: 0, scale: 0.8 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
+                              className="flex items-center space-x-2 bg-white/15 backdrop-blur-sm rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 border border-white/20 hover:bg-white/25 transition-all duration-300 hover:scale-105"
                             >
-                              <CheckCircle className="h-4 w-4 text-green-400" />
-                              <span className="text-sm text-white">
+                              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-green-400" />
+                              <span className="text-xs sm:text-sm lg:text-base text-white font-medium">
                                 {feature}
                               </span>
-                            </div>
+                            </motion.div>
                           ))}
                         </div>
 
-                        <div className="flex flex-col sm:flex-row gap-4">
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                           <Button
                             size="lg"
-                            className="bg-green-600 hover:bg-green-700 text-lg px-8 py-6"
+                            className="bg-green-600 hover:bg-green-700 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                             onClick={slide.primaryCTA.action}
                           >
                             {slide.primaryCTA.text}
-                            <ArrowRight className="ml-2 h-5 w-5" />
+                            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                           </Button>
                           <Button
                             size="lg"
                             variant="outline"
-                            className="border-white text-white hover:bg-white hover:text-green-600 text-lg px-8 py-6"
+                            className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                             onClick={slide.secondaryCTA.action}
                           >
                             {slide.secondaryCTA.text}
@@ -505,53 +570,45 @@ export function HomePage({}: HomePageProps) {
                         </div>
                       </motion.div>
 
-                      {/* Stats Card */}
+                      {/* Stats Card - Simplified for mobile */}
                       <motion.div
                         initial={{ opacity: 0, x: 20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, delay: 0.4 }}
-                        className="flex justify-center lg:justify-end"
+                        className="flex justify-center lg:justify-end mt-8 lg:mt-0"
                       >
-                        <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white max-w-sm w-full">
-                          <CardHeader className="text-center">
-                            <CardTitle className="text-2xl lg:text-3xl text-white">
+                        <Card className="bg-white/15 backdrop-blur-sm border-white/20 text-white max-w-sm w-full mx-4 lg:mx-0">
+                          <CardHeader className="text-center pb-3 sm:pb-4">
+                            <CardTitle className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
                               {slide.stat}
                             </CardTitle>
-                            <CardDescription className="text-gray-200">
+                            <CardDescription className="text-gray-200 text-xs sm:text-sm">
                               And growing every day
                             </CardDescription>
                           </CardHeader>
-                          <CardContent>
-                            <div className="space-y-4">
+                          <CardContent className="pt-0">
+                            <div className="space-y-2 sm:space-y-3">
                               <div className="flex items-center justify-between">
-                                <span className="text-sm text-gray-200">
+                                <span className="text-xs sm:text-sm text-gray-200">
                                   Success Rate
                                 </span>
-                                <span className="text-white font-semibold">
+                                <span className="text-white font-semibold text-xs sm:text-sm">
                                   100%
                                 </span>
                               </div>
                               <div className="flex items-center justify-between">
-                                <span className="text-sm text-gray-200">
-                                  Avg. Monthly Profit
+                                <span className="text-xs sm:text-sm text-gray-200">
+                                  Monthly Profit
                                 </span>
-                                <span className="text-white font-semibold">
+                                <span className="text-white font-semibold text-xs sm:text-sm">
                                   8-15%
                                 </span>
                               </div>
-                              <div className="flex items-center justify-between">
-                                <span className="text-sm text-gray-200">
-                                  Project Duration
-                                </span>
-                                <span className="text-white font-semibold">
-                                  6 Months
-                                </span>
-                              </div>
-                              <div className="w-full bg-white/20 rounded-full h-2">
-                                <div className="bg-green-400 h-2 rounded-full w-4/5"></div>
+                              <div className="w-full bg-white/20 rounded-full h-1.5 sm:h-2">
+                                <div className="bg-green-400 h-1.5 sm:h-2 rounded-full w-4/5"></div>
                               </div>
                               <p className="text-xs text-gray-300 text-center">
-                                Project capacity filling up fast
+                                Join now - limited spots!
                               </p>
                             </div>
                           </CardContent>
@@ -599,7 +656,7 @@ export function HomePage({}: HomePageProps) {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
                       <div className="relative h-48 lg:h-56 overflow-hidden">
                         <ImageWithFallback
                           src={product.image}
@@ -611,20 +668,22 @@ export function HomePage({}: HomePageProps) {
                           {product.profit}
                         </Badge>
                       </div>
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-lg lg:text-xl">
-                          {product.name}
-                        </CardTitle>
-                        <CardDescription className="text-sm lg:text-base">
-                          {product.description}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="flex items-center justify-between text-sm text-gray-500">
-                          <span>Volume: {product.volume}</span>
-                          <TrendingUp className="h-4 w-4 text-green-600" />
-                        </div>
-                      </CardContent>
+                      <div className="flex flex-col flex-1">
+                        <CardHeader className="pb-2 flex-1">
+                          <CardTitle className="text-lg lg:text-xl">
+                            {product.name}
+                          </CardTitle>
+                          <CardDescription className="text-sm lg:text-base">
+                            {product.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="mt-auto pt-0">
+                          <div className="flex items-center justify-between text-sm text-gray-500">
+                            <span>Volume: {product.volume}</span>
+                            <TrendingUp className="h-4 w-4 text-green-600" />
+                          </div>
+                        </CardContent>
+                      </div>
                     </Card>
                   </motion.div>
                 </CarouselItem>
@@ -682,7 +741,7 @@ export function HomePage({}: HomePageProps) {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2">
+                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 flex flex-col">
                         <div className="relative h-32 overflow-hidden">
                           <ImageWithFallback
                             src={step.image}
@@ -695,19 +754,21 @@ export function HomePage({}: HomePageProps) {
                             </div>
                           </div>
                         </div>
-                        <CardHeader>
-                          <div className="mx-auto mb-2 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-semibold">
-                            {step.step}
-                          </div>
-                          <CardTitle className="text-lg lg:text-xl">
-                            {step.title}
-                          </CardTitle>
-                        </CardHeader>
-                        <CardContent>
-                          <CardDescription className="text-sm lg:text-base">
-                            {step.description}
-                          </CardDescription>
-                        </CardContent>
+                        <div className="flex flex-col flex-1">
+                          <CardHeader className="flex-1">
+                            <div className="mx-auto mb-2 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-semibold">
+                              {step.step}
+                            </div>
+                            <CardTitle className="text-lg lg:text-xl">
+                              {step.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="mt-auto">
+                            <CardDescription className="text-sm lg:text-base">
+                              {step.description}
+                            </CardDescription>
+                          </CardContent>
+                        </div>
                       </Card>
                     </motion.div>
                   </div>
@@ -929,7 +990,7 @@ export function HomePage({}: HomePageProps) {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 lg:py-20 relative overflow-hidden">
+      <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
             src="https://images.unsplash.com/photo-1733248841677-177b80e56f9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdW5yaXNlJTIwYWdyaWN1bHR1cmUlMjBmaWVsZHxlbnwxfHx8fDE3NTU4Mzk2ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
@@ -939,7 +1000,7 @@ export function HomePage({}: HomePageProps) {
           <div className="absolute inset-0 bg-green-600/90"></div>
         </div>
 
-        <div className="container mx-auto px-4 text-center relative z-10">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -947,27 +1008,27 @@ export function HomePage({}: HomePageProps) {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto text-white"
           >
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-6 leading-tight">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-4 sm:mb-6 leading-tight font-bold">
               Ready to Start Your Agricultural Trading Journey?
             </h2>
-            <p className="text-lg lg:text-xl mb-8 lg:mb-12 text-green-100 leading-relaxed">
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 lg:mb-12 text-green-100 leading-relaxed max-w-3xl mx-auto">
               Join thousands of participants who are already earning monthly
               profits from sustainable agricultural trading projects.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
               <Button
                 size="lg"
                 variant="secondary"
-                className="text-lg px-8 py-6"
+                className="text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                 onClick={() => router.push("auth")}
               >
                 Get Started Today
-                <ArrowRight className="ml-2 h-5 w-5" />
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white hover:text-green-600 text-lg px-8 py-6"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
                 onClick={() => router.push("projects")}
               >
                 View Projects

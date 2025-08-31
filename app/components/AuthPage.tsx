@@ -95,7 +95,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center py-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center py-8 sm:py-12 px-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -173,7 +173,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
                         type="button"
                         variant="ghost"
                         size="sm"
-                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
+                        className="absolute right-0 top-0 h-full px-3 py-2 bg-transparent hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
                         {showPassword ? (
