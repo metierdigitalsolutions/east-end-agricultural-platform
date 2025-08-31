@@ -1,13 +1,14 @@
-import React from 'react';
-import { Card, CardContent } from '../ui/card';
-import { Star } from 'lucide-react';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { successStories } from './emeClubData';
-
+import React from "react";
+import { Card, CardContent } from "../ui/card";
+import { Star } from "lucide-react";
+import { ImageWithFallback } from "../figma/ImageWithFallback";
+import { successStories } from "./emeClubData";
 export function EMESuccessStories() {
   return (
     <section className="mb-16">
-      <h2 className="text-4xl text-center mb-12 text-gray-900">Member Success Stories</h2>
+      <h2 className="text-4xl text-center mb-12 text-gray-900">
+        Member Success Stories
+      </h2>
       <div className="grid md:grid-cols-2 gap-8">
         {successStories.map((story, index) => (
           <Card key={index} className={story.bgColor}>
@@ -24,11 +25,14 @@ export function EMESuccessStories() {
                 </div>
               </div>
               <p className="text-gray-700 italic mb-4">
-                &quot;{story.testimonial}&quot;
+                &ldquo;{story.testimonial}&rdquo;
               </p>
               <div className="flex items-center">
                 {[...Array(story.rating)].map((_, i) => (
-                  <Star key={i} className="h-4 w-4 text-yellow-500 fill-current" />
+                  <Star
+                    key={i}
+                    className="h-4 w-4 text-yellow-500 fill-current"
+                  />
                 ))}
               </div>
             </CardContent>

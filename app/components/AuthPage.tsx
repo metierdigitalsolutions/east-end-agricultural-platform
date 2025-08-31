@@ -1,314 +1,392 @@
-"use client"
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Alert, AlertDescription } from './ui/alert';
-import { Lock, Mail, User, Phone, Shield, Eye, EyeOff } from 'lucide-react';
+"use client";
 
-type Page = 'home' | 'about' | 'services' | 'faq' | 'projects' | 'auth' | 'dashboard' | 'events' | 'eme-club' | 'contact';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Checkbox } from "./ui/checkbox";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { Leaf, Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
 
 interface AuthPageProps {
-  onLogin: (email: string, password: string) => void;
-  onNavigate: (page: Page) => void;
+  onLogin?: (email: string, password: string) => void;
 }
 
-export function AuthPage({ onLogin, onNavigate }: AuthPageProps) {
+export function AuthPage({ onLogin }: AuthPageProps) {
   const [showPassword, setShowPassword] = useState(false);
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
-  const [registerForm, setRegisterForm] = useState({ 
-    name: '', 
-    email: '', 
-    whatsapp: '', 
-    password: '', 
-    confirmPassword: '' 
-  });
   const [isLoading, setIsLoading] = useState(false);
+  const [loginForm, setLoginForm] = useState({
+    email: "",
+    password: "",
+  });
+  const [registerForm, setRegisterForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    whatsapp: "",
+    password: "",
+    confirmPassword: "",
+    country: "",
+    agreeToTerms: false,
+  });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Simulate API call delay
-    setTimeout(() => {
-      onLogin(loginForm.email, loginForm.password);
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      onLogin?.(loginForm.email, loginForm.password);
+      toast.success("Login successful!");
+    } catch (error) {
+      toast.error("Login failed. Please try again.");
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+
     if (registerForm.password !== registerForm.confirmPassword) {
-      alert('Passwords do not match');
+      toast.error("Passwords do not match");
       return;
     }
-    
+
+    if (!registerForm.agreeToTerms) {
+      toast.error("Please agree to the terms and conditions");
+      return;
+    }
+
     setIsLoading(true);
-    
-    // Simulate registration process
-    setTimeout(() => {
-      alert('Registration successful! Please check your email for verification.');
+
+    try {
+      // Simulate API call
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
+      toast.success(
+        "Registration successful! Please check your email for verification.",
+      );
+      // In a real app, you might redirect to a verification page
+    } catch (error) {
+      toast.error("Registration failed. Please try again.");
+    } finally {
       setIsLoading(false);
-      // Auto-login after registration
-      onLogin(registerForm.email, registerForm.password);
-    }, 1500);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 py-12">
-      <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center py-12 px-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className="w-full max-w-md"
+      >
         <div className="text-center mb-8">
-          <h1 className="text-4xl mb-4 text-gray-900">Welcome to East End Agro</h1>
-          <p className="text-lg text-gray-600">
-            Login to your account or create a new one to start your agricultural investment journey.
-          </p>
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            className="mx-auto mb-4 p-3 bg-green-600 rounded-full w-fit"
+          >
+            <Leaf className="h-8 w-8 text-white" />
+          </motion.div>
+          <h1 className="text-2xl text-gray-900 mb-2">
+            Welcome to East End Agro
+          </h1>
+          <p className="text-gray-600">Your agricultural investment platform</p>
         </div>
 
-        {/* Security Notice */}
-        <Alert className="mb-6 border-green-200 bg-green-50">
-          <Shield className="h-4 w-4 text-green-600" />
-          <AlertDescription className="text-green-800">
-            <strong>Security Notice:</strong> We never ask for sensitive information like BVN or SSN. 
-            Your data is secure and encrypted.
-          </AlertDescription>
-        </Alert>
+        <Card>
+          <CardHeader>
+            <CardTitle>Sign In to Your Account</CardTitle>
+            <CardDescription>
+              Access your agricultural investment dashboard
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="login" className="w-full">
+              <TabsList className="grid w-full grid-cols-2">
+                <TabsTrigger value="login">Sign In</TabsTrigger>
+                <TabsTrigger value="register">Register</TabsTrigger>
+              </TabsList>
 
-        {/* Auth Forms */}
-        <Card className="shadow-lg">
-          <Tabs defaultValue="login" className="w-full">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="login">Login</TabsTrigger>
-              <TabsTrigger value="register">Register</TabsTrigger>
-            </TabsList>
-
-            {/* Login Tab */}
-            <TabsContent value="login">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Lock className="h-5 w-5 text-green-600 mr-2" />
-                  Login to Your Account
-                </CardTitle>
-                <CardDescription>
-                  Enter your credentials to access your dashboard
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
+              <TabsContent value="login">
                 <form onSubmit={handleLogin} className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="login-email">Email Address</Label>
+                    <Label htmlFor="email">Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        id="login-email"
+                        id="email"
                         type="email"
                         placeholder="your@email.com"
-                        className="pl-10"
+                        className="pl-9"
                         value={loginForm.email}
-                        onChange={(e) => setLoginForm(prev => ({ ...prev, email: e.target.value }))}
+                        onChange={(e) =>
+                          setLoginForm({ ...loginForm, email: e.target.value })
+                        }
                         required
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="login-password">Password</Label>
+                    <Label htmlFor="password">Password</Label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        id="login-password"
+                        id="password"
                         type={showPassword ? "text" : "password"}
                         placeholder="Enter your password"
-                        className="pl-10 pr-10"
+                        className="pl-9 pr-9"
                         value={loginForm.password}
-                        onChange={(e) => setLoginForm(prev => ({ ...prev, password: e.target.value }))}
+                        onChange={(e) =>
+                          setLoginForm({
+                            ...loginForm,
+                            password: e.target.value,
+                          })
+                        }
                         required
                       />
-                      <button
+                      <Button
                         type="button"
-                        className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
+                        variant="ghost"
+                        size="sm"
+                        className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
                         onClick={() => setShowPassword(!showPassword)}
                       >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
+                        {showPassword ? (
+                          <EyeOff className="h-4 w-4 text-gray-400" />
+                        ) : (
+                          <Eye className="h-4 w-4 text-gray-400" />
+                        )}
+                      </Button>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between">
-                    <label className="flex items-center">
-                      <input type="checkbox" className="rounded border-gray-300 text-green-600 focus:ring-green-500" />
-                      <span className="ml-2 text-sm text-gray-600">Remember me</span>
-                    </label>
-                    <button
-                      type="button"
-                      className="text-sm text-green-600 hover:text-green-700"
-                      onClick={() => alert('Password reset link would be sent to your email')}
-                    >
-                      Forgot password?
-                    </button>
-                  </div>
-
-                  <Button 
-                    type="submit" 
+                  <Button
+                    type="submit"
                     className="w-full bg-green-600 hover:bg-green-700"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Logging in...' : 'Login'}
+                    {isLoading ? "Signing In..." : "Sign In"}
                   </Button>
                 </form>
-              </CardContent>
-            </TabsContent>
+              </TabsContent>
 
-            {/* Register Tab */}
-            <TabsContent value="register">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <User className="h-5 w-5 text-green-600 mr-2" />
-                  Create New Account
-                </CardTitle>
-                <CardDescription>
-                  Join East End Agro and start investing in agriculture
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
+              <TabsContent value="register">
                 <form onSubmit={handleRegister} className="space-y-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="register-name">Full Name</Label>
-                    <div className="relative">
-                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="firstName">First Name</Label>
                       <Input
-                        id="register-name"
-                        type="text"
-                        placeholder="John Farmer"
-                        className="pl-10"
-                        value={registerForm.name}
-                        onChange={(e) => setRegisterForm(prev => ({ ...prev, name: e.target.value }))}
+                        id="firstName"
+                        placeholder="John"
+                        value={registerForm.firstName}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            firstName: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="lastName">Last Name</Label>
+                      <Input
+                        id="lastName"
+                        placeholder="Doe"
+                        value={registerForm.lastName}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            lastName: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="register-email">Email Address</Label>
+                    <Label htmlFor="registerEmail">Email</Label>
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        id="register-email"
+                        id="registerEmail"
                         type="email"
                         placeholder="your@email.com"
-                        className="pl-10"
+                        className="pl-9"
                         value={registerForm.email}
-                        onChange={(e) => setRegisterForm(prev => ({ ...prev, email: e.target.value }))}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            email: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="register-whatsapp">WhatsApp Number</Label>
+                    <Label htmlFor="phone">Phone Number</Label>
                     <div className="relative">
                       <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                       <Input
-                        id="register-whatsapp"
+                        id="phone"
                         type="tel"
                         placeholder="+1234567890"
-                        className="pl-10"
+                        className="pl-9"
+                        value={registerForm.phone}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            phone: e.target.value,
+                          })
+                        }
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="whatsapp">WhatsApp Number</Label>
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
+                      <Input
+                        id="whatsapp"
+                        type="tel"
+                        placeholder="+1234567890"
+                        className="pl-9"
                         value={registerForm.whatsapp}
-                        onChange={(e) => setRegisterForm(prev => ({ ...prev, whatsapp: e.target.value }))}
+                        onChange={(e) =>
+                          setRegisterForm({
+                            ...registerForm,
+                            whatsapp: e.target.value,
+                          })
+                        }
                         required
                       />
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="register-password">Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="register-password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Create a strong password"
-                        className="pl-10 pr-10"
-                        value={registerForm.password}
-                        onChange={(e) => setRegisterForm(prev => ({ ...prev, password: e.target.value }))}
-                        required
-                      />
-                      <button
-                        type="button"
-                        className="absolute right-3 top-3 text-gray-400 hover:text-gray-600"
-                        onClick={() => setShowPassword(!showPassword)}
-                      >
-                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                      </button>
-                    </div>
+                    <Label htmlFor="country">Country</Label>
+                    <Select
+                      value={registerForm.country}
+                      onValueChange={(value) =>
+                        setRegisterForm({ ...registerForm, country: value })
+                      }
+                    >
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select your country" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="us">United States</SelectItem>
+                        <SelectItem value="ca">Canada</SelectItem>
+                        <SelectItem value="uk">United Kingdom</SelectItem>
+                        <SelectItem value="au">Australia</SelectItem>
+                        <SelectItem value="ng">Nigeria</SelectItem>
+                        <SelectItem value="gh">Ghana</SelectItem>
+                        <SelectItem value="ke">Kenya</SelectItem>
+                        <SelectItem value="za">South Africa</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="register-confirm-password">Confirm Password</Label>
-                    <div className="relative">
-                      <Lock className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
-                      <Input
-                        id="register-confirm-password"
-                        type={showPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
-                        className="pl-10"
-                        value={registerForm.confirmPassword}
-                        onChange={(e) => setRegisterForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <input 
-                      type="checkbox" 
-                      className="rounded border-gray-300 text-green-600 focus:ring-green-500 mt-1" 
-                      required 
+                    <Label htmlFor="registerPassword">Password</Label>
+                    <Input
+                      id="registerPassword"
+                      type="password"
+                      placeholder="Create a strong password"
+                      value={registerForm.password}
+                      onChange={(e) =>
+                        setRegisterForm({
+                          ...registerForm,
+                          password: e.target.value,
+                        })
+                      }
+                      required
                     />
-                    <span className="ml-2 text-sm text-gray-600">
-                      I agree to the <button type="button" className="text-green-600 hover:text-green-700 underline">Terms of Service</button> and{' '}
-                      <button type="button" className="text-green-600 hover:text-green-700 underline">Privacy Policy</button>
-                    </span>
                   </div>
 
-                  <Button 
-                    type="submit" 
+                  <div className="space-y-2">
+                    <Label htmlFor="confirmPassword">Confirm Password</Label>
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Confirm your password"
+                      value={registerForm.confirmPassword}
+                      onChange={(e) =>
+                        setRegisterForm({
+                          ...registerForm,
+                          confirmPassword: e.target.value,
+                        })
+                      }
+                      required
+                    />
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={registerForm.agreeToTerms}
+                      onCheckedChange={(checked) =>
+                        setRegisterForm({
+                          ...registerForm,
+                          agreeToTerms: checked as boolean,
+                        })
+                      }
+                    />
+                    <Label htmlFor="terms" className="text-sm">
+                      I agree to the{" "}
+                      <a href="#" className="text-green-600 hover:underline">
+                        Terms and Conditions
+                      </a>{" "}
+                      and{" "}
+                      <a href="#" className="text-green-600 hover:underline">
+                        Privacy Policy
+                      </a>
+                    </Label>
+                  </div>
+
+                  <Button
+                    type="submit"
                     className="w-full bg-green-600 hover:bg-green-700"
                     disabled={isLoading}
                   >
-                    {isLoading ? 'Creating Account...' : 'Create Account'}
+                    {isLoading ? "Creating Account..." : "Create Account"}
                   </Button>
                 </form>
-              </CardContent>
-            </TabsContent>
-          </Tabs>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
         </Card>
-
-        {/* Navigation Links */}
-        <div className="text-center mt-8">
-          <p className="text-gray-600 mb-4">
-            Want to learn more before signing up?
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="outline" 
-              onClick={() => onNavigate('about')}
-              className="text-green-600 border-green-600 hover:bg-green-50"
-            >
-              About East End Agro
-            </Button>
-            <Button 
-              variant="outline" 
-              onClick={() => onNavigate('projects')}
-              className="text-green-600 border-green-600 hover:bg-green-50"
-            >
-              View Investment Details
-            </Button>
-          </div>
-        </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

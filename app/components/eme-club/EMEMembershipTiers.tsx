@@ -1,17 +1,21 @@
-import React from 'react';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
-import { Badge } from '../ui/badge';
-import { CheckCircle } from 'lucide-react';
-import { membershipTiers } from './emeClubData';
-
+import React from "react";
+import { Button } from "../ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
+import { Badge } from "../ui/badge";
+import { CheckCircle } from "lucide-react";
+import { membershipTiers } from "./emeClubData";
 export function EMEMembershipTiers() {
   return (
     <section className="mb-16">
-      <h2 className="text-4xl text-center mb-12 text-gray-900">Choose Your Membership Level</h2>
+      <h2 className="text-4xl text-center mb-12 text-gray-900">
+        Choose Your Membership Level
+      </h2>
       <div className="grid lg:grid-cols-3 gap-8">
         {membershipTiers.map((tier, index) => (
-          <Card key={index} className={`relative hover:shadow-lg transition-shadow ${tier.color}`}>
+          <Card
+            key={index}
+            className={`relative hover:shadow-lg transition-shadow ${tier.color}`}
+          >
             {tier.badge && (
               <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-600 text-white">
                 {tier.badge}

@@ -1,138 +1,332 @@
-import React from 'react';
-import { Button } from './ui/button';
-import { Leaf, User, LogOut } from 'lucide-react';
+"use client";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  whatsapp: string;
-  isEMEMember: boolean;
-  investmentAmount: number;
-  nextWithdrawal: string;
-  referralBonus: number;
-}
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
+import {
+  Menu,
+  User,
+  LogOut,
+  Leaf,
+  Users,
+  Calendar,
+  Phone,
+  HelpCircle,
+  Briefcase,
+  Home,
+  Shield,
+  X,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
+import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
+import { User as UserType } from "../types";
 
-type Page = 'home' | 'about' | 'services' | 'faq' | 'projects' | 'auth' | 'dashboard' | 'events' | 'eme-club' | 'contact';
+type Page =
+  | "home"
+  | "about"
+  | "services"
+  | "faq"
+  | "projects"
+  | "auth"
+  | "dashboard"
+  | "admin"
+  | "events"
+  | "eme-club"
+  | "contact";
 
 interface NavigationProps {
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
-  user: User | null;
-  onLogout: () => void;
+  currentPage?: Page;
+  user?: UserType | null;
+  onLogout?: () => void;
 }
 
-export function Navigation({ currentPage, onNavigate, user, onLogout }: NavigationProps) {
+// map your Page types to Next.js routes
+const pageRoutes: Record<Page, string> = {
+  home: "/",
+  about: "/about",
+  services: "/services",
+  projects: "/projects",
+  faq: "/faq",
+  auth: "/auth",
+  dashboard: "/dashboard",
+  admin: "/admin",
+  events: "/events",
+  "eme-club": "/eme-club",
+  contact: "/contact",
+};
+
+export function Navigation({
+  currentPage = "home",
+  user,
+  onLogout,
+}: NavigationProps) {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleScroll = () => setIsScrolled(window.scrollY > 10);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleLogout = () => {
+    if (onLogout) onLogout();
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleNavigate = (page: Page) => {
+    router.push(pageRoutes[page]); // ✅ use real Next.js routes
+    setIsMobileMenuOpen(false);
+  };
+
+  const navItems = [
+    { page: "home" as Page, label: "Home", icon: Home },
+    { page: "about" as Page, label: "About", icon: Users },
+    { page: "services" as Page, label: "Services", icon: Briefcase },
+    { page: "projects" as Page, label: "Agricultural Projects", icon: Leaf },
+    { page: "events" as Page, label: "Events", icon: Calendar },
+    { page: "eme-club" as Page, label: "EME Club", icon: Users },
+    { page: "faq" as Page, label: "FAQ", icon: HelpCircle },
+    { page: "contact" as Page, label: "Contact", icon: Phone },
+  ];
+
+  const canAccessAdmin =
+    user && (user.role === "admin" || user.role === "eme_subscriber");
+
   return (
-    <nav className="bg-white shadow-md border-b border-green-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+    <motion.header
+      className={`sticky top-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+          : "bg-white border-b border-gray-100"
+      }`}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6 }}
+    >
+      <div className="container mx-auto px-3 sm:px-4 lg:px-6">
+        <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={() => onNavigate('home')}>
-            <Leaf className="h-8 w-8 text-green-600 mr-2" />
-            <span className="text-2xl text-green-800">East End Agro</span>
-          </div>
+          <button
+            onClick={() => handleNavigate("home")}
+            className="flex items-center space-x-2 p-1 rounded-md hover:bg-gray-50 transition-colors"
+          >
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Leaf className="h-7 w-7 sm:h-8 sm:w-8 brand-primary" />
+            </motion.div>
+            <span className="text-lg sm:text-xl font-semibold brand-secondary">
+              East End Agro
+            </span>
+          </button>
 
-          {/* Navigation Links */}
-          <div className="hidden md:flex items-center space-x-6">
-            <button
-              onClick={() => onNavigate('home')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'home' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              Home
-            </button>
-            <button
-              onClick={() => onNavigate('about')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'about' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              About
-            </button>
-            <button
-              onClick={() => onNavigate('services')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'services' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              Services
-            </button>
-            <button
-              onClick={() => onNavigate('projects')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'projects' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              Projects
-            </button>
-            <button
-              onClick={() => onNavigate('events')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'events' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              Events
-            </button>
-            <button
-              onClick={() => onNavigate('eme-club')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'eme-club' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              EME Club
-            </button>
-            <button
-              onClick={() => onNavigate('faq')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'faq' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              FAQ
-            </button>
-            <button
-              onClick={() => onNavigate('contact')}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === 'contact' ? 'text-green-600 bg-green-50' : 'text-gray-700 hover:text-green-600'
-              }`}
-            >
-              Contact
-            </button>
-          </div>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-1">
+            {navItems.map((item) => {
+              const Icon = item.icon;
+              const isActive = currentPage === item.page;
+              return (
+                <button
+                  key={item.page}
+                  onClick={() => handleNavigate(item.page)}
+                >
+                  <motion.div
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-all duration-200 ${
+                      isActive
+                        ? "bg-brand-primary text-white shadow-md"
+                        : "text-gray-600 hover:shadow-sm"
+                    }`}
+                    whileHover={{
+                      scale: 1.05,
+                      backgroundColor: isActive
+                        ? "var(--brand-primary)"
+                        : "rgba(152, 202, 71, 0.1)",
+                      color: isActive ? "white" : "var(--brand-secondary)",
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </motion.div>
+                </button>
+              );
+            })}
+          </nav>
 
-          {/* User Actions */}
-          <div className="flex items-center space-x-4">
+          {/* User Menu / Auth */}
+          <div className="flex items-center space-x-2 sm:space-x-4">
             {user ? (
-              <div className="flex items-center space-x-3">
-                <Button
-                  variant="outline"
-                  onClick={() => onNavigate('dashboard')}
-                  className="text-green-600 border-green-600 hover:bg-green-50"
-                >
-                  <User className="h-4 w-4 mr-2" />
-                  Dashboard
-                </Button>
-                <Button
-                  variant="ghost"
-                  onClick={onLogout}
-                  className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                >
-                  <LogOut className="h-4 w-4 mr-2" />
-                  Logout
-                </Button>
-              </div>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    className="flex items-center space-x-2 hover:bg-gray-50 p-2 h-auto"
+                  >
+                    <User className="h-4 w-4" />
+                    <span className="hidden sm:inline text-sm font-medium">
+                      {user.name}
+                    </span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  {user.role === "user" && (
+                    <DropdownMenuItem
+                      onClick={() => handleNavigate("dashboard")}
+                      className="flex items-center space-x-2"
+                    >
+                      <User className="h-4 w-4" />
+                      <span>Dashboard</span>
+                    </DropdownMenuItem>
+                  )}
+                  {canAccessAdmin && (
+                    <DropdownMenuItem
+                      onClick={() => handleNavigate("admin")}
+                      className="flex items-center space-x-2"
+                    >
+                      <Shield className="h-4 w-4" />
+                      <span>
+                        {user.role === "admin" ? "Admin Panel" : "Management"}
+                      </span>
+                    </DropdownMenuItem>
+                  )}
+                  <DropdownMenuItem
+                    onClick={handleLogout}
+                    className="flex items-center space-x-2 text-red-600 hover:text-red-700"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    <span>Sign Out</span>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             ) : (
               <Button
-                onClick={() => onNavigate('auth')}
-                className="bg-green-600 hover:bg-green-700 text-white"
+                className="h-9 px-4 sm:px-6 text-sm font-medium text-white bg-brand-primary"
+                onClick={() => handleNavigate("auth")}
               >
-                Login / Register
+                Join Now
               </Button>
             )}
+
+            {/* Mobile Menu */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="lg:hidden hover:bg-gray-50 p-2 h-auto"
+                >
+                  <Menu className="h-5 w-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-80 sm:w-72 p-0">
+                <div className="flex flex-col h-full">
+                  {/* Mobile Header */}
+                  <div className="flex items-center justify-between p-4 border-b bg-brand-secondary">
+                    <button
+                      onClick={() => handleNavigate("home")}
+                      className="flex items-center space-x-2"
+                    >
+                      <Leaf className="h-6 w-6 brand-primary" />
+                      <span className="text-lg font-semibold text-white">
+                        East End Agro
+                      </span>
+                    </button>
+                    <SheetClose asChild>
+                      <Button variant="ghost" size="sm" className="text-white">
+                        <X className="h-5 w-5" />
+                      </Button>
+                    </SheetClose>
+                  </div>
+
+                  {/* Mobile Nav Items */}
+                  <div className="flex-1 overflow-y-auto p-4">
+                    <div className="space-y-2">
+                      {navItems.map((item) => {
+                        const Icon = item.icon;
+                        const isActive = currentPage === item.page;
+                        return (
+                          <motion.button
+                            key={item.page}
+                            onClick={() => handleNavigate(item.page)}
+                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left ${
+                              isActive
+                                ? "bg-brand-primary text-white"
+                                : "text-gray-700"
+                            }`}
+                            whileHover={{
+                              backgroundColor: "var(--brand-primary)",
+                              color: "white",
+                              scale: 1.02,
+                            }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            <Icon className="h-5 w-5" />
+                            <span>{item.label}</span>
+                          </motion.button>
+                        );
+                      })}
+                    </div>
+
+                    {user && (
+                      <>
+                        <div className="my-6 border-t"></div>
+                        <div className="space-y-2">
+                          {user.role === "user" && (
+                            <button
+                              onClick={() => handleNavigate("dashboard")}
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left"
+                            >
+                              <User className="h-5 w-5" />
+                              <span>Dashboard</span>
+                            </button>
+                          )}
+                          {canAccessAdmin && (
+                            <button
+                              onClick={() => handleNavigate("admin")}
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left"
+                            >
+                              <Shield className="h-5 w-5" />
+                              <span>
+                                {user.role === "admin"
+                                  ? "Admin Panel"
+                                  : "Management"}
+                              </span>
+                            </button>
+                          )}
+                          <button
+                            onClick={handleLogout}
+                            className="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 w-full text-left"
+                          >
+                            <LogOut className="h-5 w-5" />
+                            <span>Sign Out</span>
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {!user && (
+                    <div className="p-4 border-t">
+                      <Button
+                        className="w-full h-12 text-white font-medium bg-brand-primary"
+                        onClick={() => handleNavigate("auth")}
+                      >
+                        Join East End Agro
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
       </div>
-    </nav>
+    </motion.header>
   );
 }

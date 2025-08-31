@@ -10,7 +10,8 @@ const Footer = () => (
       className="text-green-700 underline hover:text-green-900"
     >
       Metier Digital Solutions
-    </a> © {new Date().getFullYear()}. All rights reserved. 
+    </a>{" "}
+    © {new Date().getFullYear()}. All rights reserved.
   </footer>
 );
 
