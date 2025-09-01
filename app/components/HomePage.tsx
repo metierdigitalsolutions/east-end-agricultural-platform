@@ -427,8 +427,8 @@ export function HomePage({}: HomePageProps) {
                 </div>
 
                 {/* Content */}
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12 lg:py-16">
-                  <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
+                  <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-7xl mx-auto">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
