@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Menu,
@@ -26,6 +26,7 @@ import {
 } from "./ui/dropdown-menu";
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
 import { User as UserType } from "../types";
+import { useAuth } from "../contexts/AuthContext";
 
 type Page =
   | "home"
@@ -62,13 +63,41 @@ const pageRoutes: Record<Page, string> = {
 };
 
 export function Navigation({
-  currentPage = "home",
-  user,
+  currentPage,
+  user: propUser,
   onLogout,
 }: NavigationProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
+  const pathname = usePathname();
+  const { user: contextUser, logout } = useAuth();
+  
+  // Use context user if available, otherwise use prop user
+  const user = contextUser || propUser;
+  
+  // Auto-detect current page from pathname if not provided
+  const getCurrentPage = (): Page => {
+    if (currentPage) return currentPage;
+    
+    const pathToPageMap: Record<string, Page> = {
+      '/': 'home',
+      '/about': 'about',
+      '/services': 'services',
+      '/projects': 'projects',
+      '/faq': 'faq',
+      '/auth': 'auth',
+      '/dashboard': 'dashboard',
+      '/admin': 'admin',
+      '/events': 'events',
+      '/eme-club': 'eme-club',
+      '/contact': 'contact',
+    };
+    
+    return pathToPageMap[pathname] || 'home';
+  };
+  
+  const detectedCurrentPage = getCurrentPage();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -77,8 +106,13 @@ export function Navigation({
   }, []);
 
   const handleLogout = () => {
-    if (onLogout) onLogout();
+    if (onLogout) {
+      onLogout();
+    } else {
+      logout();
+    }
     setIsMobileMenuOpen(false);
+    router.push("/");
   };
 
   const handleNavigate = (page: Page) => {
@@ -130,7 +164,7 @@ export function Navigation({
           <nav className="hidden lg:flex items-center space-x-1">
             {navItems.map((item) => {
               const Icon = item.icon;
-              const isActive = currentPage === item.page;
+              const isActive = detectedCurrentPage === item.page;
               return (
                 <button
                   key={item.page}
@@ -249,7 +283,7 @@ export function Navigation({
                     <div className="space-y-2">
                       {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = currentPage === item.page;
+                        const isActive = detectedCurrentPage === item.page;
                         return (
                           <motion.button
                             key={item.page}

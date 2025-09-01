@@ -1,7 +1,7 @@
 import React from "react";
 
 const Footer = () => (
-  <footer className="w-full py-6 mt-12 border-t text-center text-gray-500 text-sm">
+  <footer className="w-full py-6 border-t text-center text-gray-500 text-sm">
     Developed by {""}
     <a
       href="https://metierdigitals.com"

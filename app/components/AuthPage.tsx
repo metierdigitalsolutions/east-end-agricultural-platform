@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "./ui/button";
 import {
   Card,
@@ -23,12 +24,15 @@ import {
 import { Leaf, Eye, EyeOff, Mail, Lock, User, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { toast } from "sonner";
+import { useAuth } from "../contexts/AuthContext";
 
 interface AuthPageProps {
   onLogin?: (email: string, password: string) => void;
 }
 
 export function AuthPage({ onLogin }: AuthPageProps) {
+  const router = useRouter();
+  const { login, register } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [loginForm, setLoginForm] = useState({
@@ -52,11 +56,18 @@ export function AuthPage({ onLogin }: AuthPageProps) {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      const success = await login({
+        email: loginForm.email,
+        password: loginForm.password,
+      });
 
-      onLogin?.(loginForm.email, loginForm.password);
-      toast.success("Login successful!");
+      if (success) {
+        toast.success("Login successful!");
+        onLogin?.(loginForm.email, loginForm.password);
+        router.push("/dashboard");
+      } else {
+        toast.error("Invalid email or password");
+      }
     } catch (error) {
       toast.error("Login failed. Please try again.");
     } finally {
@@ -80,13 +91,19 @@ export function AuthPage({ onLogin }: AuthPageProps) {
     setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000));
+      const success = await register({
+        name: `${registerForm.firstName} ${registerForm.lastName}`,
+        email: registerForm.email,
+        whatsapp: registerForm.whatsapp,
+        password: registerForm.password,
+      });
 
-      toast.success(
-        "Registration successful! Please check your email for verification.",
-      );
-      // In a real app, you might redirect to a verification page
+      if (success) {
+        toast.success("Registration successful!");
+        router.push("/dashboard");
+      } else {
+        toast.error("Registration failed. Please try again.");
+      }
     } catch (error) {
       toast.error("Registration failed. Please try again.");
     } finally {

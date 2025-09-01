@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navigation } from "./components/Navigation";
 import { Toaster } from "./components/ui/sonner";
 import Footer from "./components/Footer";
+import { AuthProvider } from "./contexts/AuthContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -19,11 +20,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen bg-gray-50`}>
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <Toaster />
+      <body className={`${inter.className} min-h-screen bg-gray-50 flex flex-col`}>
+        <AuthProvider>
+          <Navigation />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <Toaster />
+        </AuthProvider>
       </body>
     </html>
   );
