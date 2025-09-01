@@ -180,15 +180,15 @@ export function Navigation({
                   <motion.div
                     className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-brand-primary text-white shadow-md"
+                        ? "bg-green-600 text-white shadow-md"
                         : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
                     }`}
                     whileHover={{
                       scale: 1.02,
                       backgroundColor: isActive
-                        ? "var(--brand-primary)"
+                        ? "#16a34a"
                         : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "var(--brand-secondary)",
+                      color: isActive ? "white" : "#16a34a",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -206,7 +206,7 @@ export function Navigation({
                   variant="ghost"
                   className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
                     secondaryNavItems.some(item => detectedCurrentPage === item.page)
-                      ? "bg-brand-primary text-white shadow-md"
+                      ? "bg-green-600 text-white shadow-md"
                       : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
                   }`}
                 >
@@ -223,7 +223,7 @@ export function Navigation({
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
                       className={`flex items-center space-x-2 ${
-                        isActive ? "bg-brand-primary text-white" : ""
+                        isActive ? "bg-green-600 text-white" : ""
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -249,15 +249,15 @@ export function Navigation({
                   <motion.div
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-brand-primary text-white shadow-md"
+                        ? "bg-green-600 text-white shadow-md"
                         : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
                     }`}
                     whileHover={{
                       scale: 1.02,
                       backgroundColor: isActive
-                        ? "var(--brand-primary)"
+                        ? "#16a34a"
                         : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "var(--brand-secondary)",
+                      color: isActive ? "white" : "#16a34a",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -275,7 +275,7 @@ export function Navigation({
                   variant="ghost"
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                     navItems.slice(3).some(item => detectedCurrentPage === item.page)
-                      ? "bg-brand-primary text-white shadow-md"
+                      ? "bg-green-600 text-white shadow-md"
                       : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
                   }`}
                 >
@@ -292,7 +292,7 @@ export function Navigation({
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
                       className={`flex items-center space-x-2 ${
-                        isActive ? "bg-brand-primary text-white" : ""
+                        isActive ? "bg-green-600 text-white" : ""
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -351,7 +351,7 @@ export function Navigation({
               </DropdownMenu>
             ) : (
               <Button
-                className="h-9 px-4 sm:px-6 text-sm font-medium text-white bg-brand-primary"
+                className="h-9 px-4 sm:px-6 text-sm font-medium text-white bg-green-600"
                 onClick={() => handleNavigate("auth")}
               >
                 Join Now
@@ -401,11 +401,11 @@ export function Navigation({
                             onClick={() => handleNavigate(item.page)}
                             className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left ${
                               isActive
-                                ? "bg-brand-primary text-white"
+                                ? "bg-green-600 text-white"
                                 : "text-gray-700"
                             }`}
                             whileHover={{
-                              backgroundColor: "var(--brand-primary)",
+                              backgroundColor: "#16a34a",
                               color: "white",
                               scale: 1.02,
                             }}
@@ -459,7 +459,7 @@ export function Navigation({
                   {!user && (
                     <div className="p-4 border-t">
                       <Button
-                        className="w-full h-12 text-white font-medium bg-brand-primary"
+                        className="w-full h-12 text-white font-medium bg-green-600"
                         onClick={() => handleNavigate("auth")}
                       >
                         Join East End Agro

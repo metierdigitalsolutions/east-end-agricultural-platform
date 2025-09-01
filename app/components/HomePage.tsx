@@ -35,8 +35,15 @@ import {
   BarChart3,
 } from "lucide-react";
 import { motion } from "framer-motion";
-import Slider from "react-slick";
 import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+import Slider from "react-slick";
 
 interface HomePageProps {}
 
@@ -315,19 +322,6 @@ export function HomePage({}: HomePageProps) {
     },
   ];
 
-  // React Slick settings for hero
-  const heroSettings = {
-    dots: true,
-    infinite: true,
-    speed: 800,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 6000,
-    pauseOnHover: true,
-    fade: true,
-    cssEase: "linear",
-  };
 
   // React Slick settings
   const testimonialSettings = {
@@ -393,234 +387,202 @@ export function HomePage({}: HomePageProps) {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section with Full Content Slider */}
-      <section className="relative py-0 overflow-hidden min-h-screen z-0">
-        <div className="hero-slider-container">
-          <style jsx>{`
-            .hero-slider-container {
-              height: 100vh;
-            }
-            .hero-slider-container .slick-list,
-            .hero-slider-container .slick-track {
-              height: 100%;
-            }
-            .hero-slider-container .slick-slide > div {
-              height: 100vh;
-            }
-            .hero-slider-container .slick-dots {
-              bottom: 20px;
-              z-index: 10;
-            }
-            .hero-slider-container .slick-dots li button:before {
-              color: #ffffff;
-              font-size: 12px;
-              opacity: 0.6;
-            }
-            .hero-slider-container .slick-dots li.slick-active button:before {
-              color: #ffffff;
-              opacity: 1;
-            }
-            .hero-slider-container .slick-prev,
-            .hero-slider-container .slick-next {
-              z-index: 10;
-              background: rgba(255, 255, 255, 0.15);
-              backdrop-filter: blur(10px);
-              border: 1px solid rgba(255, 255, 255, 0.2);
-              border-radius: 50%;
-              width: 44px;
-              height: 44px;
-              transition: all 0.3s ease;
-            }
-            .hero-slider-container .slick-prev:hover,
-            .hero-slider-container .slick-next:hover {
-              background: rgba(255, 255, 255, 0.25);
-              transform: scale(1.1);
-            }
-            .hero-slider-container .slick-prev:before,
-            .hero-slider-container .slick-next:before {
-              color: #ffffff;
-              font-size: 18px;
-            }
-            .hero-slider-container .slick-prev {
-              left: 20px;
-            }
-            .hero-slider-container .slick-next {
-              right: 20px;
-            }
-            @media (min-width: 1024px) {
-              .hero-slider-container .slick-prev,
-              .hero-slider-container .slick-next {
-                width: 56px;
-                height: 56px;
-              }
-              .hero-slider-container .slick-prev:before,
-              .hero-slider-container .slick-next:before {
-                font-size: 22px;
-              }
-              .hero-slider-container .slick-prev {
-                left: 40px;
-              }
-              .hero-slider-container .slick-next {
-                right: 40px;
-              }
-              .hero-slider-container .slick-dots {
-                bottom: 40px;
-              }
-              .hero-slider-container .slick-dots li button:before {
-                font-size: 14px;
-              }
-            }
-            @media (max-width: 768px) {
-              .hero-slider-container {
-                height: 100vh;
-              }
-              .hero-slider-container .slick-slide > div {
-                height: 100vh;
-              }
-              .hero-slider-container .slick-prev {
-                left: 10px;
-                width: 36px;
-                height: 36px;
-              }
-              .hero-slider-container .slick-next {
-                right: 10px;
-                width: 36px;
-                height: 36px;
-              }
-              .hero-slider-container .slick-prev:before,
-              .hero-slider-container .slick-next:before {
-                font-size: 14px;
-              }
-              .hero-slider-container .slick-dots {
-                bottom: 15px;
-              }
-              .hero-slider-container .slick-dots li button:before {
-                font-size: 10px;
-              }
-            }
-          `}</style>
-          <Slider {...heroSettings}>
-            {heroSlides.map((slide, index) => (
-              <div key={slide.id} className="relative">
-                <div className="relative h-screen flex items-center">
-                  {/* Background Image */}
-                  <div className="absolute inset-0 z-0">
-                    <ImageWithFallback
-                      src={slide.backgroundImage}
-                      alt={slide.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
-                  </div>
+      {/* Hero Section with Swiper */}
+      <section className="relative py-0 overflow-hidden min-h-screen">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay, EffectFade]}
+          spaceBetween={0}
+          slidesPerView={1}
+          navigation={{
+            nextEl: '.hero-swiper-button-next',
+            prevEl: '.hero-swiper-button-prev',
+          }}
+          pagination={{
+            el: '.hero-swiper-pagination',
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet hero-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active hero-bullet-active',
+          }}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          loop={true}
+          className="h-screen"
+        >
+          {heroSlides.map((slide, index) => (
+            <SwiperSlide key={slide.id}>
+              <div className="relative h-screen flex items-center">
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <ImageWithFallback
+                    src={slide.backgroundImage}
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+                </div>
 
-                  {/* Content */}
-                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-1 py-8 sm:py-12 lg:py-16">
-                    <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
-                      <motion.div
-                        initial={{ opacity: 0, x: -20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="text-white text-center lg:text-left"
-                      >
-                        <Badge className="mb-4 sm:mb-6 bg-green-600 hover:bg-green-700 text-white border-green-500 text-xs sm:text-sm">
-                          {slide.badge}
-                        </Badge>
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 leading-tight font-bold">
-                          {slide.title}
-                        </h1>
-                        <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 leading-relaxed text-gray-200 max-w-2xl mx-auto lg:mx-0">
-                          {slide.subtitle}
-                        </p>
+                {/* Content */}
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12 lg:py-16">
+                  <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      viewport={{ once: true }}
+                      className="text-white text-center lg:text-left"
+                    >
+                      <Badge className="mb-4 sm:mb-6 bg-green-600 hover:bg-green-700 text-white border-green-500 text-xs sm:text-sm">
+                        {slide.badge}
+                      </Badge>
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 leading-tight font-bold">
+                        {slide.title}
+                      </h1>
+                      <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 leading-relaxed text-gray-200 max-w-2xl mx-auto lg:mx-0">
+                        {slide.subtitle}
+                      </p>
 
-                        {/* Features List - Enhanced for desktop/tablet */}
-                        <div className="hidden sm:flex flex-wrap gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-10 justify-center lg:justify-start">
-                          {slide.features.map((feature, idx) => (
-                            <motion.div
-                              key={idx}
-                              initial={{ opacity: 0, scale: 0.8 }}
-                              animate={{ opacity: 1, scale: 1 }}
-                              transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
-                              className="flex items-center space-x-2 bg-white/15 backdrop-blur-sm rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 border border-white/20 hover:bg-white/25 transition-all duration-300 hover:scale-105"
-                            >
-                              <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-green-400" />
-                              <span className="text-xs sm:text-sm lg:text-base text-white font-medium">
-                                {feature}
+                      {/* Features List - Enhanced for desktop/tablet */}
+                      <div className="hidden sm:flex flex-wrap gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-10 justify-center lg:justify-start">
+                        {slide.features.map((feature, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
+                            viewport={{ once: true }}
+                            className="flex items-center space-x-2 bg-white/15 backdrop-blur-sm rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 border border-white/20 hover:bg-white/25 transition-all duration-300 hover:scale-105"
+                          >
+                            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-green-400" />
+                            <span className="text-xs sm:text-sm lg:text-base text-white font-medium">
+                              {feature}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <Button
+                          size="lg"
+                          className="bg-green-600 hover:bg-green-700 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          onClick={slide.primaryCTA.action}
+                        >
+                          {slide.primaryCTA.text}
+                          <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                        </Button>
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          onClick={slide.secondaryCTA.action}
+                        >
+                          {slide.secondaryCTA.text}
+                        </Button>
+                      </div>
+                    </motion.div>
+
+                    {/* Stats Card - Simplified for mobile */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      viewport={{ once: true }}
+                      className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+                    >
+                      <Card className="bg-white/15 backdrop-blur-sm border-white/20 text-white max-w-sm w-full mx-4 lg:mx-0">
+                        <CardHeader className="text-center pb-3 sm:pb-4">
+                          <CardTitle className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                            {slide.stat}
+                          </CardTitle>
+                          <CardDescription className="text-gray-200 text-xs sm:text-sm">
+                            And growing every day
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          <div className="space-y-2 sm:space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm text-gray-200">
+                                Success Rate
                               </span>
-                            </motion.div>
-                          ))}
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
-                          <Button
-                            size="lg"
-                            className="bg-green-600 hover:bg-green-700 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
-                            onClick={slide.primaryCTA.action}
-                          >
-                            {slide.primaryCTA.text}
-                            <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
-                          </Button>
-                          <Button
-                            size="lg"
-                            variant="outline"
-                            className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
-                            onClick={slide.secondaryCTA.action}
-                          >
-                            {slide.secondaryCTA.text}
-                          </Button>
-                        </div>
-                      </motion.div>
-
-                      {/* Stats Card - Simplified for mobile */}
-                      <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="flex justify-center lg:justify-end mt-8 lg:mt-0"
-                      >
-                        <Card className="bg-white/15 backdrop-blur-sm border-white/20 text-white max-w-sm w-full mx-4 lg:mx-0">
-                          <CardHeader className="text-center pb-3 sm:pb-4">
-                            <CardTitle className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
-                              {slide.stat}
-                            </CardTitle>
-                            <CardDescription className="text-gray-200 text-xs sm:text-sm">
-                              And growing every day
-                            </CardDescription>
-                          </CardHeader>
-                          <CardContent className="pt-0">
-                            <div className="space-y-2 sm:space-y-3">
-                              <div className="flex items-center justify-between">
-                                <span className="text-xs sm:text-sm text-gray-200">
-                                  Success Rate
-                                </span>
-                                <span className="text-white font-semibold text-xs sm:text-sm">
-                                  100%
-                                </span>
-                              </div>
-                              <div className="flex items-center justify-between">
-                                <span className="text-xs sm:text-sm text-gray-200">
-                                  Monthly Profit
-                                </span>
-                                <span className="text-white font-semibold text-xs sm:text-sm">
-                                  8-15%
-                                </span>
-                              </div>
-                              <div className="w-full bg-white/20 rounded-full h-1.5 sm:h-2">
-                                <div className="bg-green-400 h-1.5 sm:h-2 rounded-full w-4/5"></div>
-                              </div>
-                              <p className="text-xs text-gray-300 text-center">
-                                Join now - limited spots!
-                              </p>
+                              <span className="text-white font-semibold text-xs sm:text-sm">
+                                100%
+                              </span>
                             </div>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm text-gray-200">
+                                Monthly Profit
+                              </span>
+                              <span className="text-white font-semibold text-xs sm:text-sm">
+                                8-15%
+                              </span>
+                            </div>
+                            <div className="w-full bg-white/20 rounded-full h-1.5 sm:h-2">
+                              <div className="bg-green-400 h-1.5 sm:h-2 rounded-full w-4/5"></div>
+                            </div>
+                            <p className="text-xs text-gray-300 text-center">
+                              Join now - limited spots!
+                            </p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
                   </div>
                 </div>
               </div>
-            ))}
-          </Slider>
-        </div>
+            </SwiperSlide>
+          ))}
+
+          {/* Custom Navigation Buttons */}
+          <div className="hero-swiper-button-prev absolute left-4 sm:left-8 lg:left-12 top-1/2 -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full w-11 h-11 lg:w-14 lg:h-14 text-white hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft className="h-5 w-5 lg:h-6 lg:w-6" />
+            </Button>
+          </div>
+          
+          <div className="hero-swiper-button-next absolute right-4 sm:right-8 lg:right-12 top-1/2 -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full w-11 h-11 lg:w-14 lg:h-14 text-white hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
+            </Button>
+          </div>
+
+          {/* Custom Pagination */}
+          <div className="hero-swiper-pagination absolute bottom-6 sm:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 z-10 flex space-x-2"></div>
+        </Swiper>
+
+        {/* Custom styles for Swiper pagination */}
+        <style jsx global>{`
+          .hero-bullet {
+            width: 10px !important;
+            height: 10px !important;
+            background: rgba(255, 255, 255, 0.4) !important;
+            border-radius: 50% !important;
+            margin: 0 4px !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+          }
+          .hero-bullet-active {
+            background: white !important;
+            transform: scale(1.25) !important;
+          }
+          @media (min-width: 1024px) {
+            .hero-bullet {
+              width: 12px !important;
+              height: 12px !important;
+            }
+          }
+        `}</style>
       </section>
 
       {/* Farm Products Carousel */}
