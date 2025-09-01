@@ -209,6 +209,34 @@ export function AuthPage({ onLogin }: AuthPageProps) {
                   >
                     {isLoading ? "Signing In..." : "Sign In"}
                   </Button>
+                  
+                  {/* Demo Credentials */}
+                  <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="text-sm font-medium text-blue-800 mb-2">Demo Credentials</h4>
+                    <div className="space-y-1 text-xs text-blue-700">
+                      <div className="flex justify-between items-center">
+                        <span>Email:</span>
+                        <button
+                          type="button"
+                          onClick={() => setLoginForm({ ...loginForm, email: "john@farmer.com" })}
+                          className="font-mono bg-blue-100 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
+                        >
+                          john@farmer.com
+                        </button>
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <span>Password:</span>
+                        <button
+                          type="button"
+                          onClick={() => setLoginForm({ ...loginForm, password: "password123" })}
+                          className="font-mono bg-blue-100 px-2 py-1 rounded hover:bg-blue-200 transition-colors"
+                        >
+                          password123
+                        </button>
+                      </div>
+                      <p className="text-blue-600 text-center mt-2 italic">Click to auto-fill</p>
+                    </div>
+                  </div>
                 </form>
               </TabsContent>
 
@@ -368,7 +396,7 @@ export function AuthPage({ onLogin }: AuthPageProps) {
                     />
                   </div>
 
-                  <div className="flex items-center space-x-2">
+                  <div className="flex items-start space-x-3">
                     <Checkbox
                       id="terms"
                       checked={registerForm.agreeToTerms}
@@ -378,17 +406,28 @@ export function AuthPage({ onLogin }: AuthPageProps) {
                           agreeToTerms: checked as boolean,
                         })
                       }
+                      className="mt-0.5"
                     />
-                    <Label htmlFor="terms" className="text-sm">
-                      I agree to the{" "}
-                      <a href="#" className="text-green-600 hover:underline">
-                        Terms and Conditions
-                      </a>{" "}
-                      and{" "}
-                      <a href="#" className="text-green-600 hover:underline">
-                        Privacy Policy
-                      </a>
-                    </Label>
+                    <div className="flex-1">
+                      <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
+                        I agree to the{" "}
+                        <a 
+                          href="#" 
+                          className="text-green-600 hover:text-green-700 hover:underline font-medium transition-colors"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          Terms and Conditions
+                        </a>
+                        {" "}and{" "}
+                        <a 
+                          href="#" 
+                          className="text-green-600 hover:text-green-700 hover:underline font-medium transition-colors"
+                          onClick={(e) => e.preventDefault()}
+                        >
+                          Privacy Policy
+                        </a>
+                      </Label>
+                    </div>
                   </div>
 
                   <Button

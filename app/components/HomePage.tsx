@@ -394,7 +394,7 @@ export function HomePage({}: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Full Content Slider */}
-      <section className="relative py-0 overflow-hidden min-h-screen">
+      <section className="relative py-0 overflow-hidden min-h-screen z-0">
         <div className="hero-slider-container">
           <style jsx>{`
             .hero-slider-container {
@@ -409,7 +409,7 @@ export function HomePage({}: HomePageProps) {
             }
             .hero-slider-container .slick-dots {
               bottom: 20px;
-              z-index: 20;
+              z-index: 10;
             }
             .hero-slider-container .slick-dots li button:before {
               color: #ffffff;
@@ -422,7 +422,7 @@ export function HomePage({}: HomePageProps) {
             }
             .hero-slider-container .slick-prev,
             .hero-slider-container .slick-next {
-              z-index: 20;
+              z-index: 10;
               background: rgba(255, 255, 255, 0.15);
               backdrop-filter: blur(10px);
               border: 1px solid rgba(255, 255, 255, 0.2);
@@ -514,7 +514,7 @@ export function HomePage({}: HomePageProps) {
                   </div>
 
                   {/* Content */}
-                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-8 sm:py-12 lg:py-16">
+                  <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-1 py-8 sm:py-12 lg:py-16">
                     <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-center max-w-7xl mx-auto">
                       <motion.div
                         initial={{ opacity: 0, x: -20 }}

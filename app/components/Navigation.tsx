@@ -27,6 +27,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from "./ui/sheet";
 import { User as UserType } from "../types";
 import { useAuth } from "../contexts/AuthContext";
+import { ChevronDown } from "lucide-react";
 
 type Page =
   | "home"
@@ -131,6 +132,11 @@ export function Navigation({
     { page: "contact" as Page, label: "Contact", icon: Phone },
   ];
 
+  // Primary nav items (always visible on desktop)
+  const primaryNavItems = navItems.slice(0, 4); // Home, About, Services, Projects
+  // Secondary nav items (in dropdown on tablet/small desktop)
+  const secondaryNavItems = navItems.slice(4); // Events, EME Club, FAQ, Contact
+
   const canAccessAdmin =
     user && (user.role === "admin" || user.role === "eme_subscriber");
 
@@ -161,8 +167,9 @@ export function Navigation({
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-1">
-            {navItems.map((item) => {
+          <nav className="hidden lg:flex items-center space-x-2">
+            {/* Primary Navigation Items */}
+            {primaryNavItems.map((item) => {
               const Icon = item.icon;
               const isActive = detectedCurrentPage === item.page;
               return (
@@ -171,19 +178,19 @@ export function Navigation({
                   onClick={() => handleNavigate(item.page)}
                 >
                   <motion.div
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-md transition-all duration-200 ${
+                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
                       isActive
                         ? "bg-brand-primary text-white shadow-md"
-                        : "text-gray-600 hover:shadow-sm"
+                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
                     }`}
                     whileHover={{
-                      scale: 1.05,
+                      scale: 1.02,
                       backgroundColor: isActive
                         ? "var(--brand-primary)"
                         : "rgba(152, 202, 71, 0.1)",
                       color: isActive ? "white" : "var(--brand-secondary)",
                     }}
-                    whileTap={{ scale: 0.95 }}
+                    whileTap={{ scale: 0.98 }}
                   >
                     <Icon className="h-4 w-4" />
                     <span className="text-sm font-medium">{item.label}</span>
@@ -191,6 +198,110 @@ export function Navigation({
                 </button>
               );
             })}
+            
+            {/* More Dropdown for Secondary Items */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
+                    secondaryNavItems.some(item => detectedCurrentPage === item.page)
+                      ? "bg-brand-primary text-white shadow-md"
+                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                  }`}
+                >
+                  <span className="text-sm font-medium">More</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {secondaryNavItems.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = detectedCurrentPage === item.page;
+                  return (
+                    <DropdownMenuItem
+                      key={item.page}
+                      onClick={() => handleNavigate(item.page)}
+                      className={`flex items-center space-x-2 ${
+                        isActive ? "bg-brand-primary text-white" : ""
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.label}</span>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </nav>
+          
+          {/* Tablet Navigation (medium screens) */}
+          <nav className="hidden md:flex lg:hidden items-center space-x-1">
+            {/* Show only essential items on tablet */}
+            {navItems.slice(0, 3).map((item) => {
+              const Icon = item.icon;
+              const isActive = detectedCurrentPage === item.page;
+              return (
+                <button
+                  key={item.page}
+                  onClick={() => handleNavigate(item.page)}
+                >
+                  <motion.div
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
+                      isActive
+                        ? "bg-brand-primary text-white shadow-md"
+                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                    }`}
+                    whileHover={{
+                      scale: 1.02,
+                      backgroundColor: isActive
+                        ? "var(--brand-primary)"
+                        : "rgba(152, 202, 71, 0.1)",
+                      color: isActive ? "white" : "var(--brand-secondary)",
+                    }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    <Icon className="h-4 w-4" />
+                    <span className="text-sm font-medium">{item.label}</span>
+                  </motion.div>
+                </button>
+              );
+            })}
+            
+            {/* More Dropdown for remaining items on tablet */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="ghost"
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
+                    navItems.slice(3).some(item => detectedCurrentPage === item.page)
+                      ? "bg-brand-primary text-white shadow-md"
+                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                  }`}
+                >
+                  <span className="text-sm font-medium">More</span>
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-48">
+                {navItems.slice(3).map((item) => {
+                  const Icon = item.icon;
+                  const isActive = detectedCurrentPage === item.page;
+                  return (
+                    <DropdownMenuItem
+                      key={item.page}
+                      onClick={() => handleNavigate(item.page)}
+                      className={`flex items-center space-x-2 ${
+                        isActive ? "bg-brand-primary text-white" : ""
+                      }`}
+                    >
+                      <Icon className="h-4 w-4" />
+                      <span>{item.label}</span>
+                    </DropdownMenuItem>
+                  );
+                })}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
 
           {/* User Menu / Auth */}
@@ -253,7 +364,7 @@ export function Navigation({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="lg:hidden hover:bg-gray-50 p-2 h-auto"
+                  className="md:hidden hover:bg-gray-50 p-2 h-auto"
                 >
                   <Menu className="h-5 w-5" />
                 </Button>
