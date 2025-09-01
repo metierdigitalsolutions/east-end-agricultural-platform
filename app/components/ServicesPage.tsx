@@ -1,9 +1,23 @@
-import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { ShoppingCart, Calendar, DollarSign, Headphones, Award } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+"use client";
 
+import React from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import {
+  ShoppingCart,
+  Users,
+  Calendar,
+  DollarSign,
+  Headphones,
+  Award,
+} from "lucide-react";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
 export function ServicesPage() {
   return (
     <div className="min-h-screen bg-gray-50 py-12">
@@ -12,19 +26,20 @@ export function ServicesPage() {
         <div className="text-center mb-16">
           <h1 className="text-5xl mb-6 text-gray-900">Our Services</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Comprehensive agricultural solutions designed to help you succeed in farming 
-            and agricultural investment from start to finish.
+            Comprehensive agricultural solutions designed to help you succeed in
+            farming and agricultural trading from start to finish.
           </p>
         </div>
 
         {/* Main Services Grid */}
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          
-          {/* Agricultural Product Mediation */}
+          {/* Agricultural Product Trading */}
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <ShoppingCart className="h-12 w-12 text-green-600 mb-4" />
-              <CardTitle className="text-2xl">Agricultural Product Mediation</CardTitle>
+              <CardTitle className="text-2xl">
+                Agricultural Product Trading
+              </CardTitle>
               <CardDescription className="text-lg">
                 Connecting farmers with buyers for optimal market access
               </CardDescription>
@@ -32,14 +47,15 @@ export function ServicesPage() {
             <CardContent>
               <div className="space-y-4">
                 <p className="text-gray-700">
-                  We facilitate the buying and selling of various agricultural products, 
-                  ensuring fair prices and reliable transactions for both farmers and buyers.
+                  We facilitate the buying and selling of various agricultural
+                  products, ensuring fair prices and reliable transactions for
+                  both farmers and buyers.
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>Maize trading and distribution</li>
-                  <li>Coconut product marketing</li>
-                  <li>Cash crop mediation</li>
-                  <li>Market price analysis</li>
+                  <li>Maize purchase and sales</li>
+                  <li>Coconut trading and distribution</li>
+                  <li>Sugar and cashewnut trading</li>
+                  <li>Fertilizer supply and distribution</li>
                   <li>Quality assurance services</li>
                 </ul>
                 <div className="mt-6">
@@ -57,7 +73,9 @@ export function ServicesPage() {
           <Card className="hover:shadow-lg transition-shadow">
             <CardHeader>
               <Headphones className="h-12 w-12 text-green-600 mb-4" />
-              <CardTitle className="text-2xl">Customer Support Services</CardTitle>
+              <CardTitle className="text-2xl">
+                Customer Support Services
+              </CardTitle>
               <CardDescription className="text-lg">
                 Premium support for all your agricultural needs
               </CardDescription>
@@ -65,13 +83,14 @@ export function ServicesPage() {
             <CardContent>
               <div className="space-y-4">
                 <p className="text-gray-700">
-                  Our dedicated support team provides comprehensive assistance to ensure 
-                  your success in agricultural investments and farming ventures.
+                  Our dedicated support team provides comprehensive assistance
+                  to ensure your success in agricultural trading and farming
+                  ventures.
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
-                  <li>24/7 customer support</li>
+                  <li>Customer service support</li>
                   <li>Technical assistance</li>
-                  <li>Investment guidance</li>
+                  <li>Project guidance</li>
                   <li>Account management</li>
                   <li>WhatsApp support channel</li>
                 </ul>
@@ -98,12 +117,13 @@ export function ServicesPage() {
             <CardContent>
               <div className="space-y-4">
                 <p className="text-gray-700">
-                  Join our regular educational events designed to share knowledge, 
-                  best practices, and the latest trends in agricultural investment.
+                  East End Agro seminars will be uploaded promptly online for
+                  all interested participants to apply and enhance their
+                  agricultural knowledge.
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Monthly agricultural seminars</li>
-                  <li>Investment strategy workshops</li>
+                  <li>Trading strategy workshops</li>
                   <li>Seasonal farming guidance</li>
                   <li>Market trend analysis sessions</li>
                   <li>Recorded seminar access</li>
@@ -125,18 +145,20 @@ export function ServicesPage() {
               <Award className="h-12 w-12 text-green-600 mb-4" />
               <CardTitle className="text-2xl">EME Club Membership</CardTitle>
               <CardDescription className="text-lg">
-                Exclusive benefits for our premium members
+                East End Monthly Events - Exclusive benefits for our premium
+                members
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-4">
                 <p className="text-gray-700">
-                  Join our exclusive EME Club for additional benefits, priority support, 
-                  and enhanced investment opportunities.
+                  Join our exclusive EME Club for additional benefits, priority
+                  support, and enhanced opportunities. Contact admin for more
+                  information.
                 </p>
                 <ul className="list-disc list-inside space-y-2 text-gray-700">
                   <li>Priority customer support</li>
-                  <li>Exclusive investment opportunities</li>
+                  <li>Exclusive project opportunities</li>
                   <li>Referral bonus programs</li>
                   <li>Advanced market insights</li>
                   <li>Member-only events</li>
@@ -153,32 +175,37 @@ export function ServicesPage() {
           </Card>
         </div>
 
-        {/* Project Proposal Investment Section */}
+        {/* Project Proposal Development Section */}
         <section className="mb-16">
           <Card className="bg-green-50 border-green-200 hover:shadow-lg transition-shadow">
             <CardHeader className="text-center">
               <DollarSign className="h-16 w-16 text-green-600 mx-auto mb-4" />
-              <CardTitle className="text-3xl">Project Proposal Investment</CardTitle>
+              <CardTitle className="text-3xl">
+                East End Development Projects
+              </CardTitle>
               <CardDescription className="text-xl">
-                Your gateway to profitable agricultural investments
+                Successfully tackle financial struggles by creating new
+                opportunities for extra income earnings
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid md:grid-cols-2 gap-8 items-center">
                 <div>
-                  <h3 className="text-2xl mb-4 text-gray-900">Investment Features</h3>
+                  <h3 className="text-2xl mb-4 text-gray-900">
+                    Project Features
+                  </h3>
                   <ul className="space-y-3 text-lg text-gray-700">
                     <li className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
-                      Minimum $250 investment entry
+                      Minimum $250 participation entry
                     </li>
                     <li className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
-                      Monthly profit payouts
+                      Monthly profit payouts within 30 days
                     </li>
                     <li className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
-                      6-month capital lock period
+                      6-month project cycle
                     </li>
                     <li className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
@@ -186,17 +213,20 @@ export function ServicesPage() {
                     </li>
                     <li className="flex items-center">
                       <span className="text-green-600 mr-2">✓</span>
-                      Admin-approved withdrawals
+                      Admin-approved withdrawals for security
                     </li>
                   </ul>
-                  <Button className="mt-6 bg-green-600 hover:bg-green-700" size="lg">
-                    Learn More About Investments
+                  <Button
+                    className="mt-6 bg-green-600 hover:bg-green-700"
+                    size="lg"
+                  >
+                    Learn More About Projects
                   </Button>
                 </div>
                 <div>
                   <ImageWithFallback
                     src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?w=500&h=350&fit=crop"
-                    alt="Investment growth"
+                    alt="Agricultural development"
                     className="rounded-lg w-full h-80 object-cover"
                   />
                 </div>
@@ -207,35 +237,48 @@ export function ServicesPage() {
 
         {/* Service Process */}
         <section className="mb-16">
-          <h2 className="text-4xl text-center mb-12 text-gray-900">How Our Services Work</h2>
+          <h2 className="text-4xl text-center mb-12 text-gray-900">
+            How Our Services Work
+          </h2>
           <div className="grid md:grid-cols-4 gap-8">
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl text-green-600">1</span>
               </div>
               <h3 className="text-xl mb-2 text-gray-900">Consultation</h3>
-              <p className="text-gray-600">Initial consultation to understand your agricultural goals and investment capacity</p>
+              <p className="text-gray-600">
+                Initial consultation to understand your agricultural goals and
+                participation capacity
+              </p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl text-green-600">2</span>
               </div>
               <h3 className="text-xl mb-2 text-gray-900">Registration</h3>
-              <p className="text-gray-600">Complete registration process and choose your preferred services or investment plan</p>
+              <p className="text-gray-600">
+                Complete registration process and choose your preferred services
+                or project plan
+              </p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl text-green-600">3</span>
               </div>
               <h3 className="text-xl mb-2 text-gray-900">Implementation</h3>
-              <p className="text-gray-600">Begin your agricultural journey with our support and guidance</p>
+              <p className="text-gray-600">
+                Begin your agricultural journey with our support and guidance
+              </p>
             </div>
             <div className="text-center">
               <div className="bg-green-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                 <span className="text-2xl text-green-600">4</span>
               </div>
               <h3 className="text-xl mb-2 text-gray-900">Success</h3>
-              <p className="text-gray-600">Enjoy profitable returns and ongoing support for continued success</p>
+              <p className="text-gray-600">
+                Enjoy profitable returns and ongoing support for continued
+                success
+              </p>
             </div>
           </div>
         </section>
@@ -246,15 +289,23 @@ export function ServicesPage() {
             <CardContent className="py-12">
               <h2 className="text-4xl mb-6">Ready to Get Started?</h2>
               <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Choose the service that best fits your agricultural goals and start your journey 
-                with East End Agro today.
+                Choose the service that best fits your agricultural goals and
+                start your journey with East End Agro today.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button size="lg" variant="secondary" className="px-8 py-4 text-lg">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="px-8 py-4 text-lg"
+                >
                   Contact Our Team
                 </Button>
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg">
-                  View Investment Options
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg"
+                >
+                  View Project Options
                 </Button>
               </div>
             </CardContent>

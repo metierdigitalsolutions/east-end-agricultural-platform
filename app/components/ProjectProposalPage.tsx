@@ -1,312 +1,408 @@
-import React from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { DollarSign, TrendingUp, Calendar, Users, Shield, Award, ArrowRight } from 'lucide-react';
-import { ImageWithFallback } from './figma/ImageWithFallback';
+"use client";
 
-type Page = 'home' | 'about' | 'services' | 'faq' | 'projects' | 'auth' | 'dashboard' | 'events' | 'eme-club' | 'contact';
-
+import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
+import { Badge } from "./ui/badge";
+import {
+  CheckCircle,
+  DollarSign,
+  Calendar,
+  Users,
+  TrendingUp,
+  Shield,
+  Leaf,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { toast } from "sonner";
 interface ProjectProposalPageProps {
-  onNavigate: (page: Page) => void;
+  onNavigate?: (page: string) => void;
 }
 
 export function ProjectProposalPage({ onNavigate }: ProjectProposalPageProps) {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    whatsapp: "",
+    message: "",
+  });
+
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    toast.success(
+      "Project inquiry submitted successfully! We will contact you soon.",
+    );
+    setFormData({ name: "", email: "", whatsapp: "", message: "" });
+  };
+
+  const profitStructure = [
+    {
+      month: "1st",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+    {
+      month: "2nd",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+    {
+      month: "3rd",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+    {
+      month: "4th",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+    {
+      month: "5th",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+    {
+      month: "6th",
+      capital: "400,000 NGN / $250 USD",
+      profit15: "600,000 NGN / $375 USD",
+      profit30: "800,000 NGN / $500 USD",
+    },
+  ];
+
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-5xl mb-6 text-gray-900">Investment Project Proposal</h1>
+        {/* Hero Section */}
+        <motion.div
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          <Badge variant="outline" className="mb-4">
+            Development Projects
+          </Badge>
+          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+            East End Development Projects
+          </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Join our agricultural investment program and earn monthly profits from sustainable farming projects. 
-            Transparent, secure, and profitable investment opportunities await you.
+            Successfully tackle the issues of financial struggle by creating new
+            opportunities for extra income earnings, without crime and stress.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Key Investment Details */}
-        <section className="mb-16">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <Card className="text-center bg-green-50 border-green-200">
-              <CardHeader>
-                <DollarSign className="h-12 w-12 text-green-600 mx-auto mb-2" />
-                <CardTitle>$250 Minimum</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Low entry barrier to start your agricultural investment journey
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-blue-50 border-blue-200">
-              <CardHeader>
-                <TrendingUp className="h-12 w-12 text-blue-600 mx-auto mb-2" />
-                <CardTitle>Monthly Profits</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Regular monthly payouts from your agricultural investments
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-yellow-50 border-yellow-200">
-              <CardHeader>
-                <Calendar className="h-12 w-12 text-yellow-600 mx-auto mb-2" />
-                <CardTitle>6-Month Lock</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Capital lock period ensures maximum returns on your investment
-                </CardDescription>
-              </CardContent>
-            </Card>
-
-            <Card className="text-center bg-purple-50 border-purple-200">
-              <CardHeader>
-                <Users className="h-12 w-12 text-purple-600 mx-auto mb-2" />
-                <CardTitle>Referral Bonus</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Earn additional income by referring new investors to our platform
-                </CardDescription>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* How It Works Timeline */}
-        <section className="mb-16">
-          <h2 className="text-4xl text-center mb-12 text-gray-900">How Our Investment Process Works</h2>
-          
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute left-1/2 transform -translate-x-px h-full w-0.5 bg-green-200"></div>
-            
-            <div className="space-y-12">
-              {/* Step 1 */}
-              <div className="relative flex items-center">
-                <div className="flex-1 pr-8 text-right">
-                  <Card className="ml-auto max-w-md">
-                    <CardHeader>
-                      <CardTitle>1. Register & Verify</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Create your account with basic information: name, email, and WhatsApp number. Complete the verification process to secure your account.</p>
-                    </CardContent>
-                  </Card>
+        {/* How It Works */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">
+                How It Works
+              </CardTitle>
+              <CardDescription className="text-center">
+                A project that supports all ages with no age restraint
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="text-center">
+                  <div className="bg-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <DollarSign className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Step 1</h3>
+                  <p className="text-gray-600">
+                    With your money, East End helps in purchasing and sales of
+                    farm products on your behalf
+                  </p>
                 </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl z-10">
-                  1
+                <div className="text-center">
+                  <div className="bg-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <Calendar className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Step 2</h3>
+                  <p className="text-gray-600">
+                    The profit is paid to you within a period of 30 days
+                  </p>
                 </div>
-                <div className="flex-1 pl-8"></div>
-              </div>
-
-              {/* Step 2 */}
-              <div className="relative flex items-center">
-                <div className="flex-1 pr-8"></div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl z-10">
-                  2
-                </div>
-                <div className="flex-1 pl-8">
-                  <Card className="mr-auto max-w-md">
-                    <CardHeader>
-                      <CardTitle>2. Make Investment</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Invest a minimum of $250 in our agricultural projects. Choose from various crop investments including maize, coconuts, and other cash crops.</p>
-                    </CardContent>
-                  </Card>
+                <div className="text-center">
+                  <div className="bg-green-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                    <TrendingUp className="h-8 w-8 text-green-600" />
+                  </div>
+                  <h3 className="text-lg font-semibold mb-2">Step 3</h3>
+                  <p className="text-gray-600">
+                    Your initial capital is reusable within a period of six
+                    months
+                  </p>
                 </div>
               </div>
-
-              {/* Step 3 */}
-              <div className="relative flex items-center">
-                <div className="flex-1 pr-8 text-right">
-                  <Card className="ml-auto max-w-md">
-                    <CardHeader>
-                      <CardTitle>3. Project Allocation</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Your investment is allocated to active agricultural projects. Track your investment progress through your dashboard.</p>
-                    </CardContent>
-                  </Card>
-                </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl z-10">
-                  3
-                </div>
-                <div className="flex-1 pl-8"></div>
-              </div>
-
-              {/* Step 4 */}
-              <div className="relative flex items-center">
-                <div className="flex-1 pr-8"></div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl z-10">
-                  4
-                </div>
-                <div className="flex-1 pl-8">
-                  <Card className="mr-auto max-w-md">
-                    <CardHeader>
-                      <CardTitle>4. Monthly Profits</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>Receive monthly profit payments from your agricultural investments. All payments require admin approval for security.</p>
-                    </CardContent>
-                  </Card>
-                </div>
-              </div>
-
-              {/* Step 5 */}
-              <div className="relative flex items-center">
-                <div className="flex-1 pr-8 text-right">
-                  <Card className="ml-auto max-w-md">
-                    <CardHeader>
-                      <CardTitle>5. Capital Return</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <p>After the 6-month lock period, your initial capital plus final profits are returned to you with admin approval.</p>
-                    </CardContent>
-                  </Card>
-                </div>
-                <div className="absolute left-1/2 transform -translate-x-1/2 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white text-xl z-10">
-                  5
-                </div>
-                <div className="flex-1 pl-8"></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Key Instructions */}
-        <section className="mb-16">
-          <h2 className="text-4xl text-center mb-12 text-gray-900">Important Guidelines</h2>
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="border-red-200 bg-red-50">
-              <CardHeader>
-                <Shield className="h-8 w-8 text-red-600 mb-2" />
-                <CardTitle className="text-red-800">Security Requirements</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-red-700">
-                  <li className="flex items-start">
-                    <span className="text-red-600 mr-2 mt-1">•</span>
-                    No third-party withdrawals - all withdrawals must be to your own accounts
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-600 mr-2 mt-1">•</span>
-                    Only one account per person - multiple accounts are prohibited
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-600 mr-2 mt-1">•</span>
-                    Admin approval required for first withdrawal and all subsequent transactions
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-red-600 mr-2 mt-1">•</span>
-                    We never ask for BVN, SSN, or sensitive banking information
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-
-            <Card className="border-green-200 bg-green-50">
-              <CardHeader>
-                <Award className="h-8 w-8 text-green-600 mb-2" />
-                <CardTitle className="text-green-800">Referral Benefits</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-3 text-green-700">
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 mt-1">•</span>
-                    Earn referral bonuses for each new investor you bring
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 mt-1">•</span>
-                    Referred investors must meet minimum investment requirements
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 mt-1">•</span>
-                    Bonuses are paid after the referred investor&apos;s successful verification
-                  </li>
-                  <li className="flex items-start">
-                    <span className="text-green-600 mr-2 mt-1">•</span>
-                    Track your referral earnings in your dashboard
-                  </li>
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Investment Showcase */}
-        <section className="mb-16">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-4xl mb-6 text-gray-900">Sustainable Agricultural Investments</h2>
-              <p className="text-lg text-gray-700 mb-6">
-                Our investment projects focus on sustainable agricultural practices that benefit both 
-                investors and local farming communities. We specialize in high-yield crops with 
-                proven market demand.
-              </p>
-              <div className="space-y-4 mb-8">
-                <div className="flex items-center">
-                  <span className="text-green-600 mr-3">✓</span>
-                  <span className="text-lg">Maize cultivation and processing</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-green-600 mr-3">✓</span>
-                  <span className="text-lg">Coconut farming and value addition</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-green-600 mr-3">✓</span>
-                  <span className="text-lg">Diversified cash crop portfolios</span>
-                </div>
-                <div className="flex items-center">
-                  <span className="text-green-600 mr-3">✓</span>
-                  <span className="text-lg">Expert agricultural management</span>
-                </div>
-              </div>
-            </div>
-            <div>
-              <ImageWithFallback
-                src="https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=600&h=400&fit=crop"
-                alt="Sustainable farming"
-                className="rounded-lg shadow-lg w-full h-96 object-cover"
-              />
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section>
-          <Card className="bg-green-600 text-white text-center">
-            <CardContent className="py-16">
-              <h2 className="text-4xl mb-6">Ready to Start Your Investment Journey?</h2>
-              <p className="text-xl mb-8 max-w-3xl mx-auto">
-                Join hundreds of successful investors who are already earning monthly profits 
-                from our agricultural investment program.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button 
-                  size="lg" 
-                  onClick={() => onNavigate('auth')}
-                  className="bg-white text-green-600 hover:bg-gray-100 px-8 py-4 text-lg"
-                >
-                  Join the Project Now
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <Button 
-                  size="lg" 
-                  variant="outline"
-                  onClick={() => onNavigate('contact')}
-                  className="border-white text-white hover:bg-white hover:text-green-600 px-8 py-4 text-lg"
-                >
-                  Contact for More Info
-                </Button>
+              <div className="mt-8 text-center">
+                <p className="text-lg font-medium text-green-600">
+                  Starting from as low as $250 USD
+                </p>
               </div>
             </CardContent>
           </Card>
-        </section>
+        </motion.div>
+
+        {/* Profit Structure */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+        >
+          <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">
+                Profit Structure
+              </CardTitle>
+              <CardDescription className="text-center">
+                Monthly profit breakdown for 6-month project cycle
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left p-3">Month</th>
+                      <th className="text-left p-3">Capital</th>
+                      <th className="text-left p-3">Profit (15 Days)</th>
+                      <th className="text-left p-3">Profit (30 Days)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {profitStructure.map((row, index) => (
+                      <tr key={index} className="border-b">
+                        <td className="p-3 font-medium">{row.month}</td>
+                        <td className="p-3">{row.capital}</td>
+                        <td className="p-3 text-green-600">{row.profit15}</td>
+                        <td className="p-3 text-green-600 font-medium">
+                          {row.profit30}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              <div className="mt-4 p-4 bg-green-50 rounded-lg">
+                <p className="text-sm text-green-800">
+                  <strong>Note:</strong> The initial capital is all that is
+                  needed for the whole 6 months, while you keep making the above
+                  stated profit for every 30 days for the 6 months. This
+                  contract is considered complete after 6 months.
+                </p>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Transaction Modalities */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+        >
+          <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl">
+                Modalities of Transaction
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      The initial capital is valid for a period of six months (6
+                      months)
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      Every 30 days you are to withdraw your profit
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      Withdrawals are placed twice within the 30 days, basically
+                      middle and ending of the month
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <CheckCircle className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      There are other minor bonuses, like the referral bonus,
+                      for introducing a new participant
+                    </p>
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <Shield className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      Withdrawals are only released into the account submitted
+                      during registration (no third party withdrawals)
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Shield className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      All first withdrawals will be approved by the admin before
+                      the funds are released
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Shield className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      Multiple accounts by individual are prohibited and can
+                      cause you your registration fund if detected by the admins
+                    </p>
+                  </div>
+                  <div className="flex items-start space-x-3">
+                    <Shield className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                    <p className="text-gray-700">
+                      Your initial capital cannot be topped up by you without
+                      notifying the admin
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Contact Form */}
+        <motion.div
+          className="mb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+        >
+          <Card className="bg-white shadow-lg">
+            <CardHeader>
+              <CardTitle className="text-2xl text-center">
+                Get Started Today
+              </CardTitle>
+              <CardDescription className="text-center">
+                Fill out the form below and we will contact you with more
+                information
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email Address</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="whatsapp">WhatsApp Phone Line</Label>
+                  <Input
+                    id="whatsapp"
+                    name="whatsapp"
+                    value={formData.whatsapp}
+                    onChange={handleInputChange}
+                    placeholder="+1234567890"
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Additional Message (Optional)</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Tell us more about your interest in our projects..."
+                    rows={4}
+                  />
+                </div>
+                <Button
+                  type="submit"
+                  className="w-full bg-green-600 hover:bg-green-700"
+                >
+                  Submit Project Inquiry
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Additional Info */}
+        <motion.div
+          className="text-center"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 1.0 }}
+        >
+          <Card className="bg-green-600 text-white">
+            <CardContent className="p-8">
+              <Leaf className="h-12 w-12 mx-auto mb-4 text-green-100" />
+              <h3 className="text-2xl font-bold mb-4">East End Agro Success</h3>
+              <p className="text-green-100 mb-6">
+                East End Agro has successfully led a number of participants
+                through this journey. For more information regarding this
+                project, please contact the admin for all necessary and updated
+                information.
+              </p>
+              <p className="text-green-100">
+                You can refund your account to commence another project with us
+                if you find our services satisfactory. This will enable you to
+                benefit from our welcome back bonus of 10% of your capital.
+              </p>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </div>
   );

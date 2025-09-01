@@ -1,442 +1,478 @@
-"use client"
-import React, { useState } from 'react';
-import { Button } from './ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Progress } from './ui/progress';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
-import { Alert, AlertDescription } from './ui/alert';
-import { 
-  DollarSign, 
-  TrendingUp, 
-  Calendar, 
-  Users, 
-  // Download, 
-  // Eye, 
-  // Settings,
-  Bell,
-  Wallet,
-  Award
-} from 'lucide-react';
+"use client";
 
-interface User {
-  id: string;
-  name: string;
-  email: string;
-  whatsapp: string;
-  isEMEMember: boolean;
-  investmentAmount: number;
-  nextWithdrawal: string;
-  referralBonus: number;
-}
-
-type Page = 'home' | 'about' | 'services' | 'faq' | 'projects' | 'auth' | 'dashboard' | 'events' | 'eme-club' | 'contact';
+import React, { useState } from "react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Badge } from "./ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { Progress } from "./ui/progress";
+import {
+  DollarSign,
+  TrendingUp,
+  Calendar,
+  Users,
+  Leaf,
+  ArrowUpRight,
+  ArrowDownRight,
+  Gift,
+  Clock,
+  CheckCircle,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { User } from "../types";
 
 interface UserDashboardProps {
-  user: User;
-  onNavigate: (page: Page) => void;
+  user?: User;
 }
 
-export function UserDashboard({ user, onNavigate }: UserDashboardProps) {
-  const [withdrawalAmount, setWithdrawalAmount] = useState('');
-  
-  // Mock data for dashboard
-  const mockData = {
-    totalProfit: 125,
-    monthlyReturn: 8.5,
-    projectProgress: 65,
-    referralCount: 3,
-    pendingWithdrawal: 0,
-    investmentHistory: [
-      { date: '2024-07-15', amount: 250, type: 'Initial Investment', status: 'Active' },
-      { date: '2024-08-15', amount: 250, type: 'Additional Investment', status: 'Active' }
-    ],
-    profitHistory: [
-      { date: '2024-08-01', amount: 42.5, project: 'Maize Project A' },
-      { date: '2024-09-01', amount: 45.0, project: 'Coconut Farm B' },
-      { date: '2024-10-01', amount: 37.5, project: 'Mixed Crops C' }
-    ]
-  };
+const defaultUser: User = {
+  id: "1",
+  name: "Demo User",
+  email: "demo@example.com",
+  participationAmount: 25000,
+  nextWithdrawal: "2024-03-15",
+  referralBonus: 500,
+  isEMEMember: true,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
+};
 
-  const handleWithdrawalRequest = () => {
-    if (!withdrawalAmount || parseFloat(withdrawalAmount) <= 0) {
-      alert('Please enter a valid withdrawal amount');
-      return;
-    }
-    alert('Withdrawal request submitted for admin approval. You will be notified within 24 hours.');
-    setWithdrawalAmount('');
-  };
+export function UserDashboard({ user = defaultUser }: UserDashboardProps) {
+  const participations = [
+    {
+      id: 1,
+      project: "Maize Trading Project",
+      amount: 500,
+      startDate: "2024-03-15",
+      duration: "6 months",
+      expectedProfit: "Monthly profits",
+      status: "active",
+      progress: 65,
+    },
+    {
+      id: 2,
+      project: "Coconut Sales Project",
+      amount: 750,
+      startDate: "2024-04-01",
+      duration: "6 months",
+      expectedProfit: "Monthly profits",
+      status: "active",
+      progress: 45,
+    },
+  ];
+
+  const transactions = [
+    {
+      id: 1,
+      type: "participation",
+      amount: 500,
+      date: "2024-03-15",
+      description: "Maize Trading Project Capital",
+    },
+    {
+      id: 2,
+      type: "withdrawal",
+      amount: 45,
+      date: "2024-04-15",
+      description: "Monthly Profit - March",
+    },
+    {
+      id: 3,
+      type: "participation",
+      amount: 750,
+      date: "2024-04-01",
+      description: "Coconut Sales Project Capital",
+    },
+    {
+      id: 4,
+      type: "bonus",
+      amount: 25,
+      date: "2024-04-10",
+      description: "Referral Bonus",
+    },
+    {
+      id: 5,
+      type: "withdrawal",
+      amount: 87,
+      date: "2024-05-15",
+      description: "Monthly Profit - April",
+    },
+  ];
+
+  const referrals = [
+    {
+      id: 1,
+      name: "Sarah Johnson",
+      joinDate: "2024-04-15",
+      status: "active",
+      bonus: 50,
+    },
+    {
+      id: 2,
+      name: "Mike Chen",
+      joinDate: "2024-04-20",
+      status: "active",
+      bonus: 50,
+    },
+    {
+      id: 3,
+      name: "Lisa Rodriguez",
+      joinDate: "2024-05-01",
+      status: "pending",
+      bonus: 50,
+    },
+  ];
 
   return (
     <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="container mx-auto px-4">
         {/* Welcome Header */}
-        <div className="mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8"
+        >
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <h1 className="text-4xl text-gray-900">Welcome, {user.name}</h1>
-              <p className="text-xl text-gray-600 mt-2">Track your agricultural investments and earnings</p>
+              <h1 className="text-3xl text-gray-900 mb-2">
+                Welcome back, {user.name}!
+              </h1>
+              <p className="text-gray-600">
+                Here&apos;s your agricultural trading project overview
+              </p>
             </div>
-            <div className="mt-4 sm:mt-0 flex items-center space-x-3">
-              {user.isEMEMember && (
-                <span className="bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm font-medium">
-                  EME Member
-                </span>
-              )}
-              <Button variant="outline" onClick={() => onNavigate('contact')}>
-                <Bell className="h-4 w-4 mr-2" />
-                Support
-              </Button>
-            </div>
+            {user.isEMEMember && (
+              <Badge className="bg-green-600 hover:bg-green-700 w-fit">
+                <Users className="h-4 w-4 mr-1" />
+                EME Club Member
+              </Badge>
+            )}
           </div>
-        </div>
+        </motion.div>
 
-        {/* Key Metrics */}
+        {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm">Total Investment</CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl">${user.investmentAmount}</div>
-              <p className="text-xs text-muted-foreground">Active in 2 projects</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm">Total Profit</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl text-green-600">${mockData.totalProfit}</div>
-              <p className="text-xs text-muted-foreground">+{mockData.monthlyReturn}% this month</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm">Next Withdrawal</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl">{user.nextWithdrawal}</div>
-              <p className="text-xs text-muted-foreground">Admin approval required</p>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm">Referral Bonus</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl text-purple-600">${user.referralBonus}</div>
-              <p className="text-xs text-muted-foreground">{mockData.referralCount} successful referrals</p>
-            </CardContent>
-          </Card>
+          {[
+            {
+              title: "Total Participation",
+              value: `$${user.participationAmount.toLocaleString()}`,
+              icon: DollarSign,
+              color: "text-green-600",
+              bg: "bg-green-100",
+            },
+            {
+              title: "Monthly Profits",
+              value: "$132",
+              icon: TrendingUp,
+              color: "text-blue-600",
+              bg: "bg-blue-100",
+            },
+            {
+              title: "Next Withdrawal",
+              value: new Date(user.nextWithdrawal).toLocaleDateString(),
+              icon: Calendar,
+              color: "text-purple-600",
+              bg: "bg-purple-100",
+            },
+            {
+              title: "Referral Bonus",
+              value: `$${user.referralBonus}`,
+              icon: Gift,
+              color: "text-orange-600",
+              bg: "bg-orange-100",
+            },
+          ].map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+              >
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <p className="text-sm text-gray-600 mb-1">
+                          {stat.title}
+                        </p>
+                        <p className="text-2xl font-semibold">{stat.value}</p>
+                      </div>
+                      <div className={`p-3 rounded-full ${stat.bg}`}>
+                        <Icon className={`h-6 w-6 ${stat.color}`} />
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </div>
 
-        {/* Dashboard Tabs */}
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="investments">Investments</TabsTrigger>
-            <TabsTrigger value="withdrawals">Withdrawals</TabsTrigger>
-            <TabsTrigger value="referrals">Referrals</TabsTrigger>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
-          </TabsList>
-
-          {/* Overview Tab */}
-          <TabsContent value="overview" className="space-y-6">
-            <div className="grid lg:grid-cols-2 gap-6">
-              {/* Project Progress */}
+        {/* Main Dashboard Content */}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Left Column */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Active Participations */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
               <Card>
                 <CardHeader>
-                  <CardTitle>Investment Progress</CardTitle>
-                  <CardDescription>Your current agricultural project status</CardDescription>
+                  <CardTitle className="flex items-center">
+                    <Leaf className="h-5 w-5 mr-2 text-green-600" />
+                    Active Project Participations
+                  </CardTitle>
+                  <CardDescription>
+                    Track your ongoing agricultural trading projects
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    <div>
-                      <div className="flex justify-between mb-2">
-                        <span className="text-sm">Project Completion</span>
-                        <span className="text-sm">{mockData.projectProgress}%</span>
+                    {participations.map((participation) => (
+                      <div
+                        key={participation.id}
+                        className="border rounded-lg p-4"
+                      >
+                        <div className="flex justify-between items-start mb-3">
+                          <div>
+                            <h4 className="font-semibold">
+                              {participation.project}
+                            </h4>
+                            <p className="text-sm text-gray-600">
+                              ${participation.amount} • {participation.duration}{" "}
+                              • {participation.expectedProfit}
+                            </p>
+                          </div>
+                          <Badge
+                            variant={
+                              participation.status === "active"
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
+                            {participation.status}
+                          </Badge>
+                        </div>
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span>Progress</span>
+                            <span>{participation.progress}%</span>
+                          </div>
+                          <Progress
+                            value={participation.progress}
+                            className="h-2"
+                          />
+                        </div>
                       </div>
-                      <Progress value={mockData.projectProgress} className="h-2" />
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      Your investments are currently allocated across maize and coconut farming projects. 
-                      Expected harvest completion in 2 months.
-                    </div>
+                    ))}
+                  </div>
+                  <div className="mt-6">
+                    <Button className="w-full bg-green-600 hover:bg-green-700">
+                      Explore New Projects
+                    </Button>
                   </div>
                 </CardContent>
               </Card>
+            </motion.div>
 
-              {/* Recent Activity */}
+            {/* Recent Transactions */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.4 }}
+            >
               <Card>
                 <CardHeader>
-                  <CardTitle>Recent Activity</CardTitle>
-                  <CardDescription>Latest transactions and updates</CardDescription>
+                  <CardTitle>Recent Transactions</CardTitle>
+                  <CardDescription>
+                    Your latest trading project activity
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-3">
-                    {mockData.profitHistory.slice(0, 3).map((profit, index) => (
-                      <div key={index} className="flex justify-between items-center">
-                        <div>
-                          <p className="text-sm">{profit.project}</p>
-                          <p className="text-xs text-gray-500">{profit.date}</p>
+                  <div className="space-y-4">
+                    {transactions.slice(0, 5).map((transaction) => (
+                      <div
+                        key={transaction.id}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center space-x-3">
+                          <div
+                            className={`p-2 rounded-full ${
+                              transaction.type === "participation"
+                                ? "bg-blue-100"
+                                : transaction.type === "withdrawal"
+                                  ? "bg-green-100"
+                                  : "bg-orange-100"
+                            }`}
+                          >
+                            {transaction.type === "participation" ? (
+                              <ArrowDownRight className="h-4 w-4 text-blue-600" />
+                            ) : transaction.type === "withdrawal" ? (
+                              <ArrowUpRight className="h-4 w-4 text-green-600" />
+                            ) : (
+                              <Gift className="h-4 w-4 text-orange-600" />
+                            )}
+                          </div>
+                          <div>
+                            <p className="font-medium">
+                              {transaction.description}
+                            </p>
+                            <p className="text-sm text-gray-600">
+                              {transaction.date}
+                            </p>
+                          </div>
                         </div>
-                        <span className="text-green-600">+${profit.amount}</span>
+                        <div
+                          className={`font-semibold ${
+                            transaction.type === "participation"
+                              ? "text-blue-600"
+                              : transaction.type === "withdrawal"
+                                ? "text-green-600"
+                                : "text-orange-600"
+                          }`}
+                        >
+                          {transaction.type === "participation" ? "-" : "+"}$
+                          {transaction.amount}
+                        </div>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
-            </div>
+            </motion.div>
+          </div>
 
-            {/* Important Notices */}
-            <Alert className="border-blue-200 bg-blue-50">
-              <Bell className="h-4 w-4 text-blue-600" />
-              <AlertDescription className="text-blue-800">
-                <strong>Upcoming Withdrawal:</strong> Your next profit withdrawal of $45 will be available on {user.nextWithdrawal}. 
-                Admin approval is required for all withdrawals.
-              </AlertDescription>
-            </Alert>
-          </TabsContent>
-
-          {/* Investments Tab */}
-          <TabsContent value="investments" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Investment History</CardTitle>
-                <CardDescription>All your agricultural investments</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {mockData.investmentHistory.map((investment, index) => (
-                    <div key={index} className="flex justify-between items-center p-4 border rounded-lg">
-                      <div>
-                        <p className="font-medium">{investment.type}</p>
-                        <p className="text-sm text-gray-600">{investment.date}</p>
-                      </div>
-                      <div className="text-right">
-                        <p className="font-medium">${investment.amount}</p>
-                        <span className={`text-xs px-2 py-1 rounded-full ${
-                          investment.status === 'Active' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'
-                        }`}>
-                          {investment.status}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card>
-              <CardHeader>
-                <CardTitle>Profit History</CardTitle>
-                <CardDescription>Monthly profit distributions</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  {mockData.profitHistory.map((profit, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 border rounded">
-                      <div>
-                        <p className="font-medium">{profit.project}</p>
-                        <p className="text-sm text-gray-600">{profit.date}</p>
-                      </div>
-                      <span className="text-green-600 font-medium">+${profit.amount}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Withdrawals Tab */}
-          <TabsContent value="withdrawals" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Request Withdrawal</CardTitle>
-                <CardDescription>Request a withdrawal of your available profits</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <Alert className="border-yellow-200 bg-yellow-50">
-                    <Wallet className="h-4 w-4 text-yellow-600" />
-                    <AlertDescription className="text-yellow-800">
-                      Available for withdrawal: $42.50 (Latest profit payment)
-                    </AlertDescription>
-                  </Alert>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Withdrawal Amount ($)</label>
-                      <input
-                        type="number"
-                        value={withdrawalAmount}
-                        onChange={(e) => setWithdrawalAmount(e.target.value)}
-                        placeholder="Enter amount"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                        max="42.50"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-2">Payment Method</label>
-                      <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500">
-                        <option>Bank Transfer</option>
-                        <option>Mobile Money</option>
-                      </select>
-                    </div>
-                  </div>
-                  
-                  <Button onClick={handleWithdrawalRequest} className="bg-green-600 hover:bg-green-700">
+          {/* Right Column */}
+          <div className="space-y-6">
+            {/* Quick Actions */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>Quick Actions</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button className="w-full justify-start" variant="outline">
+                    <Leaf className="h-4 w-4 mr-2" />
+                    New Project Participation
+                  </Button>
+                  <Button className="w-full justify-start" variant="outline">
+                    <ArrowUpRight className="h-4 w-4 mr-2" />
                     Request Withdrawal
                   </Button>
-                  
-                  <div className="text-sm text-gray-600">
-                    <p>• First withdrawal requires admin approval</p>
-                    <p>• No third-party withdrawals allowed</p>
-                    <p>• Processing time: 1-3 business days</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
+                  <Button className="w-full justify-start" variant="outline">
+                    <Users className="h-4 w-4 mr-2" />
+                    Refer Friends
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
 
-          {/* Referrals Tab */}
-          <TabsContent value="referrals" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Referral Program</CardTitle>
-                <CardDescription>Earn bonuses by referring new investors</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="bg-green-50 p-4 rounded-lg">
-                    <h3 className="font-medium text-green-800 mb-2">Your Referral Link</h3>
-                    <div className="flex items-center space-x-2">
-                      <input
-                        type="text"
-                        value="https://eastendagro.com/ref/john-farmer"
-                        readOnly
-                        className="flex-1 px-3 py-2 bg-white border border-green-300 rounded-md text-sm"
-                      />
-                      <Button variant="outline" size="sm">
-                        Copy
-                      </Button>
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div className="text-center p-4 border rounded-lg">
-                      <div className="text-3xl text-green-600 mb-2">{mockData.referralCount}</div>
-                      <div className="text-sm text-gray-600">Successful Referrals</div>
-                    </div>
-                    <div className="text-center p-4 border rounded-lg">
-                      <div className="text-3xl text-purple-600 mb-2">${user.referralBonus}</div>
-                      <div className="text-sm text-gray-600">Total Bonus Earned</div>
-                    </div>
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h4 className="font-medium">Referral Benefits:</h4>
-                    <ul className="text-sm text-gray-600 space-y-1 ml-4">
-                      <li>• Earn 5% of referred investor&apos;s first investment</li>
-                      <li>• Bonus paid after successful verification</li>
-                      <li>• No limit on number of referrals</li>
-                      <li>• Track earnings in real-time</li>
-                    </ul>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Profile Tab */}
-          <TabsContent value="profile" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Account Information</CardTitle>
-                <CardDescription>Manage your account details</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Full Name</label>
-                      <input
-                        type="text"
-                        value={user.name}
-                        readOnly
-                        className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Email Address</label>
-                      <input
-                        type="email"
-                        value={user.email}
-                        readOnly
-                        className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium mb-1">WhatsApp Number</label>
-                      <input
-                        type="tel"
-                        value={user.whatsapp}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-green-500 focus:border-green-500"
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm font-medium mb-1">Member Since</label>
-                      <input
-                        type="text"
-                        value="July 2024"
-                        readOnly
-                        className="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="pt-4 border-t">
-                    <Button className="bg-green-600 hover:bg-green-700 mr-4">
-                      Update Profile
-                    </Button>
-                    <Button variant="outline">
-                      Change Password
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {user.isEMEMember && (
-              <Card className="border-yellow-200 bg-yellow-50">
+            {/* Referrals */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.6 }}
+            >
+              <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center">
-                    <Award className="h-5 w-5 text-yellow-600 mr-2" />
-                    EME Club Membership
+                    <Users className="h-5 w-5 mr-2 text-green-600" />
+                    Your Referrals
                   </CardTitle>
-                  <CardDescription>You are a valued EME Club member</CardDescription>
+                  <CardDescription>
+                    Earn referral bonuses for each successful referral
+                  </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <div className="space-y-2">
-                    <p className="text-sm">Membership Status: <span className="font-medium text-yellow-800">Active</span></p>
-                    <p className="text-sm">Member ID: #EME-{user.id}</p>
-                    <p className="text-sm">Benefits: Priority support, exclusive opportunities, enhanced referral bonuses</p>
+                  <div className="space-y-3">
+                    {referrals.map((referral) => (
+                      <div
+                        key={referral.id}
+                        className="flex items-center justify-between"
+                      >
+                        <div>
+                          <p className="font-medium">{referral.name}</p>
+                          <p className="text-sm text-gray-600">
+                            {referral.joinDate}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <Badge
+                            variant={
+                              referral.status === "active"
+                                ? "default"
+                                : "secondary"
+                            }
+                          >
+                            {referral.status}
+                          </Badge>
+                          <p className="text-sm text-green-600 mt-1">
+                            +${referral.bonus}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mt-4 pt-4 border-t">
+                    <div className="flex justify-between items-center">
+                      <span className="font-medium">Total Earned:</span>
+                      <span className="text-green-600 font-semibold">
+                        ${user.referralBonus}
+                      </span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
-            )}
-          </TabsContent>
-        </Tabs>
+            </motion.div>
+
+            {/* Project Performance */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.7 }}
+            >
+              <Card>
+                <CardHeader>
+                  <CardTitle>Project Performance</CardTitle>
+                  <CardDescription>Last 6 months</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div className="flex justify-between">
+                      <span>Total Profits</span>
+                      <span className="text-green-600 font-semibold">
+                        +$264
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Success Rate</span>
+                      <span className="text-green-600 font-semibold">100%</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Active Projects</span>
+                      <span className="font-semibold">2</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
       </div>
     </div>
   );

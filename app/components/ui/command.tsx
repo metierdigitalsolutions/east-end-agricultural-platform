@@ -3,7 +3,6 @@
 import * as React from "react";
 import { Command as CommandPrimitive } from "cmdk";
 import { SearchIcon } from "lucide-react";
-
 import { cn } from "./utils";
 import {
   Dialog,
@@ -12,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./dialog";
-
 function Command({
   className,
   ...props
