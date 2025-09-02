@@ -344,7 +344,7 @@ export function HomePage({}: HomePageProps) {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 2,
           slidesToScroll: 1,
         },
       },
@@ -375,20 +375,20 @@ export function HomePage({}: HomePageProps) {
           slidesToScroll: 1,
         },
       },
-      {
-        breakpoint: 480,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-        },
-      },
+      // {
+      //   breakpoint: 480,
+      //   settings: {
+      //     slidesToShow: 1,
+      //     slidesToScroll: 1,
+      //   },
+      // },
     ],
   };
 
   return (
     <div className="min-h-screen">
       {/* Hero Section with Swiper */}
-      <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden">
+      <section className="relative min-h-[500px] md:min-h-[600px] overflow-hidden">
         <Swiper
           modules={[Navigation, Pagination, Autoplay, EffectFade]}
           spaceBetween={0}
@@ -411,11 +411,11 @@ export function HomePage({}: HomePageProps) {
           effect="fade"
           fadeEffect={{ crossFade: true }}
           loop={true}
-          className="h-full"
+          className="min-h-[500px] md:min-h-[600px]"
         >
           {heroSlides.map((slide, index) => (
-            <SwiperSlide key={slide.id}>
-              <div className="relative h-full flex items-center">
+            <SwiperSlide key={slide.id} className="min-h-[500px] md:min-h-[600px]">
+              <div className="relative min-h-[500px] md:min-h-[600px] flex items-center">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <ImageWithFallback
@@ -618,7 +618,7 @@ export function HomePage({}: HomePageProps) {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full flex flex-col">
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full md:min-h-[325px] flex flex-col">
                       <div className="relative h-48 lg:h-56 overflow-hidden">
                         <ImageWithFallback
                           src={product.image}
@@ -651,8 +651,8 @@ export function HomePage({}: HomePageProps) {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious className="hidden lg:flex" />
-            <CarouselNext className="hidden lg:flex" />
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
           </Carousel>
         </div>
       </section>
@@ -703,7 +703,7 @@ export function HomePage({}: HomePageProps) {
                       transition={{ duration: 0.6, delay: index * 0.1 }}
                       viewport={{ once: true }}
                     >
-                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 flex flex-col">
+                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 flex flex-col md:min-h-[325px]">
                         <div className="relative h-32 overflow-hidden">
                           <ImageWithFallback
                             src={step.image}
@@ -899,7 +899,7 @@ export function HomePage({}: HomePageProps) {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <Card className="h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 bg-white/90 backdrop-blur-sm">
+                    <Card className="h-full min-h-[275px] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 bg-white/90 backdrop-blur-sm">
                       <CardHeader>
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-1">
