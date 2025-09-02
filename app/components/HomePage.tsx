@@ -388,7 +388,7 @@ export function HomePage({}: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Swiper */}
-      <section className="relative py-0 overflow-hidden min-h-screen">
+      <section className="relative min-h-[500px] md:min-h-[600px] lg:min-h-[700px] overflow-hidden">
         <Swiper
           modules={[Navigation, Pagination, Autoplay, EffectFade]}
           spaceBetween={0}
@@ -411,11 +411,11 @@ export function HomePage({}: HomePageProps) {
           effect="fade"
           fadeEffect={{ crossFade: true }}
           loop={true}
-          className="h-screen"
+          className="h-full"
         >
           {heroSlides.map((slide, index) => (
             <SwiperSlide key={slide.id}>
-              <div className="relative h-screen flex items-center">
+              <div className="relative h-full flex items-center">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <ImageWithFallback
