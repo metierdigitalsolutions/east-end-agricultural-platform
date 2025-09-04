@@ -66,7 +66,7 @@ export function HomePage({}: HomePageProps) {
         action: () => router.push("about"),
       },
       backgroundImage:
-        "https://images.unsplash.com/photo-1733248841677-177b80e56f9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdW5yaXNlJTIwYWdyaWN1bHR1cmUlMjBmaWVsZHxlbnwxfHx8fDE3NTU4Mzk2ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/Maize-Farming-Farmsquare.jpg",
       stat: "2,500+ Active Participants",
       features: ["$250 Minimum Start", "Monthly Profits", "6-Month Cycles"],
     },
@@ -85,7 +85,7 @@ export function HomePage({}: HomePageProps) {
         action: () => router.push("about"),
       },
       backgroundImage:
-        "https://images.unsplash.com/photo-1641128259256-1c1ea3d84d34?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyZSUyMGZhcm1pbmclMjBmaWVsZHN8ZW58MXx8fHwxNzU1ODMzOTY5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/COCONUT-FARM-HD-Google-Search-09-02-2025_05_23_AM.png",
       stat: "$1.2M+ Total Capital",
       features: [
         "Expert Management",
@@ -108,7 +108,7 @@ export function HomePage({}: HomePageProps) {
         action: () => router.push("eme-club"),
       },
       backgroundImage:
-        "https://images.unsplash.com/photo-1585830302178-c2ee88ae096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXJtJTIwd29ya2VycyUyMHRlYW18ZW58MXx8fHwxNzU1ODM5NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/african-female-farmer-with-thumb-up-isolated-on-transparent-background-png.webp",
       stat: "45+ Completed Projects",
       features: ["Referral Bonuses", "Priority Access", "Exclusive Events"],
     },
@@ -121,7 +121,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Start with just $250 and participate in our agricultural trading projects",
       image:
-        "https://images.unsplash.com/photo-1594179131702-112ff2a880e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjB0cmFkZXIlMjBmYXJtZXJ8ZW58MXx8fHwxNzU1ODMzOTg1fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngtree-african-american-farmer-with-new-plant-green-growing-agriculture-png-image_13714736.png",
     },
     {
       icon: Clock,
@@ -129,7 +129,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Receive monthly profit distributions from farm product trading",
       image:
-        "https://images.unsplash.com/photo-1666987571351-737b29874697?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjBzdWNjZXNzJTIwZ3Jvd3RofGVufDF8fHx8MTc1NTgzOTY3OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngwing.com.png",
     },
     {
       icon: Shield,
@@ -137,7 +137,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Secure participation with our carefully planned 6-month trading cycles",
       image:
-        "https://images.unsplash.com/photo-1748769594002-3c12522803e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjB3YXJlaG91c2UlMjBzdG9yYWdlfGVufDF8fHx8MTc1NTgzNzc2NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/PikPng.com_tractor-png_1087367.png",
     },
     {
       icon: Users,
@@ -145,7 +145,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Professional agricultural experts handling farm product purchases and sales",
       image:
-        "https://images.unsplash.com/photo-1585830302178-c2ee88ae096e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmYXJtJTIwd29ya2VycyUyMHRlYW18ZW58MXx8fHwxNzU1ODM5NjU5fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngwing.com (8).png",
     },
     {
       icon: Leaf,
@@ -153,7 +153,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Eco-friendly farming methods supporting environmental sustainability",
       image:
-        "https://images.unsplash.com/photo-1683248892987-7b6181dfd718?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBmYXJtaW5nJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NTU4Mzk2NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/image-from-rawpixel-id-15480303-png.png",
     },
     {
       icon: Award,
@@ -161,7 +161,7 @@ export function HomePage({}: HomePageProps) {
       description:
         "Licensed and regulated agricultural trading with full compliance",
       image:
-        "https://images.unsplash.com/photo-1745847768380-2caeadbb3b71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGhhbmRzaGFrZSUyMHBhcnRuZXJzaGlwfGVufDF8fHx8MTc1NTc2NTcyNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngwing.com (15).png",
     },
   ];
 
@@ -244,7 +244,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Maize Trading",
       image:
-        "https://images.unsplash.com/photo-1651667343378-4c5131206c5a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3JuJTIwbWFpemUlMjBoYXJ2ZXN0fGVufDF8fHx8MTc1NTgzMzk3Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/Maize.jpg",
       description: "Premium corn and maize procurement and distribution",
       volume: "2,500 tons/month",
       profit: "8-12% monthly",
@@ -252,7 +252,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Coconut Products",
       image:
-        "https://images.unsplash.com/photo-1695989581238-5ec2ac0c6c9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2NvbnV0JTIwcGFsbSUyMHRyZWVzfGVufDF8fHx8MTc1NTgzMzk3Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/NicePng_palm-tree-png_12136.png",
       description: "Coconut oil, copra, and fresh coconut trading",
       volume: "1,800 tons/month",
       profit: "6-10% monthly",
@@ -260,7 +260,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Cashew Nuts",
       image:
-        "https://images.unsplash.com/photo-1594900689460-fdad3599342c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjYXNoZXclMjBudXRzJTIwaGFydmVzdHxlbnwxfHx8fDE3NTU4MzM5Nzh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngegg (1).png",
       description: "Raw and processed cashew nut sourcing and sales",
       volume: "1,200 tons/month",
       profit: "10-15% monthly",
@@ -268,7 +268,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Sugar Products",
       image:
-        "https://images.unsplash.com/photo-1704138031287-9152fb730dd0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdWdhciUyMHBsYW50YXRpb24lMjBmYXJtfGVufDF8fHx8MTc1NTgzMzk4Mnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngwing.com (16).png",
       description: "Sugar cane processing and refined sugar trading",
       volume: "3,200 tons/month",
       profit: "7-11% monthly",
@@ -276,7 +276,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Fertilizers",
       image:
-        "https://images.unsplash.com/photo-1696371269777-88d1ce71642c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxmZXJ0aWxpemVyJTIwYWdyaWN1bHR1cmV8ZW58MXx8fHwxNzU1ODM5NjYyfDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/360_F_53666818_DRIQ7xG8ECyXfGWOn9tf4daneTRyelXi.jpg",
       description: "High-quality fertilizers and soil enhancement products",
       volume: "5,000 tons/month",
       profit: "5-9% monthly",
@@ -291,7 +291,7 @@ export function HomePage({}: HomePageProps) {
         "We identify and partner with reliable farmers and agricultural cooperatives worldwide",
       icon: Handshake,
       image:
-        "https://images.unsplash.com/photo-1745847768380-2caeadbb3b71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxidXNpbmVzcyUyMGhhbmRzaGFrZSUyMHBhcnRuZXJzaGlwfGVufDF8fHx8MTc1NTc2NTcyNXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/pngwing.com (15).png",
     },
     {
       step: 2,
@@ -300,7 +300,7 @@ export function HomePage({}: HomePageProps) {
         "We source premium farm products directly from verified suppliers at optimal prices",
       icon: Target,
       image:
-        "https://images.unsplash.com/photo-1749938505996-93a421dd09c0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjB0cmFkaW5nJTIwbWFya2V0fGVufDF8fHx8MTc1NTgzOTY2Nnww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/360_F_1337690282_BN9d34RkuGdOHV5P3uqiThD2C0RH7Gqg.jpg",
     },
     {
       step: 3,
@@ -309,7 +309,7 @@ export function HomePage({}: HomePageProps) {
         "Our experts execute optimal trading strategies to maximize returns for all participants",
       icon: BarChart3,
       image:
-        "https://images.unsplash.com/photo-1748769594002-3c12522803e6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjB3YXJlaG91c2UlMjBzdG9yYWdlfGVufDF8fHx8MTc1NTgzNzc2NHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/PikPng.com_tractor-png_1087367.png",
     },
     {
       step: 4,
@@ -318,7 +318,7 @@ export function HomePage({}: HomePageProps) {
         "Monthly profits are transparently calculated and distributed to all project participants",
       icon: DollarSign,
       image:
-        "https://images.unsplash.com/photo-1666987571351-737b29874697?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhZ3JpY3VsdHVyYWwlMjBzdWNjZXNzJTIwZ3Jvd3RofGVufDF8fHx8MTc1NTgzOTY3OHww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+        "/images/homepage/1663151489748.png",
     },
   ];
 
@@ -344,7 +344,14 @@ export function HomePage({}: HomePageProps) {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 2,
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
           slidesToScroll: 1,
         },
       },
@@ -626,23 +633,23 @@ export function HomePage({}: HomePageProps) {
                           className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
-                        <Badge className="absolute top-4 right-4 bg-green-600 text-white">
+                        <Badge className="absolute top-4 right-4 bg-green-600 text-white text-xs">
                           {product.profit}
                         </Badge>
                       </div>
-                      <div className="flex flex-col flex-1">
-                        <CardHeader className="pb-2 flex-1">
-                          <CardTitle className="text-lg lg:text-xl">
+                      <div className="flex flex-col flex-1 p-4 sm:p-6">
+                        <CardHeader className="pb-2 flex-1 p-0">
+                          <CardTitle className="text-lg lg:text-xl break-words">
                             {product.name}
                           </CardTitle>
-                          <CardDescription className="text-sm lg:text-base">
+                          <CardDescription className="text-sm lg:text-base break-words">
                             {product.description}
                           </CardDescription>
                         </CardHeader>
-                        <CardContent className="mt-auto pt-0">
-                          <div className="flex items-center justify-between text-sm text-gray-500">
-                            <span>Volume: {product.volume}</span>
-                            <TrendingUp className="h-4 w-4 text-green-600" />
+                        <CardContent className="mt-auto pt-0 p-0">
+                          <div className="flex items-center justify-between text-sm text-gray-500 flex-wrap gap-2">
+                            <span className="break-words">Volume: {product.volume}</span>
+                            <TrendingUp className="h-4 w-4 text-green-600 flex-shrink-0" />
                           </div>
                         </CardContent>
                       </div>
@@ -785,16 +792,16 @@ export function HomePage({}: HomePageProps) {
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                         </div>
-                        <CardHeader className="relative">
+                        <CardHeader className="relative px-4 sm:px-6">
                           <div className="mx-auto mb-4 p-3 bg-green-100 rounded-full w-fit -mt-8 relative z-10 shadow-lg">
                             <Icon className="h-8 w-8 text-green-600" />
                           </div>
-                          <CardTitle className="text-lg lg:text-xl">
+                          <CardTitle className="text-lg lg:text-xl break-words">
                             {feature.title}
                           </CardTitle>
                         </CardHeader>
-                        <CardContent>
-                          <CardDescription className="text-sm lg:text-base">
+                        <CardContent className="px-4 sm:px-6">
+                          <CardDescription className="text-sm lg:text-base break-words">
                             {feature.description}
                           </CardDescription>
                         </CardContent>
@@ -814,7 +821,7 @@ export function HomePage({}: HomePageProps) {
       <section className="py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1683248892987-7b6181dfd718?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBmYXJtaW5nJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NTU4Mzk2NzR8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="/images/homepage/image-from-rawpixel-id-15480303-png.png"
             alt="Modern farming technology"
             className="w-full h-full object-cover"
           />
@@ -899,7 +906,7 @@ export function HomePage({}: HomePageProps) {
                     transition={{ duration: 0.6, delay: index * 0.1 }}
                     viewport={{ once: true }}
                   >
-                    <Card className="h-full min-h-[275px] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 bg-white/90 backdrop-blur-sm">
+                    <Card className="h-full min-h-[275px] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 bg-white/90 backdrop-blur-sm overflow-hidden">
                       <CardHeader>
                         <div className="flex items-center justify-between mb-3">
                           <div className="flex items-center space-x-1">
@@ -914,7 +921,7 @@ export function HomePage({}: HomePageProps) {
                             {testimonial.profit} earned
                           </Badge>
                         </div>
-                        <CardDescription className="text-sm lg:text-base italic leading-relaxed">
+                        <CardDescription className="text-sm lg:text-base italic leading-relaxed break-words">
                           &ldquo;{testimonial.content}&rdquo;
                         </CardDescription>
                       </CardHeader>
@@ -925,19 +932,22 @@ export function HomePage({}: HomePageProps) {
                             alt={testimonial.name}
                             className="w-12 h-12 rounded-full object-cover"
                           />
-                          <div className="flex-1">
-                            <CardTitle className="text-base lg:text-lg">
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-base lg:text-lg truncate">
                               {testimonial.name}
                             </CardTitle>
-                            <p className="text-sm text-gray-500">
+                            <p className="text-sm text-gray-500 truncate">
                               {testimonial.role}
                             </p>
-                            <div className="flex items-center text-xs text-gray-400 mt-1">
-                              <MapPin className="h-3 w-3 mr-1" />
-                              {testimonial.location}
-                              <span className="mx-2">•</span>
-                              <Calendar className="h-3 w-3 mr-1" />
-                              {testimonial.participationMonths} months
+                            <div className="flex items-center text-xs text-gray-400 mt-1 flex-wrap">
+                              <div className="flex items-center mr-2">
+                                <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">{testimonial.location}</span>
+                              </div>
+                              <div className="flex items-center">
+                                <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span>{testimonial.participationMonths} months</span>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -955,7 +965,7 @@ export function HomePage({}: HomePageProps) {
       <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <ImageWithFallback
-            src="https://images.unsplash.com/photo-1733248841677-177b80e56f9d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdW5yaXNlJTIwYWdyaWN1bHR1cmUlMjBmaWVsZHxlbnwxfHx8fDE3NTU4Mzk2ODF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+            src="/images/homepage/Maize-Farming-Farmsquare (1).jpg"
             alt="Sunrise agricultural field"
             className="w-full h-full object-cover"
           />

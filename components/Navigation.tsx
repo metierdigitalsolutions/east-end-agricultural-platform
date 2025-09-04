@@ -17,6 +17,7 @@ import {
   Shield,
   X,
 } from "lucide-react";
+import Image from "next/image";
 import { Button } from "./ui/button";
 import {
   DropdownMenu,
@@ -159,7 +160,13 @@ export function Navigation({
             className="flex items-center space-x-2 p-1 rounded-md hover:bg-gray-50 transition-colors"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-              <Leaf className="h-7 w-7 sm:h-8 sm:w-8 brand-primary" />
+              <Image
+                src="/images/logo/east-end-logo-by-ds.png"
+                alt="East End Agro Logo"
+                width={32}
+                height={32}
+                className="h-7 w-7 sm:h-8 sm:w-8 object-contain"
+              />
             </motion.div>
             <span className="text-lg sm:text-xl font-semibold brand-secondary">
               East End Agro
@@ -364,9 +371,9 @@ export function Navigation({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="md:hidden hover:bg-gray-50 p-2 h-auto"
+                  className="md:hidden hover:bg-gray-50 p-3 h-auto"
                 >
-                  <Menu className="h-5 w-5" />
+                  <Menu className="h-7 w-7" />
                 </Button>
               </SheetTrigger>
               <SheetContent side="right" className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
@@ -377,7 +384,13 @@ export function Navigation({
                       onClick={() => handleNavigate("home")}
                       className="flex items-center space-x-2"
                     >
-                      <Leaf className="h-6 w-6 brand-primary" />
+                      <Image
+                        src="/images/logo/east-end-logo-by-ds.png"
+                        alt="East End Agro Logo"
+                        width={24}
+                        height={24}
+                        className="h-6 w-6 object-contain"
+                      />
                       <span className="text-lg font-semibold text-white">
                         East End Agro
                       </span>

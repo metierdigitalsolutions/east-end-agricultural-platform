@@ -35,13 +35,30 @@ export function ContactPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
-      alert(
-        "Message sent successfully! Our team will respond within 24 hours.",
-      );
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(contactForm),
+      });
+
+      if (response.ok) {
+        alert(
+          "Message sent successfully! Our team will respond within 24 hours. You'll also receive a confirmation email shortly."
+        );
+        setContactForm({ name: "", email: "", subject: "", message: "" });
+      } else {
+        const errorData = await response.json();
+        alert(`Failed to send message: ${errorData.error || 'Please try again later.'}`);
+      }
+    } catch (error) {
+      console.error('Error sending message:', error);
+      alert('Failed to send message. Please check your internet connection and try again.');
+    } finally {
       setIsSubmitting(false);
-      setContactForm({ name: "", email: "", subject: "", message: "" });
-    }, 1500);
+    }
   };
 
   const contactMethods = [
