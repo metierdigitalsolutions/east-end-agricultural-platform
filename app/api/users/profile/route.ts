@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ApiResponse, User } from "../../../types";
+import { ApiResponse, User } from "../../../../types";
 // Mock function to verify token and get user
 function getUserFromToken(token: string): User | null {
   // In real app, verify JWT token

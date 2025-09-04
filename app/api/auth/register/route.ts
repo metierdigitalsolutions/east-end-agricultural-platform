@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { ApiResponse, User } from "../../../types";
+import { ApiResponse, User } from '../../../../types';
 export async function POST(request: NextRequest) {
   try {
     const { name, email, whatsapp, password } = await request.json();

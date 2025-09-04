@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { User } from '../../../types';
 
 export async function GET() {
   // This would typically fetch from your Express.js API
