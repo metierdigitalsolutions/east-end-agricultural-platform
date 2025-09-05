@@ -1,0 +1,1014 @@
+"use client";
+
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Badge } from "./ui/badge";
+import { ImageWithFallback } from "./figma/ImageWithFallback";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "./ui/carousel";
+import {
+  TrendingUp,
+  Shield,
+  Users,
+  Clock,
+  DollarSign,
+  Leaf,
+  ArrowRight,
+  CheckCircle,
+  Star,
+  Award,
+  MapPin,
+  Calendar,
+  Handshake,
+  Target,
+  BarChart3,
+} from "lucide-react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, EffectFade } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/effect-fade';
+import Slider from "react-slick";
+
+interface HomePageProps {}
+
+export function HomePage({}: HomePageProps) {
+  const router = useRouter();
+
+  const heroSlides = [
+    {
+      id: 1,
+      badge: "🌱 Agricultural Trading Platform",
+      title: "Grow Your Wealth with Agricultural Trading",
+      subtitle:
+        "Start with just $250 minimum participation. Enjoy monthly profit payouts from our farm product trading operations with 6-month project cycles.",
+      primaryCTA: {
+        text: "Join Our Projects",
+        action: () => router.push("projects"),
+      },
+      secondaryCTA: {
+        text: "Learn More",
+        action: () => router.push("about"),
+      },
+      backgroundImage:
+        "/images/homepage/Maize-Farming-Farmsquare.jpg",
+      stat: "2,500+ Active Participants",
+      features: ["$250 Minimum Start", "Monthly Profits", "6-Month Cycles"],
+    },
+    {
+      id: 2,
+      badge: "💰 Proven Returns",
+      title: "Consistent Monthly Profits from Farm Trading",
+      subtitle:
+        "Our expert team manages strategic procurement and sales of premium farm products including maize, coconuts, cashewnuts, sugar, and fertilizers.",
+      primaryCTA: {
+        text: "View Projects",
+        action: () => router.push("projects"),
+      },
+      secondaryCTA: {
+        text: "Success Stories",
+        action: () => router.push("about"),
+      },
+      backgroundImage:
+        "/images/homepage/COCONUT-FARM-HD-Google-Search-09-02-2025_05_23_AM.png",
+      stat: "$1.2M+ Total Capital",
+      features: [
+        "Expert Management",
+        "Transparent Process",
+        "100% Success Rate",
+      ],
+    },
+    {
+      id: 3,
+      badge: "🏆 EME Club Benefits",
+      title: "Exclusive EME Membership Rewards",
+      subtitle:
+        "Join our EME Club for enhanced benefits, referral bonuses, priority access to new projects, and exclusive member-only events.",
+      primaryCTA: {
+        text: "Join EME Club",
+        action: () => router.push("eme-club"),
+      },
+      secondaryCTA: {
+        text: "Member Benefits",
+        action: () => router.push("eme-club"),
+      },
+      backgroundImage:
+        "/images/homepage/african-female-farmer-with-thumb-up-isolated-on-transparent-background-png.webp",
+      stat: "45+ Completed Projects",
+      features: ["Referral Bonuses", "Priority Access", "Exclusive Events"],
+    },
+  ];
+
+  const features = [
+    {
+      icon: DollarSign,
+      title: "Low Minimum Capital",
+      description:
+        "Start with just $250 and participate in our agricultural trading projects",
+      image:
+        "/images/homepage/pngtree-african-american-farmer-with-new-plant-green-growing-agriculture-png-image_13714736.png",
+    },
+    {
+      icon: Clock,
+      title: "Monthly Profits",
+      description:
+        "Receive monthly profit distributions from farm product trading",
+      image:
+        "/images/homepage/pngwing.com.png",
+    },
+    {
+      icon: Shield,
+      title: "6-Month Project Cycle",
+      description:
+        "Secure participation with our carefully planned 6-month trading cycles",
+      image:
+        "/images/homepage/PikPng.com_tractor-png_1087367.png",
+    },
+    {
+      icon: Users,
+      title: "Expert Trading",
+      description:
+        "Professional agricultural experts handling farm product purchases and sales",
+      image:
+        "/images/homepage/pngwing.com (8).png",
+    },
+    {
+      icon: Leaf,
+      title: "Sustainable Practices",
+      description:
+        "Eco-friendly farming methods supporting environmental sustainability",
+      image:
+        "/images/homepage/image-from-rawpixel-id-15480303-png.png",
+    },
+    {
+      icon: Award,
+      title: "Certified Operations",
+      description:
+        "Licensed and regulated agricultural trading with full compliance",
+      image:
+        "/images/homepage/pngwing.com (15).png",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Sarah Johnson",
+      role: "Project Participant",
+      location: "California, USA",
+      content:
+        "East End Agro has been amazing! I've been getting consistent monthly profits from the agricultural trading projects. The transparency and professionalism is outstanding.",
+      rating: 5,
+      participationMonths: 8,
+      avatar:
+        "https://images.unsplash.com/photo-1494790108755-2616b352771c?w=150&h=150&fit=crop&crop=face",
+      profit: "$1,250",
+    },
+    {
+      name: "Michael Chen",
+      role: "EME Club Member",
+      location: "Texas, USA",
+      content:
+        "The EME Club benefits and referral bonuses have really enhanced my participation experience. The team is very responsive and the results speak for themselves.",
+      rating: 5,
+      participationMonths: 12,
+      avatar:
+        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      profit: "$2,850",
+    },
+    {
+      name: "Lisa Rodriguez",
+      role: "Long-term Participant",
+      location: "Florida, USA",
+      content:
+        "Professional management and transparent processes. Highly recommend for agricultural trading participation. I've earned over $3,000 in profits so far.",
+      rating: 5,
+      participationMonths: 18,
+      avatar:
+        "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      profit: "$3,200",
+    },
+    {
+      name: "David Kumar",
+      role: "Agricultural Enthusiast",
+      location: "New York, USA",
+      content:
+        "Started with the minimum $250 and have seen consistent growth. The monthly reports are detailed and the customer service is excellent.",
+      rating: 5,
+      participationMonths: 6,
+      avatar:
+        "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      profit: "$780",
+    },
+    {
+      name: "Maria Santos",
+      role: "EME Gold Member",
+      location: "Arizona, USA",
+      content:
+        "The agricultural trading approach is sustainable and profitable. I love being part of something that supports farming communities while generating returns.",
+      rating: 5,
+      participationMonths: 15,
+      avatar:
+        "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+      profit: "$2,640",
+    },
+    {
+      name: "James Wilson",
+      role: "Portfolio Diversifier",
+      location: "Oregon, USA",
+      content:
+        "This has been a great addition to my portfolio. The agricultural focus aligns with my values and the returns have been consistent every month.",
+      rating: 5,
+      participationMonths: 10,
+      avatar:
+        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+      profit: "$1,980",
+    },
+  ];
+
+  const farmProducts = [
+    {
+      name: "Maize Trading",
+      image:
+        "/images/homepage/Maize.jpg",
+      description: "Premium corn and maize procurement and distribution",
+      volume: "2,500 tons/month",
+      profit: "8-12% monthly",
+    },
+    {
+      name: "Coconut Products",
+      image:
+        "/images/homepage/NicePng_palm-tree-png_12136.png",
+      description: "Coconut oil, copra, and fresh coconut trading",
+      volume: "1,800 tons/month",
+      profit: "6-10% monthly",
+    },
+    {
+      name: "Cashew Nuts",
+      image:
+        "/images/homepage/pngegg (1).png",
+      description: "Raw and processed cashew nut sourcing and sales",
+      volume: "1,200 tons/month",
+      profit: "10-15% monthly",
+    },
+    {
+      name: "Sugar Products",
+      image:
+        "/images/homepage/pngwing.com (16).png",
+      description: "Sugar cane processing and refined sugar trading",
+      volume: "3,200 tons/month",
+      profit: "7-11% monthly",
+    },
+    {
+      name: "Fertilizers",
+      image:
+        "/images/homepage/360_F_53666818_DRIQ7xG8ECyXfGWOn9tf4daneTRyelXi.jpg",
+      description: "High-quality fertilizers and soil enhancement products",
+      volume: "5,000 tons/month",
+      profit: "5-9% monthly",
+    },
+  ];
+
+  const processSteps = [
+    {
+      step: 1,
+      title: "Partner Selection",
+      description:
+        "We identify and partner with reliable farmers and agricultural cooperatives worldwide",
+      icon: Handshake,
+      image:
+        "/images/homepage/pngwing.com (15).png",
+    },
+    {
+      step: 2,
+      title: "Quality Procurement",
+      description:
+        "We source premium farm products directly from verified suppliers at optimal prices",
+      icon: Target,
+      image:
+        "/images/homepage/360_F_1337690282_BN9d34RkuGdOHV5P3uqiThD2C0RH7Gqg.jpg",
+    },
+    {
+      step: 3,
+      title: "Strategic Trading",
+      description:
+        "Our experts execute optimal trading strategies to maximize returns for all participants",
+      icon: BarChart3,
+      image:
+        "/images/homepage/PikPng.com_tractor-png_1087367.png",
+    },
+    {
+      step: 4,
+      title: "Profit Distribution",
+      description:
+        "Monthly profits are transparently calculated and distributed to all project participants",
+      icon: DollarSign,
+      image:
+        "/images/homepage/1663151489748.png",
+    },
+  ];
+
+
+  // React Slick settings
+  const testimonialSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 4000,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
+  const processSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3500,
+    pauseOnHover: true,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 1,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        },
+      },
+      // {
+      //   breakpoint: 480,
+      //   settings: {
+      //     slidesToShow: 1,
+      //     slidesToScroll: 1,
+      //   },
+      // },
+    ],
+  };
+
+  return (
+    <div className="min-h-screen">
+      {/* Hero Section with Swiper */}
+      <section className="relative min-h-[500px] md:min-h-[600px] overflow-hidden">
+        <Swiper
+          modules={[Navigation, Pagination, Autoplay, EffectFade]}
+          spaceBetween={0}
+          slidesPerView={1}
+          navigation={{
+            nextEl: '.hero-swiper-button-next',
+            prevEl: '.hero-swiper-button-prev',
+          }}
+          pagination={{
+            el: '.hero-swiper-pagination',
+            clickable: true,
+            bulletClass: 'swiper-pagination-bullet hero-bullet',
+            bulletActiveClass: 'swiper-pagination-bullet-active hero-bullet-active',
+          }}
+          autoplay={{
+            delay: 6000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+          }}
+          effect="fade"
+          fadeEffect={{ crossFade: true }}
+          loop={true}
+          className="min-h-[500px] md:min-h-[600px]"
+        >
+          {heroSlides.map((slide, index) => (
+            <SwiperSlide key={slide.id} className="min-h-[500px] md:min-h-[600px]">
+              <div className="relative min-h-[500px] md:min-h-[600px] flex items-center">
+                {/* Background Image */}
+                <div className="absolute inset-0">
+                  <ImageWithFallback
+                    src={slide.backgroundImage}
+                    alt={slide.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+                </div>
+
+                {/* Content */}
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
+                  <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-7xl mx-auto">
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      viewport={{ once: true }}
+                      className="text-white text-center lg:text-left"
+                    >
+                      <Badge className="mb-4 sm:mb-6 bg-green-600 hover:bg-green-700 text-white border-green-500 text-xs sm:text-sm">
+                        {slide.badge}
+                      </Badge>
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl mb-4 sm:mb-6 leading-tight font-bold">
+                        {slide.title}
+                      </h1>
+                      <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 leading-relaxed text-gray-200 max-w-2xl mx-auto lg:mx-0">
+                        {slide.subtitle}
+                      </p>
+
+                      {/* Features List - Enhanced for desktop/tablet */}
+                      <div className="hidden sm:flex flex-wrap gap-3 lg:gap-4 mb-6 sm:mb-8 lg:mb-10 justify-center lg:justify-start">
+                        {slide.features.map((feature, idx) => (
+                          <motion.div
+                            key={idx}
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            whileInView={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.6 + idx * 0.1 }}
+                            viewport={{ once: true }}
+                            className="flex items-center space-x-2 bg-white/15 backdrop-blur-sm rounded-full px-3 sm:px-4 lg:px-5 py-1.5 sm:py-2 lg:py-2.5 border border-white/20 hover:bg-white/25 transition-all duration-300 hover:scale-105"
+                          >
+                            <CheckCircle className="h-3 w-3 sm:h-4 sm:w-4 lg:h-5 lg:w-5 text-green-400" />
+                            <span className="text-xs sm:text-sm lg:text-base text-white font-medium">
+                              {feature}
+                            </span>
+                          </motion.div>
+                        ))}
+                      </div>
+
+                      <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
+                        <Button
+                          size="lg"
+                          className="bg-green-600 hover:bg-green-700 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          onClick={slide.primaryCTA.action}
+                        >
+                          {slide.primaryCTA.text}
+                          <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+                        </Button>
+                        <Button
+                          size="lg"
+                          variant="outline"
+                          className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          onClick={slide.secondaryCTA.action}
+                        >
+                          {slide.secondaryCTA.text}
+                        </Button>
+                      </div>
+                    </motion.div>
+
+                    {/* Stats Card - Simplified for mobile */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.8, delay: 0.4 }}
+                      viewport={{ once: true }}
+                      className="flex justify-center lg:justify-end mt-8 lg:mt-0"
+                    >
+                      <Card className="bg-white/15 backdrop-blur-sm border-white/20 text-white max-w-sm w-full mx-4 lg:mx-0">
+                        <CardHeader className="text-center pb-3 sm:pb-4">
+                          <CardTitle className="text-lg sm:text-xl lg:text-2xl xl:text-3xl text-white">
+                            {slide.stat}
+                          </CardTitle>
+                          <CardDescription className="text-gray-200 text-xs sm:text-sm">
+                            And growing every day
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="pt-0">
+                          <div className="space-y-2 sm:space-y-3">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm text-gray-200">
+                                Success Rate
+                              </span>
+                              <span className="text-white font-semibold text-xs sm:text-sm">
+                                100%
+                              </span>
+                            </div>
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm text-gray-200">
+                                Monthly Profit
+                              </span>
+                              <span className="text-white font-semibold text-xs sm:text-sm">
+                                8-15%
+                              </span>
+                            </div>
+                            <div className="w-full bg-white/20 rounded-full h-1.5 sm:h-2">
+                              <div className="bg-green-400 h-1.5 sm:h-2 rounded-full w-4/5"></div>
+                            </div>
+                            <p className="text-xs text-gray-300 text-center">
+                              Join now - limited spots!
+                            </p>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </div>
+                </div>
+              </div>
+            </SwiperSlide>
+          ))}
+
+          {/* Custom Navigation Buttons */}
+          <div className="hero-swiper-button-prev absolute left-4 sm:left-8 lg:left-12 top-1/2 -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full w-11 h-11 lg:w-14 lg:h-14 text-white hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronLeft className="h-5 w-5 lg:h-6 lg:w-6" />
+            </Button>
+          </div>
+          
+          <div className="hero-swiper-button-next absolute right-4 sm:right-8 lg:right-12 top-1/2 -translate-y-1/2 z-10">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="bg-white/10 hover:bg-white/20 backdrop-blur-sm border border-white/20 rounded-full w-11 h-11 lg:w-14 lg:h-14 text-white hover:text-white transition-all duration-300 hover:scale-110"
+            >
+              <ChevronRight className="h-5 w-5 lg:h-6 lg:w-6" />
+            </Button>
+          </div>
+
+          {/* Custom Pagination */}
+          <div className="hero-swiper-pagination absolute bottom-6 sm:bottom-8 lg:bottom-12 left-1/2 -translate-x-1/2 z-10 flex space-x-2"></div>
+        </Swiper>
+
+        {/* Custom styles for Swiper pagination */}
+        <style jsx global>{`
+          .hero-bullet {
+            width: 10px !important;
+            height: 10px !important;
+            background: rgba(255, 255, 255, 0.4) !important;
+            border-radius: 50% !important;
+            margin: 0 4px !important;
+            transition: all 0.3s ease !important;
+            cursor: pointer !important;
+          }
+          .hero-bullet-active {
+            background: white !important;
+            transform: scale(1.25) !important;
+          }
+          @media (min-width: 1024px) {
+            .hero-bullet {
+              width: 12px !important;
+              height: 12px !important;
+            }
+          }
+        `}</style>
+      </section>
+
+      {/* Farm Products Carousel */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-4 text-gray-900">
+              Our Agricultural Trading Focus
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              We specialize in trading premium farm products, connecting farmers
+              with markets while generating consistent profits for our
+              participants.
+            </p>
+          </motion.div>
+
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {farmProducts.map((product, index) => (
+                <CarouselItem
+                  key={index}
+                  className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Card className="overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 h-full md:min-h-[325px] flex flex-col">
+                      <div className="relative h-48 lg:h-56 overflow-hidden">
+                        <ImageWithFallback
+                          src={product.image}
+                          alt={product.name}
+                          className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                        <Badge className="absolute top-4 right-4 bg-green-600 text-white text-xs">
+                          {product.profit}
+                        </Badge>
+                      </div>
+                      <div className="flex flex-col flex-1 p-4 sm:p-6">
+                        <CardHeader className="pb-2 flex-1 p-0">
+                          <CardTitle className="text-lg lg:text-xl break-words">
+                            {product.name}
+                          </CardTitle>
+                          <CardDescription className="text-sm lg:text-base break-words">
+                            {product.description}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="mt-auto pt-0 p-0">
+                          <div className="flex items-center justify-between text-sm text-gray-500 flex-wrap gap-2">
+                            <span className="break-words">Volume: {product.volume}</span>
+                            <TrendingUp className="h-4 w-4 text-green-600 flex-shrink-0" />
+                          </div>
+                        </CardContent>
+                      </div>
+                    </Card>
+                  </motion.div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className="hidden md:flex" />
+            <CarouselNext className="hidden md:flex" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Process Steps Slider */}
+      <section className="py-16 lg:py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-4 text-gray-900">
+              How Our Agricultural Trading Works
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              Our proven 4-step process ensures sustainable profits through
+              strategic agricultural product trading
+            </p>
+          </motion.div>
+
+          <div className="slick-slider-container">
+            <style jsx>{`
+              .slick-slider-container .slick-dots {
+                bottom: -50px;
+              }
+              .slick-slider-container .slick-dots li button:before {
+                color: #16a34a;
+                font-size: 12px;
+              }
+              .slick-slider-container
+                .slick-dots
+                li.slick-active
+                button:before {
+                color: #15803d;
+              }
+            `}</style>
+            <Slider {...processSettings}>
+              {processSteps.map((step, index) => {
+                const Icon = step.icon;
+                return (
+                  <div key={index} className="px-2">
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 flex flex-col md:min-h-[325px]">
+                        <div className="relative h-32 overflow-hidden">
+                          <ImageWithFallback
+                            src={step.image}
+                            alt={step.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-green-600/80 flex items-center justify-center">
+                            <div className="bg-white rounded-full p-3">
+                              <Icon className="h-8 w-8 text-green-600" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex flex-col flex-1">
+                          <CardHeader className="flex-1">
+                            <div className="mx-auto mb-2 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-semibold">
+                              {step.step}
+                            </div>
+                            <CardTitle className="text-lg lg:text-xl">
+                              {step.title}
+                            </CardTitle>
+                          </CardHeader>
+                          <CardContent className="mt-auto">
+                            <CardDescription className="text-sm lg:text-base">
+                              {step.description}
+                            </CardDescription>
+                          </CardContent>
+                        </div>
+                      </Card>
+                    </motion.div>
+                  </div>
+                );
+              })}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
+      {/* Features Carousel */}
+      <section className="py-16 lg:py-20 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-4 text-gray-900">
+              Why Choose East End Agro?
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              We combine agricultural expertise with trading opportunities to
+              deliver consistent profits for our participants through farm
+              product purchases and sales.
+            </p>
+          </motion.div>
+
+          <Carousel className="w-full">
+            <CarouselContent className="-ml-2 md:-ml-4">
+              {features.map((feature, index) => {
+                const Icon = feature.icon;
+                return (
+                  <CarouselItem
+                    key={index}
+                    className="pl-2 md:pl-4 md:basis-1/2 lg:basis-1/3"
+                  >
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                      viewport={{ once: true }}
+                    >
+                      <Card className="text-center h-full hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden">
+                        <div className="relative h-40 lg:h-48">
+                          <ImageWithFallback
+                            src={feature.image}
+                            alt={feature.title}
+                            className="w-full h-full object-cover transition-transform duration-300 hover:scale-105"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                        </div>
+                        <CardHeader className="relative px-4 sm:px-6">
+                          <div className="mx-auto mb-4 p-3 bg-green-100 rounded-full w-fit -mt-8 relative z-10 shadow-lg">
+                            <Icon className="h-8 w-8 text-green-600" />
+                          </div>
+                          <CardTitle className="text-lg lg:text-xl break-words">
+                            {feature.title}
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent className="px-4 sm:px-6">
+                          <CardDescription className="text-sm lg:text-base break-words">
+                            {feature.description}
+                          </CardDescription>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  </CarouselItem>
+                );
+              })}
+            </CarouselContent>
+            <CarouselPrevious className="hidden lg:flex" />
+            <CarouselNext className="hidden lg:flex" />
+          </Carousel>
+        </div>
+      </section>
+
+      {/* Stats Section */}
+      <section className="py-16 lg:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <ImageWithFallback
+            src="/images/homepage/image-from-rawpixel-id-15480303-png.png"
+            alt="Modern farming technology"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-green-600/90"></div>
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 text-center text-white">
+            {[
+              { label: "Active Participants", value: "2,500+", icon: Users },
+              { label: "Total Capital", value: "$1.2M+", icon: DollarSign },
+              { label: "Projects Completed", value: "45+", icon: Award },
+              { label: "Success Rate", value: "100%", icon: TrendingUp },
+            ].map((stat, index) => {
+              const Icon = stat.icon;
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="mx-auto mb-4 p-3 bg-white/10 rounded-full w-fit">
+                    <Icon className="h-8 w-8 text-white" />
+                  </div>
+                  <div className="text-3xl lg:text-4xl xl:text-5xl font-semibold mb-2">
+                    {stat.value}
+                  </div>
+                  <div className="text-green-100 text-sm lg:text-base">
+                    {stat.label}
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Slider */}
+      <section className="py-16 lg:py-20 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12 lg:mb-16"
+          >
+            <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-4 text-gray-900">
+              What Our Participants Say
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
+              Real feedback from our community of agricultural trading
+              participants
+            </p>
+          </motion.div>
+
+          <div className="slick-slider-container">
+            <style jsx>{`
+              .slick-slider-container .slick-dots {
+                bottom: -60px;
+              }
+              .slick-slider-container .slick-dots li button:before {
+                color: #16a34a;
+                font-size: 12px;
+              }
+              .slick-slider-container
+                .slick-dots
+                li.slick-active
+                button:before {
+                color: #15803d;
+              }
+            `}</style>
+            <Slider {...testimonialSettings}>
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="px-2">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                    viewport={{ once: true }}
+                  >
+                    <Card className="h-full min-h-[275px] hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 mx-2 bg-white/90 backdrop-blur-sm overflow-hidden">
+                      <CardHeader>
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center space-x-1">
+                            {[...Array(testimonial.rating)].map((_, i) => (
+                              <Star
+                                key={i}
+                                className="h-4 w-4 fill-yellow-400 text-yellow-400"
+                              />
+                            ))}
+                          </div>
+                          <Badge className="bg-green-100 text-green-800">
+                            {testimonial.profit} earned
+                          </Badge>
+                        </div>
+                        <CardDescription className="text-sm lg:text-base italic leading-relaxed break-words">
+                          &ldquo;{testimonial.content}&rdquo;
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="flex items-center space-x-3">
+                          <ImageWithFallback
+                            src={testimonial.avatar}
+                            alt={testimonial.name}
+                            className="w-12 h-12 rounded-full object-cover"
+                          />
+                          <div className="flex-1 min-w-0">
+                            <CardTitle className="text-base lg:text-lg truncate">
+                              {testimonial.name}
+                            </CardTitle>
+                            <p className="text-sm text-gray-500 truncate">
+                              {testimonial.role}
+                            </p>
+                            <div className="flex items-center text-xs text-gray-400 mt-1 flex-wrap">
+                              <div className="flex items-center mr-2">
+                                <MapPin className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span className="truncate">{testimonial.location}</span>
+                              </div>
+                              <div className="flex items-center">
+                                <Calendar className="h-3 w-3 mr-1 flex-shrink-0" />
+                                <span>{testimonial.participationMonths} months</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </div>
+              ))}
+            </Slider>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="py-12 sm:py-16 lg:py-20 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <ImageWithFallback
+            src="/images/homepage/Maize-Farming-Farmsquare (1).jpg"
+            alt="Sunrise agricultural field"
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-green-600/90"></div>
+        </div>
+
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="max-w-4xl mx-auto text-white"
+          >
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl mb-4 sm:mb-6 leading-tight font-bold">
+              Ready to Start Your Agricultural Trading Journey?
+            </h2>
+            <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 lg:mb-12 text-green-100 leading-relaxed max-w-3xl mx-auto">
+              Join thousands of participants who are already earning monthly
+              profits from sustainable agricultural trading projects.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
+              <Button
+                size="lg"
+                variant="secondary"
+                className="text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                onClick={() => router.push("auth")}
+              >
+                Get Started Today
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                onClick={() => router.push("projects")}
+              >
+                View Projects
+              </Button>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+    </div>
+  );
+}
