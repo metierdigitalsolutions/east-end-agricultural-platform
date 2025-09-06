@@ -38,8 +38,8 @@ jobs:
           server: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /dist/
+          local-dir: ./
+          server-dir: /
           log-level: verbose
           dangerous-clean-slate: false
           exclude: |
