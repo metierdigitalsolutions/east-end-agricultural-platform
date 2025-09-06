@@ -1,4 +1,4 @@
-name: Deploy Frontend to the Main Server
+name: Deploy Next.js Static Site to Production
 
 on:
   push:
@@ -13,40 +13,54 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: false
           fetch-depth: 1
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Initialize and Update Submodules
-        run: |
-          git submodule sync
-          git submodule update --init --recursive
-
-      - name: Clean Dist Directory
-        run: |
-          rm -rf dist
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Use the version compatible with your Next.js app
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci  # Use npm ci for deterministic installs
 
       - name: Build Project
-        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}  # Add other env vars as needed
+        run: npm run build  # Assumes `next build && next export` in package.json
 
-      - name: Deploy Landing-Page Build
+      - name: Deploy Static Site
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          local-dir: ./
-          server-dir: /
-          dry-run: true
+          protocol: ftps  # Use FTPS for security
+          local-dir: ./out/  # Deploy only the static output
+          server-dir: /  # Adjust to your server's public directory
+          dry-run: false  # Disable for production
           log-level: verbose
-          dangerous-clean-slate: true
+          dangerous-clean-slate: false
           exclude: |
             .github/**
             **/.git/**
             **/.gitignore
             **/.env
+            **/.env.*
+            **/next.config.js
+            **/package.json
+            **/package-lock.json
+            **/node_modules/**
+            **/public/**
+            **/src/**
+            **/.next/**  # Exclude .next to avoid uploading server files
             **/*.map
-            /lib/**
+            **/tsconfig.json
+            **/README.md
+            **/LICENSE
+
+      - name: Verify Deployment
+        run: |
+          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1  # Check if the site is accessible
