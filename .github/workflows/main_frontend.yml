@@ -34,19 +34,26 @@ jobs:
           ls -la .next || echo ".next directory does not exist"
 
       - name: Deploy to Server
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SSH_SERVER_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: ".next/,package.json,package-lock.json"
+          target: /home/u688499170/domains/eastendagro.com/public_html/frontend
+          strip_components: 1  # Removes the workspace directory prefix
+
+      - name: Start Application
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_SERVER_IP }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd /home/u688499170/domains/eastendagro.com/public_html
-            git pull origin master
+            cd /home/u688499170/domains/eastendagro.com/public_html/frontend
             npm ci
-            rm -rf .next
-            mv ${{ github.workspace }}/.next .
             pm2 restart next-app || pm2 start npm --name "next-app" -- start
 
       - name: Verify Deployment
