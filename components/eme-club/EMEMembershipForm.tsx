@@ -53,7 +53,7 @@ export function EMEMembershipForm() {
             Apply for EME Club Membership
           </CardTitle>
           <CardDescription className="text-lg">
-            Join our exclusive community of agricultural investors
+            Join our exclusive community of agricultural participants
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -118,7 +118,7 @@ export function EMEMembershipForm() {
 
             <div className="space-y-2">
               <Label htmlFor="eme-experience">
-                Agricultural Investment Experience
+                Agricultural Project Experience
               </Label>
               <div className="relative">
                 <Briefcase className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
@@ -144,7 +144,7 @@ export function EMEMembershipForm() {
                 <MessageSquare className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
                 <Textarea
                   id="eme-motivation"
-                  placeholder="Tell us about your investment goals and why you're interested in EME Club membership..."
+                  placeholder="Tell us about your agricultural project goals and why you're interested in EME Club membership..."
                   className="pl-10 min-h-24"
                   value={formData.motivation}
                   onChange={(e) =>

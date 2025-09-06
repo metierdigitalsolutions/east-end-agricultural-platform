@@ -89,7 +89,7 @@ export function UserManagement({ currentUser }: UserManagementProps) {
       },
       {
         id: "3",
-        name: "Mike Investor",
+        name: "Mike Participant",
         email: "mike@example.com",
         whatsapp: "+1234567892",
         role: "eme_subscriber",

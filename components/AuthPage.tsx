@@ -131,14 +131,14 @@ export function AuthPage({ onLogin }: AuthPageProps) {
           <h1 className="text-2xl text-gray-900 mb-2">
             Welcome to East End Agro
           </h1>
-          <p className="text-gray-600">Your agricultural investment platform</p>
+          <p className="text-gray-600">Your agricultural project platform</p>
         </div>
 
         <Card>
           <CardHeader>
             <CardTitle>Sign In to Your Account</CardTitle>
             <CardDescription>
-              Access your agricultural investment dashboard
+              Access your agricultural project dashboard
             </CardDescription>
           </CardHeader>
           <CardContent>

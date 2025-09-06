@@ -90,20 +90,20 @@ class ApiClient {
     });
   }
 
-  // Investment endpoints
-  async getInvestments(): Promise<ApiResponse<any[]>> {
-    return this.request("/investments");
+  // Agricultural Project endpoints
+  async getAgriculturalProjects(): Promise<ApiResponse<any[]>> {
+    return this.request("/agricultural-projects");
   }
 
-  async createInvestment(investment: any): Promise<ApiResponse<any>> {
-    return this.request("/investments", {
+  async createAgriculturalProject(project: any): Promise<ApiResponse<any>> {
+    return this.request("/agricultural-projects", {
       method: "POST",
-      body: JSON.stringify(investment),
+      body: JSON.stringify(project),
     });
   }
 
   async getProfitHistory(): Promise<ApiResponse<any[]>> {
-    return this.request("/investments/profits");
+    return this.request("/agricultural-projects/profits");
   }
 
   // Events endpoints

@@ -89,7 +89,7 @@ export function EMEMembershipSubmissions({
         documents: [
           "id_card.pdf",
           "bank_statement.pdf",
-          "investment_proof.pdf",
+          "project_proof.pdf",
         ],
       },
       {
