@@ -42,7 +42,7 @@ jobs:
           server-dir: /
           dry-run: true
           log-level: verbose
-          dangerous-clean-slate: false
+          dangerous-clean-slate: true
           exclude: |
             .github/**
             **/.git/**
