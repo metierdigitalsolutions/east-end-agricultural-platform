@@ -40,13 +40,13 @@ export function EventsPage() {
     },
     {
       id: "2",
-      title: "Coconut Agricultural Project Opportunities",
+      title: "Coconut Farming Opportunities",
       date: "2024-09-22",
       time: "10:00 AM - 12:00 PM",
       type: "Workshop",
       speaker: "Mark Thompson",
       description:
-        "Explore profitable coconut farming agricultural projects and value chain opportunities.",
+        "Explore profitable coconut farming projects and value chain opportunities.",
       capacity: 50,
       registered: 32,
       image:
@@ -60,7 +60,7 @@ export function EventsPage() {
       type: "Seminar",
       speaker: "Prof. Michael Davis",
       description:
-        "Comprehensive analysis of agricultural market trends and agricultural project predictions for 2024.",
+        "Comprehensive analysis of agricultural market trends and project predictions for 2024.",
       capacity: 150,
       registered: 89,
       image:
@@ -71,13 +71,13 @@ export function EventsPage() {
   const recordedSeminars = [
     {
       id: "r1",
-      title: "Introduction to Agricultural Projects",
+      title: "Introduction to Agricultural Trading",
       duration: "45 mins",
       speaker: "John Smith",
       date: "2024-08-15",
       views: 234,
       description:
-        "Basic concepts and strategies for successful agricultural projects.",
+        "Basic concepts and strategies for successful agricultural trading.",
     },
     {
       id: "r2",
@@ -87,7 +87,7 @@ export function EventsPage() {
       date: "2024-07-20",
       views: 189,
       description:
-        "Understanding and mitigating risks in agricultural project portfolios.",
+        "Understanding and mitigating risks in agricultural portfolios.",
     },
     {
       id: "r3",
@@ -119,8 +119,8 @@ export function EventsPage() {
           <h1 className="text-5xl mb-6 text-gray-900">Events & Seminars</h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Join our educational events to enhance your agricultural knowledge
-            and agricultural project strategies. Learn from industry experts and connect
-            with fellow participants.
+            and trading strategies. Learn from industry experts and connect
+            with fellow members.
           </p>
         </div>
 
@@ -224,7 +224,7 @@ export function EventsPage() {
                   <Users className="h-12 w-12 text-green-600 mx-auto mb-4" />
                   <h3 className="text-xl mb-2 text-gray-900">Networking</h3>
                   <p className="text-gray-600">
-                    Connect with fellow participants and agricultural enthusiasts
+                    Connect with fellow members and agricultural enthusiasts
                   </p>
                 </div>
                 <div className="text-center">
@@ -330,7 +330,7 @@ export function EventsPage() {
               <CardContent>
                 <CardDescription>
                   Online sessions covering agricultural techniques, market
-                  analysis, and agricultural project strategies.
+                  analysis, and trading strategies.
                 </CardDescription>
               </CardContent>
             </Card>
@@ -355,8 +355,8 @@ export function EventsPage() {
               </CardHeader>
               <CardContent>
                 <CardDescription>
-                  On-site visits to active agricultural projects to see
-                  agricultural project opportunities firsthand.
+                  On-site visits to active projects to see
+                  project opportunities firsthand.
                 </CardDescription>
               </CardContent>
             </Card>

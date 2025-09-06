@@ -97,7 +97,7 @@ export function ContactPage() {
             Contact Us
           </h1>
           <p className="text-base sm:text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
-            Have questions about our agricultural project services? Need
+            Have questions about our agricultural services? Need
             support with your account? Our team is here to help you succeed.
           </p>
         </div>
@@ -302,7 +302,7 @@ export function ContactPage() {
               </h2>
               <p className="text-base sm:text-lg text-gray-600 mb-6 max-w-2xl mx-auto">
                 Check our comprehensive FAQ section for instant answers to
-                common questions about agricultural projects, accounts, and our services.
+                common questions about agricultural trading, accounts, and our services.
               </p>
               <Button className="bg-blue-600 hover:bg-blue-700">
                 Visit FAQ Page
