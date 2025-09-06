@@ -19,17 +19,20 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Use the version compatible with your Next.js app
+          node-version: '20'
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci  # Use npm ci for deterministic installs
+        run: npm ci
 
       - name: Build Project
         env:
           NODE_ENV: production
-          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}  # Add other env vars as needed
-        run: npm run build  # Assumes `next build && next export` in package.json
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+        run: |
+          npm run build || { echo "Build failed"; exit 1; }
+          ls -la out || echo "out directory does not exist"
+          ls -la out/* || echo "No files in out directory"
 
       - name: Deploy Static Site
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
@@ -37,10 +40,10 @@ jobs:
           server: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          protocol: ftps  # Use FTPS for security
-          local-dir: ./  # Deploy only the static output
-          server-dir: /  # Adjust to your server's public directory
-          dry-run: false  # Disable for production
+          protocol: ftps
+          local-dir: ./out/  # Change to ./dist/ if distDir is set
+          server-dir: /public_html/  # Adjust to your server’s public directory
+          dry-run: false
           log-level: verbose
           dangerous-clean-slate: false
           exclude: |
@@ -55,7 +58,7 @@ jobs:
             **/node_modules/**
             **/public/**
             **/src/**
-            **/.next/**  # Exclude .next to avoid uploading server files
+            **/.next/**
             **/*.map
             **/tsconfig.json
             **/README.md
@@ -63,4 +66,4 @@ jobs:
 
       - name: Verify Deployment
         run: |
-          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1  # Check if the site is accessible
+          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1
