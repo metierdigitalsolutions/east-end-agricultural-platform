@@ -1,4 +1,4 @@
-name: Deploy Frontend to the Main Server
+name: Deploy Next.js to Production (Node.js Server)
 
 on:
   push:
@@ -13,41 +13,44 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: false
           fetch-depth: 1
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Initialize and Update Submodules
-        run: |
-          git submodule sync
-          git submodule update --init --recursive
-
-      - name: Clean Dist Directory
-        run: |
-          rm -rf dist
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Build Project
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: npm run build
 
-      - name: Deploy Landing-Page Build
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          local-dir: ./
-          server-dir: /
-          dry-run: true
-          log-level: verbose
-          dangerous-clean-slate: false
-          exclude: |
-            .github/**
-            **/.git/**
-            **/.gitignore
-            **/.env
-            **/*.map
-            /lib/**
-            /node_modules/**
+          host: ${{ secrets.SSH_SERVER_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            # Navigate to deployment directory
+            cd /path/to/your/app
+            # Pull latest code (assuming repo is cloned on server)
+            git pull origin master
+            # Install dependencies
+            npm ci
+            # Copy build artifacts
+            rm -rf .next
+            mv ${{ github.workspace }}/.next .
+            # Restart server (e.g., using PM2)
+            pm2 restart next-app
+
+      - name: Verify Deployment
+        run: |
+          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1
