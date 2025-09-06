@@ -40,6 +40,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           local-dir: ./
           server-dir: /
+          dry-run: true
           log-level: verbose
           dangerous-clean-slate: false
           exclude: |
@@ -48,24 +49,5 @@ jobs:
             **/.gitignore
             **/.env
             **/*.map
-
-      - name: Clean Landing-Page Directory
-        run: |
-          rm -rf landing-page/
-
-      - name: Deploy Other Files
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
-          server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          local-dir: ./
-          server-dir: /
-          log-level: verbose
-          dangerous-clean-slate: false
-          exclude: |
-            .github/**
-            **/.git/**
-            **/.gitignore
-            **/.env
-            **/*.map
+            /lib/**
+            /node_modules/**
