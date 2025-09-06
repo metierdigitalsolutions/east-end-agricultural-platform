@@ -54,7 +54,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
-            cd /home/u688499170/domains/eastendagro.com/public_html
+            cd /home/u688499170/domains/eastendagro.com/public_html/frontend
             npm ci
             pm2 restart next-app || pm2 start npm --name "next-app" -- start -- -p 3000
 
