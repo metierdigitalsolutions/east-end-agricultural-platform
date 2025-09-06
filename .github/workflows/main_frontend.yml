@@ -1,4 +1,4 @@
-name: Deploy Next.js Static Site to Production
+name: Deploy Next.js to Production (Node.js Server)
 
 on:
   push:
@@ -31,38 +31,22 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
           npm run build || { echo "Build failed"; exit 1; }
-          ls -la out || echo "out directory does not exist"
-          ls -la out/* || echo "No files in out directory"
+          ls -la .next || echo ".next directory does not exist"
 
-      - name: Deploy Static Site
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          protocol: ftps
-          local-dir: ./out/  # Change to ./dist/ if distDir is set
-          server-dir: /public_html/  # Adjust to your server’s public directory
-          dry-run: false
-          log-level: verbose
-          dangerous-clean-slate: false
-          exclude: |
-            .github/**
-            **/.git/**
-            **/.gitignore
-            **/.env
-            **/.env.*
-            **/next.config.js
-            **/package.json
-            **/package-lock.json
-            **/node_modules/**
-            **/public/**
-            **/src/**
-            **/.next/**
-            **/*.map
-            **/tsconfig.json
-            **/README.md
-            **/LICENSE
+          host: ${{ secrets.SSH_SERVER_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+            cd /home/u688499170/domains/eastendagro.com/public_html/frontend
+            git pull origin master
+            npm ci
+            rm -rf .next
+            mv ${{ github.workspace }}/.next .
+            pm2 restart next-app || pm2 start npm --name "next-app" -- start
 
       - name: Verify Deployment
         run: |
