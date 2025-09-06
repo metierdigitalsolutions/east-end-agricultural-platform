@@ -38,7 +38,7 @@ jobs:
           username: ${{ secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
           protocol: ftps  # Use FTPS for security
-          local-dir: ./out/  # Deploy only the static output
+          local-dir: ./  # Deploy only the static output
           server-dir: /  # Adjust to your server's public directory
           dry-run: false  # Disable for production
           log-level: verbose
