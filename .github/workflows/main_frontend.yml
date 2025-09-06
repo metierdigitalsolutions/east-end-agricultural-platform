@@ -32,6 +32,7 @@ jobs:
         run: |
           npm run build || { echo "Build failed"; exit 1; }
           ls -la .next || echo ".next directory does not exist"
+          ls -la package.json || echo "package.json does not exist"
 
       - name: Transfer Files to Server
         uses: appleboy/scp-action@v0.1.4
