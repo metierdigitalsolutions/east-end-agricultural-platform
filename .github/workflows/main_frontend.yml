@@ -42,7 +42,7 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           protocol: ftps
           local-dir: ./out/
-          server-dir: /public_html/frontend/
+          server-dir: /
           dry-run: false
           log-level: verbose
           dangerous-clean-slate: false
