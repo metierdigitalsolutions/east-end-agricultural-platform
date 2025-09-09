@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => (
   <footer className="w-full py-6 border-t text-center text-gray-500 text-sm">
-    Developed by {""}
+    {/* Developed by {""}
     <a
       href="https://metierdigitals.com"
       target="_blank"
@@ -10,8 +10,8 @@ const Footer = () => (
       className="text-green-700 underline hover:text-green-900"
     >
       Metier Digital Solutions
-    </a>{" "}
-    © {new Date().getFullYear()}. All rights reserved.
+    </a>{" "} */}
+    Eastend Agro © {new Date().getFullYear()}. All rights reserved.
   </footer>
 );
 
