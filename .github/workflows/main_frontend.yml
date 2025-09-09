@@ -1,4 +1,4 @@
-name: Deploy Next.js to Production (Node.js Server)
+name: Deploy Next.js Static Site to Production
 
 on:
   push:
@@ -31,35 +31,39 @@ jobs:
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
           npm run build || { echo "Build failed"; exit 1; }
-          ls -la .next || echo ".next directory does not exist"
-          ls -la package.json || echo "package.json does not exist"
+          ls -la out || echo "out directory does not exist"
+          ls -la out/* || echo "No files in out directory"
 
-      - name: Transfer Files to Server
-        uses: appleboy/scp-action@v0.1.4
+      - name: Deploy Static Site
+        uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
-          host: ${{ secrets.SSH_SERVER_IP }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          source: ".next/,package.json,package-lock.json"
-          target: /home/u688499170/domains/eastendagro.com/public_html/frontend
-          strip_components: 1
-
-      - name: Start Application
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_SERVER_IP }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          script: |
-            export PATH=$PATH:/usr/local/bin:/usr/bin:/bin
-            cd /home/u688499170/domains/eastendagro.com/public_html/frontend
-            npm ci || { echo "npm ci failed"; exit 1; }
-            npm install pm2 --no-save || { echo "pm2 install failed"; exit 1; }
-            npx pm2 restart next-app || npx pm2 start npm --name "next-app" -- start -- -p 3000
+          server: ${{ secrets.HOSTNAME }}
+          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          protocol: ftps
+          local-dir: ./out/
+          server-dir: /public_html/frontend/
+          dry-run: false
+          log-level: verbose
+          dangerous-clean-slate: false
+          exclude: |
+            .github/**
+            **/.git/**
+            **/.gitignore
+            **/.env
+            **/.env.*
+            **/next.config.js
+            **/package.json
+            **/package-lock.json
+            **/node_modules/**
+            **/public/**
+            **/src/**
+            **/.next/**
+            **/*.map
+            **/tsconfig.json
+            **/README.md
+            **/LICENSE
+            **/lib/**
 
       - name: Verify Deployment
         run: |
