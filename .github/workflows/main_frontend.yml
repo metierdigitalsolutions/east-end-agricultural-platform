@@ -1,4 +1,4 @@
-name: Deploy Frontend to the Main Server
+name: Deploy Next.js Static Site to Production
 
 on:
   push:
@@ -13,54 +13,37 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
         with:
-          submodules: false
           fetch-depth: 1
           token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
-      - name: Initialize and Update Submodules
-        run: |
-          git submodule sync
-          git submodule update --init --recursive
-
-      - name: Clean Dist Directory
-        run: |
-          rm -rf dist
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
 
       - name: Install Dependencies
-        run: npm install --legacy-peer-deps
+        run: npm ci
 
       - name: Build Project
-        run: npm run build
-
-      - name: Deploy Landing-Page Build
-        uses: SamKirkland/FTP-Deploy-Action@4.3.3
-        with:
-          server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
-          password: ${{ secrets.PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /dist/
-          log-level: verbose
-          dangerous-clean-slate: false
-          exclude: |
-            .github/**
-            **/.git/**
-            **/.gitignore
-            **/.env
-            **/*.map
-
-      - name: Clean Landing-Page Directory
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
-          rm -rf landing-page/
+          npm run build || { echo "Build failed"; exit 1; }
+          ls -la out || echo "out directory does not exist"
+          ls -la out/* || echo "No files in out directory"
 
-      - name: Deploy Other Files
+      - name: Deploy Static Site
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.HOSTNAME }}
           username: ${{ secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
-          local-dir: ./
+          protocol: ftps
+          local-dir: ./out/
           server-dir: /
+          dry-run: false
           log-level: verbose
           dangerous-clean-slate: false
           exclude: |
@@ -68,4 +51,19 @@ jobs:
             **/.git/**
             **/.gitignore
             **/.env
+            **/.env.*
+            **/next.config.js
+            **/package.json
+            **/package-lock.json
+            **/node_modules/**
+            **/src/**
+            **/.next/**
             **/*.map
+            **/tsconfig.json
+            **/README.md
+            **/LICENSE
+            **/lib/**
+
+      - name: Verify Deployment
+        run: |
+          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1

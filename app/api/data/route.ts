@@ -1,30 +1,34 @@
-import { NextResponse } from "next/server";
-import { User } from '../../../types';
+import { NextResponse } from 'next/server';
+// import { User } from '../../../types';
+
+// Explicitly mark the route as static
+export const dynamic = 'force-static';
+export const revalidate = 0; // No revalidation, fully static
 
 export async function GET() {
   // This would typically fetch from your Express.js API
   const data = {
-    message: "Data loaded successfully from Next.js API",
+    message: 'Data loaded successfully from Next.js API',
     data: [
       {
         id: 1,
-        name: "East End Feature 1",
-        description: "Modern Next.js architecture",
+        name: 'EastEnd Feature 1',
+        description: 'Modern Next.js architecture',
       },
       {
         id: 2,
-        name: "East End Feature 2",
-        description: "TypeScript integration",
+        name: 'EastEnd Feature 2',
+        description: 'TypeScript integration',
       },
       {
         id: 3,
-        name: "East End Feature 3",
-        description: "Framer Motion animations",
+        name: 'EastEnd Feature 3',
+        description: 'Framer Motion animations',
       },
       {
         id: 4,
-        name: "East End Feature 4",
-        description: "Express.js API connectivity",
+        name: 'EastEnd Feature 4',
+        description: 'Express.js API connectivity',
       },
     ],
   };

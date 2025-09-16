@@ -188,7 +188,7 @@ export function ProjectProposalPage({ onNavigate }: ProjectProposalPageProps) {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="overflow-x-auto">
+              {/* <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b">
@@ -211,7 +211,7 @@ export function ProjectProposalPage({ onNavigate }: ProjectProposalPageProps) {
                     ))}
                   </tbody>
                 </table>
-              </div>
+              </div> */}
               <div className="mt-4 p-4 bg-green-50 rounded-lg">
                 <p className="text-sm text-green-800">
                   <strong>Note:</strong> The initial capital is all that is

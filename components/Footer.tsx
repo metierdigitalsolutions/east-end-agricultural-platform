@@ -11,7 +11,7 @@ const Footer = () => (
     >
       Metier Digital Solutions
     </a>{" "} */}
-    &copy; {new Date().getFullYear()}. All rights reserved.
+    Eastend Agro © {new Date().getFullYear()}. All rights reserved.
   </footer>
 );
 

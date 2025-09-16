@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { ApiResponse, User } from "../../../../types";
+
+// Explicitly mark the route as static
+export const dynamic = 'force-static';
+export const revalidate = 0; // No revalidation, fully static
+
 // Mock function to verify token and get user
 function getUserFromToken(token: string): User | null {
   // In real app, verify JWT token
