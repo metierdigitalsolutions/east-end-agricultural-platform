@@ -56,7 +56,6 @@ jobs:
             **/package.json
             **/package-lock.json
             **/node_modules/**
-            **/public/**
             **/src/**
             **/.next/**
             **/*.map

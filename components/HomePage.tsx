@@ -260,7 +260,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Cashew Nuts",
       image:
-        "/images/homepage/pngegg (1).png",
+        "/images/agro/WhatsApp Image 2025-09-13 at 11.42.31_75f787d1.jpg",
       description: "Raw and processed cashew nut sourcing and sales",
       volume: "1,200 tons/month",
       profit: "10-15% monthly",
@@ -268,7 +268,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Sugar Products",
       image:
-        "/images/homepage/pngwing.com (16).png",
+        "/images/agro/WhatsApp Image 2025-09-15 at 23.32.33_dc6a3a53.jpg",
       description: "Sugar cane processing and refined sugar trading",
       volume: "3,200 tons/month",
       profit: "7-11% monthly",
@@ -276,7 +276,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Fertilizers",
       image:
-        "/images/homepage/360_F_53666818_DRIQ7xG8ECyXfGWOn9tf4daneTRyelXi.jpg",
+        "/images/agro/WhatsApp Image 2025-09-13 at 10.47.07_b2a99e64.jpg",
       description: "High-quality fertilizers and soil enhancement products",
       volume: "5,000 tons/month",
       profit: "5-9% monthly",
