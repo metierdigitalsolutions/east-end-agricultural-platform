@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - beta
 
 jobs:
   Deploy-Frontend:
@@ -38,7 +39,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          username: ${{ github.ref == 'refs/heads/beta' && secrets.STAGING_USERNAME || secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
           protocol: ftps
           local-dir: ./out/
@@ -67,4 +68,4 @@ jobs:
 
       - name: Verify Deployment
         run: |
-          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1
+          curl -f "http://${{ github.ref == 'refs/heads/beta' && format('{0}/beta', secrets.MAIN_DOMAIN) || secrets.MAIN_DOMAIN }}" || exit 1
