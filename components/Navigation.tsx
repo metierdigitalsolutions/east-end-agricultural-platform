@@ -78,25 +78,56 @@ export function Navigation({
   // Use context user if available, otherwise use prop user
   const user = contextUser || propUser;
   
+  // Normalize path to improve reliability across environments (e.g., trailing slashes)
+  const normalizePath = (p: string | null): string => {
+    if (!p) return "/";
+    try {
+      // Ensure lowercase and strip trailing slashes except the root
+      const lower = p.toLowerCase();
+      return lower !== "/" ? lower.replace(/\/+$/, "") : "/";
+    } catch {
+      return "/";
+    }
+  };
+
+  const normalizedPath = normalizePath(pathname);
+
+  // Determine if a route is active: exact match or is a sub-route
+  const isRouteActive = (route: string): boolean => {
+    const base = normalizePath(route);
+    // Root should only match exactly the homepage
+    if (base === "/") {
+      return normalizedPath === "/";
+    }
+    if (normalizedPath === base) return true;
+    // Consider sub-paths as active (e.g., "/projects/123")
+    return normalizedPath.startsWith(base + "/");
+  };
+
   // Auto-detect current page from pathname if not provided
   const getCurrentPage = (): Page => {
     if (currentPage) return currentPage;
-    
-    const pathToPageMap: Record<string, Page> = {
-      '/': 'home',
-      '/about': 'about',
-      '/services': 'services',
-      '/projects': 'projects',
-      '/faq': 'faq',
-      '/auth': 'auth',
-      '/dashboard': 'dashboard',
-      '/admin': 'admin',
-      '/events': 'events',
-      '/eme-club': 'eme-club',
-      '/contact': 'contact',
-    };
-    
-    return pathToPageMap[pathname] || 'home';
+
+    const candidates: Array<{ key: Page; route: string }> = [
+      { key: "home", route: "/" },
+      { key: "about", route: "/about" },
+      { key: "services", route: "/services" },
+      { key: "projects", route: "/projects" },
+      { key: "faq", route: "/faq" },
+      { key: "auth", route: "/auth" },
+      { key: "dashboard", route: "/dashboard" },
+      { key: "admin", route: "/admin" },
+      { key: "events", route: "/events" },
+      { key: "eme-club", route: "/eme-club" },
+      { key: "contact", route: "/contact" },
+    ];
+
+    // Prefer the longest matching route to avoid false positives
+    const active = candidates
+      .filter((c) => isRouteActive(c.route))
+      .sort((a, b) => b.route.length - a.route.length)[0];
+
+    return active?.key ?? "home";
   };
   
   const detectedCurrentPage = getCurrentPage();
@@ -178,7 +209,7 @@ export function Navigation({
             {/* Primary Navigation Items */}
             {primaryNavItems.map((item) => {
               const Icon = item.icon;
-              const isActive = detectedCurrentPage === item.page;
+              const isActive = isRouteActive(pageRoutes[item.page]);
               return (
                 <button
                   key={item.page}
@@ -188,15 +219,15 @@ export function Navigation({
                   <motion.div
                     className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-green-600 text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                        ? "bg-green-200 text-green-700 border border-green-200 shadow-sm"
+                        : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
                     }`}
                     whileHover={{
                       scale: 1.02,
                       backgroundColor: isActive
-                        ? "#16a34a"
-                        : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "#16a34a",
+                        ? "rgba(152, 202, 71, 0.2)"
+                        : "rgba(152, 202, 71, 0.15)",
+                      color: isActive ? "#166534" : "#166534",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -213,9 +244,9 @@ export function Navigation({
                 <Button
                   variant="ghost"
                   className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                    secondaryNavItems.some(item => detectedCurrentPage === item.page)
-                      ? "bg-green-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                    secondaryNavItems.some(item => isRouteActive(pageRoutes[item.page]))
+                      ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
                   }`}
                 >
                   <span className="text-sm font-medium">More</span>
@@ -225,13 +256,13 @@ export function Navigation({
               <DropdownMenuContent align="end" className="w-48">
                 {secondaryNavItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = detectedCurrentPage === item.page;
+                  const isActive = isRouteActive(pageRoutes[item.page]);
                   return (
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
                       className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-600 text-white" : ""
+                        isActive ? "bg-green-100 text-green-700" : ""
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -248,7 +279,7 @@ export function Navigation({
             {/* Show only essential items on tablet */}
             {navItems.slice(0, 3).map((item) => {
               const Icon = item.icon;
-              const isActive = detectedCurrentPage === item.page;
+              const isActive = isRouteActive(pageRoutes[item.page]);
               return (
                 <button
                   key={item.page}
@@ -257,15 +288,15 @@ export function Navigation({
                   <motion.div
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? "bg-green-600 text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                        ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
+                        : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
                     }`}
                     whileHover={{
                       scale: 1.02,
                       backgroundColor: isActive
-                        ? "#16a34a"
-                        : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "#16a34a",
+                        ? "rgba(152, 202, 71, 0.2)"
+                        : "rgba(152, 202, 71, 0.15)",
+                      color: isActive ? "#166534" : "#166534",
                     }}
                     whileTap={{ scale: 0.98 }}
                   >
@@ -282,9 +313,9 @@ export function Navigation({
                 <Button
                   variant="ghost"
                   className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    navItems.slice(3).some(item => detectedCurrentPage === item.page)
-                      ? "bg-green-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
+                    navItems.slice(3).some(item => isRouteActive(pageRoutes[item.page]))
+                      ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
                   }`}
                 >
                   <span className="text-sm font-medium">More</span>
@@ -294,13 +325,13 @@ export function Navigation({
               <DropdownMenuContent align="end" className="w-48">
                 {navItems.slice(3).map((item) => {
                   const Icon = item.icon;
-                  const isActive = detectedCurrentPage === item.page;
+                  const isActive = isRouteActive(pageRoutes[item.page]);
                   return (
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
                       className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-600 text-white" : ""
+                        isActive ? "bg-green-100 text-green-700" : ""
                       }`}
                     >
                       <Icon className="h-4 w-4" />
@@ -408,19 +439,21 @@ export function Navigation({
                     <div className="space-y-2">
                       {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = detectedCurrentPage === item.page;
+                        const isActive = isRouteActive(pageRoutes[item.page]);
                         return (
                           <motion.button
                             key={item.page}
                             onClick={() => handleNavigate(item.page)}
                             className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left bg-transparent ${
                               isActive
-                                ? "bg-green-600 text-white"
-                                : "text-gray-700"
+                                ? "bg-green-100 text-green-700 border border-green-200"
+                                : "text-gray-700 hover:bg-green-50 hover:text-green-700"
                             }`}
                             whileHover={{
-                              backgroundColor: "#16a34a",
-                              color: "white",
+                              backgroundColor: isActive
+                                ? "rgba(152, 202, 71, 0.2)"
+                                : "rgba(152, 202, 71, 0.15)",
+                              color: "#166534",
                               scale: 1.02,
                             }}
                             whileTap={{ scale: 0.98 }}
