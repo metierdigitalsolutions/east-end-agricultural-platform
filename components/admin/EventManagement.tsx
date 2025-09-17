@@ -64,9 +64,9 @@ export function EventManagement({ currentUser }: EventManagementProps) {
     const mockEvents: Event[] = [
       {
         id: "1",
-        title: "Agricultural Investment Seminar",
+        title: "Agricultural Project Seminar",
         description:
-          "Learn about profitable agricultural investment opportunities in Nigeria.",
+          "Learn about profitable agricultural project opportunities in Nigeria.",
         date: "2024-09-15",
         time: "10:00 AM",
         location: "Lagos Convention Centre",

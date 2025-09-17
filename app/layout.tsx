@@ -8,9 +8,9 @@ import { AuthProvider } from '../contexts/AuthContext';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "East End Agro - Agricultural Investment Platform",
+  title: "East End Agro - Agricultural Project Platform",
   description:
-    "Invest in income-generating agricultural projects with $250 minimum investment, monthly profit payouts, and 6-month capital lock periods.",
+    "Participate in income-generating agricultural projects with $250 minimum participation, monthly profit payouts, and 6-month capital lock periods.",
 };
 
 export default function RootLayout({

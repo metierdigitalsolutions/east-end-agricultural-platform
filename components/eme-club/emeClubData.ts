@@ -2,9 +2,9 @@ import { TrendingUp, Users, Gift, Calendar, Zap, Shield } from "lucide-react";
 export const emeClubBenefits = [
   {
     icon: TrendingUp,
-    title: "Priority Investment Access",
+    title: "Priority Project Access",
     description:
-      "Get first access to high-yield agricultural investment opportunities before they become available to regular members.",
+      "Get first access to high-yield opportunities before they become available to regular members.",
     color: "text-green-600",
   },
   {
@@ -18,7 +18,7 @@ export const emeClubBenefits = [
     icon: Gift,
     title: "Enhanced Referral Bonuses",
     description:
-      "Earn up to 25% higher referral bonuses compared to regular members when you introduce new investors.",
+      "Earn up to 25% higher referral bonuses compared to regular members when you introduce new participants.",
     color: "text-purple-600",
   },
   {
@@ -32,7 +32,7 @@ export const emeClubBenefits = [
     icon: Zap,
     title: "Advanced Market Insights",
     description:
-      "Receive detailed market analysis, crop forecasts, and investment recommendations before general release.",
+      "Receive detailed market analysis, crop forecasts, and project recommendations before general release.",
     color: "text-red-600",
   },
   {
@@ -55,7 +55,7 @@ export const membershipTiers = [
       "Access to exclusive events",
       "15% referral bonus increase",
       "Monthly market reports",
-      "Basic investment guidance",
+      "Basic project guidance"
     ],
     color: "border-gray-300 bg-gray-50",
   },
@@ -69,7 +69,7 @@ export const membershipTiers = [
       "Dedicated account manager",
       "20% referral bonus increase",
       "Weekly market insights",
-      "Advanced investment opportunities",
+      "Advanced project opportunities",
       "Quarterly farm visits",
     ],
     color: "border-yellow-400 bg-yellow-50",
@@ -84,9 +84,9 @@ export const membershipTiers = [
       "VIP customer support",
       "25% referral bonus increase",
       "Daily market updates",
-      "First access to all investments",
+      "First access to all projects",
       "Monthly one-on-one consultations",
-      "Exclusive investment partnerships",
+      "Exclusive project partnerships",
     ],
     color: "border-purple-400 bg-purple-50",
   },
@@ -99,7 +99,7 @@ export const successStories = [
     image:
       "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
     testimonial:
-      "Being an EME Club member has transformed my agricultural investment experience. The priority access to high-yield projects and dedicated support have helped me increase my returns by 40% in just one year.",
+      "Being an EME Club member has transformed my agricultural experience. The priority access to high-yield opportunities and dedicated support have helped me increase my returns by 40% in just one year.",
     rating: 5,
     bgColor: "bg-green-50 border-green-200",
   },
@@ -109,7 +109,7 @@ export const successStories = [
     image:
       "https://images.unsplash.com/photo-1494790108755-2616b612b932?w=100&h=100&fit=crop&crop=face",
     testimonial:
-      "The exclusive investment opportunities and personalized consultation sessions have been invaluable. My portfolio has diversified significantly, and the monthly insights help me make informed decisions.",
+      "The exclusive opportunities and personalized consultation sessions have been invaluable. My portfolio has diversified significantly, and the monthly insights help me make informed decisions.",
     rating: 5,
     bgColor: "bg-blue-50 border-blue-200",
   },

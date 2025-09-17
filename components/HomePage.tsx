@@ -168,7 +168,7 @@ export function HomePage({}: HomePageProps) {
   const testimonials = [
     {
       name: "Sarah Johnson",
-      role: "Project Participant",
+      role: "Community Member",
       location: "California, USA",
       content:
         "East End Agro has been amazing! I've been getting consistent monthly profits from the agricultural trading projects. The transparency and professionalism is outstanding.",
@@ -192,7 +192,7 @@ export function HomePage({}: HomePageProps) {
     },
     {
       name: "Lisa Rodriguez",
-      role: "Long-term Participant",
+      role: "Long-term Member",
       location: "Florida, USA",
       content:
         "Professional management and transparent processes. Highly recommend for agricultural trading participation. I've earned over $3,000 in profits so far.",
@@ -260,7 +260,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Cashew Nuts",
       image:
-        "/images/homepage/pngegg (1).png",
+        "/images/agro/WhatsApp Image 2025-09-13 at 11.42.31_75f787d1.jpg",
       description: "Raw and processed cashew nut sourcing and sales",
       volume: "1,200 tons/month",
       profit: "10-15% monthly",
@@ -268,7 +268,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Sugar Products",
       image:
-        "/images/homepage/pngwing.com (16).png",
+        "/images/agro/WhatsApp Image 2025-09-15 at 23.32.33_dc6a3a53.jpg",
       description: "Sugar cane processing and refined sugar trading",
       volume: "3,200 tons/month",
       profit: "7-11% monthly",
@@ -276,7 +276,7 @@ export function HomePage({}: HomePageProps) {
     {
       name: "Fertilizers",
       image:
-        "/images/homepage/360_F_53666818_DRIQ7xG8ECyXfGWOn9tf4daneTRyelXi.jpg",
+        "/images/agro/WhatsApp Image 2025-09-13 at 10.47.07_b2a99e64.jpg",
       description: "High-quality fertilizers and soil enhancement products",
       volume: "5,000 tons/month",
       profit: "5-9% monthly",
@@ -306,7 +306,7 @@ export function HomePage({}: HomePageProps) {
       step: 3,
       title: "Strategic Trading",
       description:
-        "Our experts execute optimal trading strategies to maximize returns for all participants",
+        "Our experts execute optimal trading strategies to maximize returns for all members",
       icon: BarChart3,
       image:
         "/images/homepage/PikPng.com_tractor-png_1087367.png",
@@ -315,7 +315,7 @@ export function HomePage({}: HomePageProps) {
       step: 4,
       title: "Profit Distribution",
       description:
-        "Monthly profits are transparently calculated and distributed to all project participants",
+        "Monthly profits are transparently calculated and distributed to all members",
       icon: DollarSign,
       image:
         "/images/homepage/1663151489748.png",
@@ -430,7 +430,9 @@ export function HomePage({}: HomePageProps) {
                     alt={slide.title}
                     className="w-full h-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/60 to-black/40"></div>
+                  {/* Enhanced overlay for better text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-transparent"></div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                 </div>
 
                 {/* Content */}
@@ -608,7 +610,7 @@ export function HomePage({}: HomePageProps) {
             <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               We specialize in trading premium farm products, connecting farmers
               with markets while generating consistent profits for our
-              participants.
+              members.
             </p>
           </motion.div>
 
@@ -763,7 +765,7 @@ export function HomePage({}: HomePageProps) {
             </h2>
             <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               We combine agricultural expertise with trading opportunities to
-              deliver consistent profits for our participants through farm
+              deliver consistent profits for our members through farm
               product purchases and sales.
             </p>
           </motion.div>
@@ -831,7 +833,7 @@ export function HomePage({}: HomePageProps) {
         <div className="container mx-auto px-4 relative z-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8 text-center text-white">
             {[
-              { label: "Active Participants", value: "2,500+", icon: Users },
+              { label: "Active Members", value: "2,500+", icon: Users },
               { label: "Total Capital", value: "$1.2M+", icon: DollarSign },
               { label: "Projects Completed", value: "45+", icon: Award },
               { label: "Success Rate", value: "100%", icon: TrendingUp },
@@ -873,11 +875,11 @@ export function HomePage({}: HomePageProps) {
             className="text-center mb-12 lg:mb-16"
           >
             <h2 className="text-3xl lg:text-4xl xl:text-5xl mb-4 text-gray-900">
-              What Our Participants Say
+              What Our Members Say
             </h2>
             <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
               Real feedback from our community of agricultural trading
-              participants
+              members
             </p>
           </motion.div>
 
@@ -984,7 +986,7 @@ export function HomePage({}: HomePageProps) {
               Ready to Start Your Agricultural Trading Journey?
             </h2>
             <p className="text-sm sm:text-base lg:text-lg xl:text-xl mb-6 sm:mb-8 lg:mb-12 text-green-100 leading-relaxed max-w-3xl mx-auto">
-              Join thousands of participants who are already earning monthly
+              Join thousands of members who are already earning monthly
               profits from sustainable agricultural trading projects.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">

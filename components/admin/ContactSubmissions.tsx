@@ -58,9 +58,9 @@ export function ContactSubmissions({ currentUser }: ContactSubmissionsProps) {
         name: "Alice Johnson",
         email: "alice@example.com",
         whatsapp: "+1234567890",
-        subject: "Investment Inquiry",
+        subject: "Agricultural Project Inquiry",
         message:
-          "I am interested in learning more about your agricultural investment opportunities. Could you provide more details about the minimum investment amounts and expected returns?",
+          "I am interested in learning more about your agricultural project opportunities. Could you provide more details about the minimum participation amounts and expected returns?",
         submittedAt: "2024-08-15T10:30:00Z",
         status: "new",
       },
@@ -71,7 +71,7 @@ export function ContactSubmissions({ currentUser }: ContactSubmissionsProps) {
         whatsapp: "+1234567891",
         subject: "Partnership Proposal",
         message:
-          "I represent a group of investors who are interested in partnering with East End Agro for large-scale agricultural projects. We would like to discuss potential collaboration opportunities.",
+          "I represent a group of participants who are interested in partnering with East End Agro for large-scale agricultural projects. We would like to discuss potential collaboration opportunities.",
         submittedAt: "2024-08-14T14:15:00Z",
         status: "in_progress",
       },
