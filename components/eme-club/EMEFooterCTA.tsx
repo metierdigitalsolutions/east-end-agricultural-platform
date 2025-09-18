@@ -10,12 +10,12 @@ export function EMEFooterCTA({}: EMEFooterCTAProps) {
       <Card className="bg-green-600 text-white text-center">
         <CardContent className="py-16">
           <h2 className="text-4xl mb-6">
-            Ready to Elevate Your Agricultural Investments?
+            Ready to Elevate Your Agricultural Journey?
           </h2>
           <p className="text-xl mb-8 max-w-3xl mx-auto">
             Join the EME Club today and unlock exclusive benefits, priority
-            access to high-yield investments, and a community of successful
-            agricultural investors.
+            access to high-yield opportunities, and a community of successful
+            community members.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button

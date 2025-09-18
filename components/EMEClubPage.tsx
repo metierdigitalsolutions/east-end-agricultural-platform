@@ -35,7 +35,7 @@ export function EMEClubPage({}: EMEClubPageProps) {
             </span>
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-            Become part of an exclusive community of agricultural investors and
+            Become part of an exclusive community of agricultural traders and
             unlock premium benefits, priority access, and enhanced earning
             opportunities with East End Agro.
           </p>

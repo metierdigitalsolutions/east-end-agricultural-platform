@@ -305,7 +305,7 @@ export function ProjectProposalPage({ onNavigate }: ProjectProposalPageProps) {
 
         {/* Contact Form */}
         <motion.div
-          className="mb-16"
+          className="mb-16 max-w-4xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}

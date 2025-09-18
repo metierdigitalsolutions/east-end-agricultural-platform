@@ -157,7 +157,7 @@ export function Navigation({
           {/* Logo */}
           <button
             onClick={() => handleNavigate("home")}
-            className="flex items-center space-x-2 p-1 rounded-md hover:bg-gray-50 transition-colors"
+            className="flex items-center space-x-2 p-1 rounded-md hover:bg-gray-50 transition-colors bg-transparent"
           >
             <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Image
@@ -183,6 +183,7 @@ export function Navigation({
                 <button
                   key={item.page}
                   onClick={() => handleNavigate(item.page)}
+                  className="bg-transparent"
                 >
                   <motion.div
                     className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
@@ -382,7 +383,7 @@ export function Navigation({
                   <div className="flex items-center justify-between p-4 border-b bg-brand-secondary">
                     <button
                       onClick={() => handleNavigate("home")}
-                      className="flex items-center space-x-2"
+                      className="flex items-center space-x-2 bg-transparent"
                     >
                       <Image
                         src="/images/logo/east-end-logo-by-ds.png"
@@ -412,7 +413,7 @@ export function Navigation({
                           <motion.button
                             key={item.page}
                             onClick={() => handleNavigate(item.page)}
-                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left ${
+                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left bg-transparent ${
                               isActive
                                 ? "bg-green-600 text-white"
                                 : "text-gray-700"
@@ -438,7 +439,7 @@ export function Navigation({
                           {user.role === "user" && (
                             <button
                               onClick={() => handleNavigate("dashboard")}
-                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left"
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left bg-transparent"
                             >
                               <User className="h-5 w-5" />
                               <span>Dashboard</span>
@@ -447,7 +448,7 @@ export function Navigation({
                           {canAccessAdmin && (
                             <button
                               onClick={() => handleNavigate("admin")}
-                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left"
+                              className="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-700 hover:bg-gray-50 w-full text-left bg-transparent"
                             >
                               <Shield className="h-5 w-5" />
                               <span>
@@ -459,7 +460,7 @@ export function Navigation({
                           )}
                           <button
                             onClick={handleLogout}
-                            className="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 w-full text-left"
+                            className="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-600 hover:bg-red-50 w-full text-left bg-transparent"
                           >
                             <LogOut className="h-5 w-5" />
                             <span>Sign Out</span>

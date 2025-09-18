@@ -60,7 +60,7 @@ export function ServicesPage() {
                 </ul>
                 <div className="mt-6">
                   <ImageWithFallback
-                    src="https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=250&fit=crop"
+                    src="/images/agro/WhatsApp Image 2025-09-15 at 23.32.33_dc6a3a53.jpg"
                     alt="Agricultural products"
                     className="rounded-lg w-full h-48 object-cover"
                   />

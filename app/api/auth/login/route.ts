@@ -17,9 +17,9 @@ const mockUsers = [
   },
   {
     id: "2",
-    name: "Sarah Investor",
-    email: "sarah@investor.com",
-    password: "invest2024",
+    name: "Sarah Participant",
+    email: "sarah@participant.com",
+    password: "project2024",
     whatsapp: "+0987654321",
     isEMEMember: false,
     participationAmount: 250,
