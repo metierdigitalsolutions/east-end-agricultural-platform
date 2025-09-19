@@ -72,7 +72,7 @@ export function Navigation({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); // Use Next.js usePathname hook directly
   const { user: contextUser, logout } = useAuth();
 
   // Use context user if available, otherwise use prop user
@@ -255,7 +255,8 @@ export function Navigation({
                       className={`flex items-center space-x-2 ${isActive ? "bg-green-600 text-white" : ""
                         }`}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className={`h-4 w-4 ${isActive ? "text-white" : ""
+                        }`} />
                       <span>{item.label}</span>
                     </DropdownMenuItem>
                   );

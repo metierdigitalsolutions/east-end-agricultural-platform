@@ -6,6 +6,7 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
+    "serve": "serve out",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -67,6 +68,8 @@
     "@types/react-slick": "^0.23.13",
     "eslint": "^9.35.0",
     "eslint-config-next": "^15.5.2",
+    "http-server": "^14.1.1",
+    "serve": "^14.2.5",
     "slick-carousel": "^1.8.1",
     "tailwindcss": "^4",
     "typescript": "^5"
