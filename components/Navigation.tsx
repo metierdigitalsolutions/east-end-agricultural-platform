@@ -74,10 +74,10 @@ export function Navigation({
   const router = useRouter();
   const pathname = usePathname();
   const { user: contextUser, logout } = useAuth();
-  
+
   // Use context user if available, otherwise use prop user
   const user = contextUser || propUser;
-  
+
   // Normalize path to improve reliability across environments (e.g., trailing slashes)
   const normalizePath = (p: string | null): string => {
     if (!p) return "/";
@@ -129,7 +129,7 @@ export function Navigation({
 
     return active?.key ?? "home";
   };
-  
+
   const detectedCurrentPage = getCurrentPage();
 
   useEffect(() => {
@@ -174,11 +174,10 @@ export function Navigation({
 
   return (
     <motion.header
-      className={`lg:sticky lg:top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
-          : "bg-white border-b border-gray-100"
-      }`}
+      className={`lg:sticky lg:top-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+        : "bg-white border-b border-gray-100"
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
@@ -217,18 +216,11 @@ export function Navigation({
                   className="bg-transparent"
                 >
                   <motion.div
-                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? "bg-green-200 text-green-700 border border-green-200 shadow-sm"
-                        : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
-                    }`}
-                    whileHover={{
-                      scale: 1.02,
-                      backgroundColor: isActive
-                        ? "rgba(152, 202, 71, 0.2)"
-                        : "rgba(152, 202, 71, 0.15)",
-                      color: isActive ? "#166534" : "#166534",
-                    }}
+                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${isActive
+                      ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                      }`}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <Icon className="h-4 w-4" />
@@ -237,17 +229,16 @@ export function Navigation({
                 </button>
               );
             })}
-            
+
             {/* More Dropdown for Secondary Items */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                    secondaryNavItems.some(item => isRouteActive(pageRoutes[item.page]))
-                      ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
-                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
-                  }`}
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${secondaryNavItems.some(item => isRouteActive(pageRoutes[item.page]))
+                    ? "bg-green-600 hover:bg-primary/90 hover:border-0 hover:text-white text-white border border-green-600 shadow-sm"
+                    : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                    }`}
                 >
                   <span className="text-sm font-medium">More</span>
                   <ChevronDown className="h-4 w-4" />
@@ -261,9 +252,8 @@ export function Navigation({
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
-                      className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-100 text-green-700" : ""
-                      }`}
+                      className={`flex items-center space-x-2 ${isActive ? "bg-green-600 text-white" : ""
+                        }`}
                     >
                       <Icon className="h-4 w-4" />
                       <span>{item.label}</span>
@@ -273,7 +263,7 @@ export function Navigation({
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
-          
+
           {/* Tablet Navigation (medium screens) */}
           <nav className="hidden md:flex lg:hidden items-center space-x-1">
             {/* Show only essential items on tablet */}
@@ -286,18 +276,19 @@ export function Navigation({
                   onClick={() => handleNavigate(item.page)}
                 >
                   <motion.div
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${isActive
+                      ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                      }`}
+                    whileHover={
                       isActive
-                        ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
-                        : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
-                    }`}
-                    whileHover={{
-                      scale: 1.02,
-                      backgroundColor: isActive
-                        ? "rgba(152, 202, 71, 0.2)"
-                        : "rgba(152, 202, 71, 0.15)",
-                      color: isActive ? "#166534" : "#166534",
-                    }}
+                        ? { scale: 1.02 }
+                        : {
+                          scale: 1.02,
+                          backgroundColor: "rgba(152, 202, 71, 0.15)",
+                          color: "#166534",
+                        }
+                    }
                     whileTap={{ scale: 0.98 }}
                   >
                     <Icon className="h-4 w-4" />
@@ -306,17 +297,16 @@ export function Navigation({
                 </button>
               );
             })}
-            
+
             {/* More Dropdown for remaining items on tablet */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    navItems.slice(3).some(item => isRouteActive(pageRoutes[item.page]))
-                      ? "bg-green-100 text-green-700 border border-green-200 shadow-sm"
-                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
-                  }`}
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${navItems.slice(3).some(item => isRouteActive(pageRoutes[item.page]))
+                    ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                    : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                    }`}
                 >
                   <span className="text-sm font-medium">More</span>
                   <ChevronDown className="h-4 w-4" />
@@ -330,9 +320,8 @@ export function Navigation({
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
-                      className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-100 text-green-700" : ""
-                      }`}
+                      className={`flex items-center space-x-2 ${isActive ? "bg-green-600 text-white" : ""
+                        }`}
                     >
                       <Icon className="h-4 w-4" />
                       <span>{item.label}</span>
@@ -408,7 +397,8 @@ export function Navigation({
                   <Menu className="h-7 w-7" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
+              <SheetContent side="right"
+                hideClose className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
                   <div className="flex items-center justify-between p-4 border-b bg-brand-secondary">
@@ -444,18 +434,19 @@ export function Navigation({
                           <motion.button
                             key={item.page}
                             onClick={() => handleNavigate(item.page)}
-                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left bg-transparent ${
+                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left ${isActive
+                              ? "bg-green-600 text-white border border-green-600"
+                              : "text-gray-700 hover:bg-green-50 hover:text-green-700"
+                              }`}
+                            whileHover={
                               isActive
-                                ? "bg-green-100 text-green-700 border border-green-200"
-                                : "text-gray-700 hover:bg-green-50 hover:text-green-700"
-                            }`}
-                            whileHover={{
-                              backgroundColor: isActive
-                                ? "rgba(152, 202, 71, 0.2)"
-                                : "rgba(152, 202, 71, 0.15)",
-                              color: "#166534",
-                              scale: 1.02,
-                            }}
+                                ? { scale: 1.02 }
+                                : {
+                                  // backgroundColor: "rgba(152, 202, 71, 0.15)",
+                                  // color: "#166534",
+                                  scale: 1.02,
+                                }
+                            }
                             whileTap={{ scale: 0.98 }}
                           >
                             <Icon className="h-5 w-5" />

@@ -395,7 +395,7 @@ export function HomePage({}: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero Section with Swiper */}
-      <section className="relative min-h-[500px] md:min-h-[600px] overflow-hidden">
+      <section className="relative h-[460px] sm:h-[500px] md:h-[540px] lg:h-[600px] lg:max-h-[600px] overflow-hidden">
         <Swiper
           modules={[Navigation, Pagination, Autoplay, EffectFade]}
           spaceBetween={0}
@@ -418,11 +418,11 @@ export function HomePage({}: HomePageProps) {
           effect="fade"
           fadeEffect={{ crossFade: true }}
           loop={true}
-          className="min-h-[500px] md:min-h-[600px]"
+          className="h-[460px] sm:h-[500px] md:h-[540px] lg:h-[600px]"
         >
           {heroSlides.map((slide, index) => (
-            <SwiperSlide key={slide.id} className="min-h-[500px] md:min-h-[600px]">
-              <div className="relative min-h-[500px] md:min-h-[600px] flex items-center">
+            <SwiperSlide key={slide.id} className="h-[460px] sm:h-[500px] md:h-[540px] lg:h-[600px]">
+              <div className="relative h-full flex items-center">
                 {/* Background Image */}
                 <div className="absolute inset-0">
                   <ImageWithFallback
@@ -436,7 +436,7 @@ export function HomePage({}: HomePageProps) {
                 </div>
 
                 {/* Content */}
-                <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
+                <div className="container mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 relative z-10 py-8 sm:py-12 md:py-14 lg:py-16 xl:py-20">
                   <div className="grid lg:grid-cols-2 gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center max-w-7xl mx-auto">
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
@@ -476,17 +476,15 @@ export function HomePage({}: HomePageProps) {
 
                       <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center lg:justify-start">
                         <Button
-                          size="lg"
-                          className="bg-green-600 hover:bg-green-700 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          className="bg-green-600 hover:bg-green-700 text-sm sm:text-base px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3"
                           onClick={slide.primaryCTA.action}
                         >
                           {slide.primaryCTA.text}
                           <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                         </Button>
                         <Button
-                          size="lg"
                           variant="outline"
-                          className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base lg:text-lg px-6 sm:px-8 py-4 sm:py-6 w-full sm:w-auto"
+                          className="bg-transparent border-white text-white hover:bg-white hover:text-green-600 text-sm sm:text-base px-5 sm:px-6 lg:px-7 py-2.5 sm:py-3"
                           onClick={slide.secondaryCTA.action}
                         >
                           {slide.secondaryCTA.text}
