@@ -4,10 +4,13 @@ on:
   push:
     branches:
       - master
+      - beta
 
 jobs:
   Deploy-Frontend:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_BASE_PATH: ${{ github.ref == 'refs/heads/beta' && '/beta' || '' }}
 
     steps:
       - name: Checkout Repository
@@ -30,7 +33,11 @@ jobs:
           NODE_ENV: production
           NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
         run: |
-          npm run build || { echo "Build failed"; exit 1; }
+          if [ "${{ github.ref }}" == "ref/heads/beta" ]; then
+            npm run build:beta || { echo "Build failed"; exit 1; }
+          else 
+            npm run build
+          fi
           ls -la out || echo "out directory does not exist"
           ls -la out/* || echo "No files in out directory"
 
@@ -38,7 +45,7 @@ jobs:
         uses: SamKirkland/FTP-Deploy-Action@4.3.3
         with:
           server: ${{ secrets.HOSTNAME }}
-          username: ${{ secrets.MAIN_FRONT_USERNAME }}
+          username: ${{ github.ref == 'refs/heads/beta' && secrets.STAGING_USERNAME || secrets.MAIN_FRONT_USERNAME }}
           password: ${{ secrets.PASSWORD }}
           protocol: ftps
           local-dir: ./out/
@@ -67,4 +74,4 @@ jobs:
 
       - name: Verify Deployment
         run: |
-          curl -f "http://${{ secrets.MAIN_DOMAIN }}" || exit 1
+          curl -f "http://${{ github.ref == 'refs/heads/beta' && format('{0}/beta', secrets.MAIN_DOMAIN) || secrets.MAIN_DOMAIN }}" || exit 1

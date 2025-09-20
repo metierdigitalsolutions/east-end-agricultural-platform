@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
+    "build:beta": "env-cmd -f .env.beta next build",
     "start": "next start",
     "serve": "serve out",
+    "preview:beta": "env-cmd -f .env.beta next build && npx serve out",
     "lint": "eslint ."
   },
   "dependencies": {
