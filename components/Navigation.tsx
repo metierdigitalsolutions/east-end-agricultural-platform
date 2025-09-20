@@ -72,33 +72,64 @@ export function Navigation({
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const router = useRouter();
-  const pathname = usePathname();
+  const pathname = usePathname(); // Use Next.js usePathname hook directly
   const { user: contextUser, logout } = useAuth();
-  
+
   // Use context user if available, otherwise use prop user
   const user = contextUser || propUser;
-  
+
+  // Normalize path to improve reliability across environments (e.g., trailing slashes)
+  const normalizePath = (p: string | null): string => {
+    if (!p) return "/";
+    try {
+      // Ensure lowercase and strip trailing slashes except the root
+      const lower = p.toLowerCase();
+      return lower !== "/" ? lower.replace(/\/+$/, "") : "/";
+    } catch {
+      return "/";
+    }
+  };
+
+  const normalizedPath = normalizePath(pathname);
+
+  // Determine if a route is active: exact match or is a sub-route
+  const isRouteActive = (route: string): boolean => {
+    const base = normalizePath(route);
+    // Root should only match exactly the homepage
+    if (base === "/") {
+      return normalizedPath === "/";
+    }
+    if (normalizedPath === base) return true;
+    // Consider sub-paths as active (e.g., "/projects/123")
+    return normalizedPath.startsWith(base + "/");
+  };
+
   // Auto-detect current page from pathname if not provided
   const getCurrentPage = (): Page => {
     if (currentPage) return currentPage;
-    
-    const pathToPageMap: Record<string, Page> = {
-      '/': 'home',
-      '/about': 'about',
-      '/services': 'services',
-      '/projects': 'projects',
-      '/faq': 'faq',
-      '/auth': 'auth',
-      '/dashboard': 'dashboard',
-      '/admin': 'admin',
-      '/events': 'events',
-      '/eme-club': 'eme-club',
-      '/contact': 'contact',
-    };
-    
-    return pathToPageMap[pathname] || 'home';
+
+    const candidates: Array<{ key: Page; route: string }> = [
+      { key: "home", route: "/" },
+      { key: "about", route: "/about" },
+      { key: "services", route: "/services" },
+      { key: "projects", route: "/projects" },
+      { key: "faq", route: "/faq" },
+      { key: "auth", route: "/auth" },
+      { key: "dashboard", route: "/dashboard" },
+      { key: "admin", route: "/admin" },
+      { key: "events", route: "/events" },
+      { key: "eme-club", route: "/eme-club" },
+      { key: "contact", route: "/contact" },
+    ];
+
+    // Prefer the longest matching route to avoid false positives
+    const active = candidates
+      .filter((c) => isRouteActive(c.route))
+      .sort((a, b) => b.route.length - a.route.length)[0];
+
+    return active?.key ?? "home";
   };
-  
+
   const detectedCurrentPage = getCurrentPage();
 
   useEffect(() => {
@@ -143,11 +174,10 @@ export function Navigation({
 
   return (
     <motion.header
-      className={`lg:sticky lg:top-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
-          : "bg-white border-b border-gray-100"
-      }`}
+      className={`lg:sticky lg:top-0 z-50 transition-all duration-300 ${isScrolled
+        ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100"
+        : "bg-white border-b border-gray-100"
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6 }}
@@ -178,7 +208,7 @@ export function Navigation({
             {/* Primary Navigation Items */}
             {primaryNavItems.map((item) => {
               const Icon = item.icon;
-              const isActive = detectedCurrentPage === item.page;
+              const isActive = isRouteActive(pageRoutes[item.page]);
               return (
                 <button
                   key={item.page}
@@ -186,18 +216,11 @@ export function Navigation({
                   className="bg-transparent"
                 >
                   <motion.div
-                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                      isActive
-                        ? "bg-green-600 text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
-                    }`}
-                    whileHover={{
-                      scale: 1.02,
-                      backgroundColor: isActive
-                        ? "#16a34a"
-                        : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "#16a34a",
-                    }}
+                    className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${isActive
+                      ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                      }`}
+                    whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
                     <Icon className="h-4 w-4" />
@@ -206,17 +229,16 @@ export function Navigation({
                 </button>
               );
             })}
-            
+
             {/* More Dropdown for Secondary Items */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${
-                    secondaryNavItems.some(item => detectedCurrentPage === item.page)
-                      ? "bg-green-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
-                  }`}
+                  className={`flex items-center space-x-2 px-4 py-2.5 rounded-lg transition-all duration-200 ${secondaryNavItems.some(item => isRouteActive(pageRoutes[item.page]))
+                    ? "bg-green-600 hover:bg-primary/90 hover:border-0 hover:text-white text-white border border-green-600 shadow-sm"
+                    : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                    }`}
                 >
                   <span className="text-sm font-medium">More</span>
                   <ChevronDown className="h-4 w-4" />
@@ -225,16 +247,16 @@ export function Navigation({
               <DropdownMenuContent align="end" className="w-48">
                 {secondaryNavItems.map((item) => {
                   const Icon = item.icon;
-                  const isActive = detectedCurrentPage === item.page;
+                  const isActive = isRouteActive(pageRoutes[item.page]);
                   return (
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
-                      className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-600 text-white" : ""
-                      }`}
+                      className={`flex items-center space-x-2 ${isActive ? "bg-green-600 text-white" : ""
+                        }`}
                     >
-                      <Icon className="h-4 w-4" />
+                      <Icon className={`h-4 w-4 ${isActive ? "text-white" : ""
+                        }`} />
                       <span>{item.label}</span>
                     </DropdownMenuItem>
                   );
@@ -242,31 +264,32 @@ export function Navigation({
               </DropdownMenuContent>
             </DropdownMenu>
           </nav>
-          
+
           {/* Tablet Navigation (medium screens) */}
           <nav className="hidden md:flex lg:hidden items-center space-x-1">
             {/* Show only essential items on tablet */}
             {navItems.slice(0, 3).map((item) => {
               const Icon = item.icon;
-              const isActive = detectedCurrentPage === item.page;
+              const isActive = isRouteActive(pageRoutes[item.page]);
               return (
                 <button
                   key={item.page}
                   onClick={() => handleNavigate(item.page)}
                 >
                   <motion.div
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${isActive
+                      ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                      : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                      }`}
+                    whileHover={
                       isActive
-                        ? "bg-green-600 text-white shadow-md"
-                        : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
-                    }`}
-                    whileHover={{
-                      scale: 1.02,
-                      backgroundColor: isActive
-                        ? "#16a34a"
-                        : "rgba(152, 202, 71, 0.1)",
-                      color: isActive ? "white" : "#16a34a",
-                    }}
+                        ? { scale: 1.02 }
+                        : {
+                          scale: 1.02,
+                          backgroundColor: "rgba(152, 202, 71, 0.15)",
+                          color: "#166534",
+                        }
+                    }
                     whileTap={{ scale: 0.98 }}
                   >
                     <Icon className="h-4 w-4" />
@@ -275,17 +298,16 @@ export function Navigation({
                 </button>
               );
             })}
-            
+
             {/* More Dropdown for remaining items on tablet */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
                   variant="ghost"
-                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
-                    navItems.slice(3).some(item => detectedCurrentPage === item.page)
-                      ? "bg-green-600 text-white shadow-md"
-                      : "text-gray-600 hover:bg-gray-50 hover:shadow-sm"
-                  }`}
+                  className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${navItems.slice(3).some(item => isRouteActive(pageRoutes[item.page]))
+                    ? "bg-green-600 text-white border border-green-600 shadow-sm"
+                    : "text-gray-600 hover:bg-green-50 hover:text-green-700 hover:shadow-sm"
+                    }`}
                 >
                   <span className="text-sm font-medium">More</span>
                   <ChevronDown className="h-4 w-4" />
@@ -294,14 +316,13 @@ export function Navigation({
               <DropdownMenuContent align="end" className="w-48">
                 {navItems.slice(3).map((item) => {
                   const Icon = item.icon;
-                  const isActive = detectedCurrentPage === item.page;
+                  const isActive = isRouteActive(pageRoutes[item.page]);
                   return (
                     <DropdownMenuItem
                       key={item.page}
                       onClick={() => handleNavigate(item.page)}
-                      className={`flex items-center space-x-2 ${
-                        isActive ? "bg-green-600 text-white" : ""
-                      }`}
+                      className={`flex items-center space-x-2 ${isActive ? "bg-green-600 text-white" : ""
+                        }`}
                     >
                       <Icon className="h-4 w-4" />
                       <span>{item.label}</span>
@@ -377,7 +398,8 @@ export function Navigation({
                   <Menu className="h-7 w-7" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="right" className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
+              <SheetContent side="right"
+                hideClose className="w-80 sm:w-96 md:w-80 p-0 z-[60]">
                 <div className="flex flex-col h-full">
                   {/* Mobile Header */}
                   <div className="flex items-center justify-between p-4 border-b bg-brand-secondary">
@@ -408,21 +430,24 @@ export function Navigation({
                     <div className="space-y-2">
                       {navItems.map((item) => {
                         const Icon = item.icon;
-                        const isActive = detectedCurrentPage === item.page;
+                        const isActive = isRouteActive(pageRoutes[item.page]);
                         return (
                           <motion.button
                             key={item.page}
                             onClick={() => handleNavigate(item.page)}
-                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left bg-transparent ${
+                            className={`flex items-center space-x-3 px-4 py-3 rounded-lg w-full text-left ${isActive
+                              ? "bg-green-600 text-white border border-green-600"
+                              : "text-gray-700 hover:bg-green-50 hover:text-green-700"
+                              }`}
+                            whileHover={
                               isActive
-                                ? "bg-green-600 text-white"
-                                : "text-gray-700"
-                            }`}
-                            whileHover={{
-                              backgroundColor: "#16a34a",
-                              color: "white",
-                              scale: 1.02,
-                            }}
+                                ? { scale: 1.02 }
+                                : {
+                                  // backgroundColor: "rgba(152, 202, 71, 0.15)",
+                                  // color: "#166534",
+                                  scale: 1.02,
+                                }
+                            }
                             whileTap={{ scale: 0.98 }}
                           >
                             <Icon className="h-5 w-5" />
